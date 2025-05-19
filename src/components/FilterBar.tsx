@@ -9,11 +9,10 @@ interface FilterOption {
 
 const categories: FilterOption[] = [
   { label: "הכל", value: "all" },
-  { label: "אופנה", value: "fashion" },
-  { label: "תכשיטים", value: "jewelry" },
-  { label: "עיצוב הבית", value: "home-decor" },
-  { label: "אלקטרוניקה", value: "electronics" },
-  { label: "יופי וטיפוח", value: "beauty" },
+  { label: "הלבשה לטייס", value: "pilot-clothing" },
+  { label: "ציוד לטייס", value: "pilot-equipment" },
+  { label: "שעת טיסה מוזל", value: "discounted-flight" },
+  { label: "כניסה להגרלה", value: "raffle-entry" },
 ];
 
 interface FilterBarProps {

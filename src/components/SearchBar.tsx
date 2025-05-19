@@ -32,16 +32,16 @@ const SearchBar: React.FC<SearchBarProps> = ({ onClose }) => {
         ref={inputRef}
         type="text"
         placeholder="חפש מוצרים..."
-        className="pl-10 pr-4 py-2 w-full rounded-full border-pinterest-light-purple focus-visible:ring-pinterest-purple"
+        className="pl-10 pr-4 py-2 w-full rounded-full bg-blue-800/50 border-pinterest-light-purple focus-visible:ring-pinterest-purple text-white"
         dir="rtl"
       />
       <Button
         variant="ghost"
         size="icon"
-        className="absolute left-0 top-0 hover:bg-transparent"
+        className="absolute left-0 top-0 hover:bg-transparent text-white"
         onClick={onClose}
       >
-        <X size={20} className="text-gray-500" />
+        <X size={20} />
       </Button>
     </div>
   );

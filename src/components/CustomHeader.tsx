@@ -9,6 +9,10 @@ import SignupForm from "./SignupForm";
 const CustomHeader: React.FC = () => {
   const [showSignupDialog, setShowSignupDialog] = useState(false);
   
+  const openSignupDialog = () => {
+    setShowSignupDialog(true);
+  };
+  
   return (
     <header className="bg-blue-800/40 backdrop-blur-sm shadow-lg sticky top-0 z-50">
       <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
@@ -21,7 +25,7 @@ const CustomHeader: React.FC = () => {
           
           <Button 
             variant="ghost" 
-            onClick={() => setShowSignupDialog(true)}
+            onClick={openSignupDialog}
             className="text-white hover:text-gray-200 transition-colors duration-200"
           >
             כניסה / הרשמה

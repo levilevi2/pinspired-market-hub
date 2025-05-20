@@ -43,7 +43,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ onClose }) => {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    console.log("Form submitted with values:", values);
     toast({
       title: "הרשמה בוצעה בהצלחה",
       description: "ברוכים הבאים לאקדמיית הטיסה",

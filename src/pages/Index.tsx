@@ -3,6 +3,7 @@ import { useState } from "react";
 import Header from "@/components/Header";
 import FilterBar from "@/components/FilterBar";
 import ProductGrid from "@/components/ProductGrid";
+import SiteMap from "@/components/SiteMap";
 import { Users, Percent } from "lucide-react";
 import { Progress } from "@/components/ui/progress"; 
 
@@ -62,6 +63,8 @@ const Index = () => {
           <ProductGrid filter={activeFilter} searchQuery={searchQuery} />
         </div>
       </main>
+      
+      <SiteMap />
     </div>
   );
 };

@@ -10,6 +10,7 @@ const CustomHeader: React.FC = () => {
   const [showSignupDialog, setShowSignupDialog] = useState(false);
   
   const openSignupDialog = () => {
+    console.log("Opening signup dialog");
     setShowSignupDialog(true);
   };
   

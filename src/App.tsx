@@ -9,24 +9,29 @@ import NotFound from "./pages/NotFound";
 import RaffleEntry from "./pages/RaffleEntry";
 import DiscountedFlight from "./pages/DiscountedFlight";
 import InstructorDetails from "./pages/InstructorDetails";
+import CartPage from "./pages/CartPage";
+import { CartProvider } from "./contexts/CartContext";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/raffle-entry" element={<RaffleEntry />} />
-          <Route path="/discounted-flight" element={<DiscountedFlight />} />
-          <Route path="/instructor-details" element={<InstructorDetails />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
+      <CartProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/raffle-entry" element={<RaffleEntry />} />
+            <Route path="/discounted-flight" element={<DiscountedFlight />} />
+            <Route path="/instructor-details" element={<InstructorDetails />} />
+            <Route path="/cart" element={<CartPage />} />
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </CartProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );

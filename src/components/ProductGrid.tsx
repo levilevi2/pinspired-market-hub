@@ -79,6 +79,22 @@ const ProductGrid: React.FC<ProductGridProps> = ({ filter, searchQuery }) => {
         image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158",
         category: "home-decor",
         description: "כרית נוי מעוצבת לסלון או לחדר השינה."
+      },
+      {
+        id: 9,
+        title: "שעת טיסה מוזלת - בסיסית",
+        price: 500.00,
+        image: "https://images.unsplash.com/photo-1464037866556-6812c9d1c72e",
+        category: "discounted-flight",
+        description: "שעת טיסה מוזלת עם מדריך מתחיל. מתאימה לטייסים בתחילת דרכם."
+      },
+      {
+        id: 10,
+        title: "שעת טיסה מוזלת - מתקדמת",
+        price: 700.00,
+        image: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05",
+        category: "discounted-flight",
+        description: "שעת טיסה מוזלת עם מדריך בכיר. מתאימה לטייסים מתקדמים."
       }
     ];
 

@@ -22,7 +22,7 @@ const CustomHeader: React.FC = () => {
           <Button 
             variant="ghost" 
             onClick={() => setShowSignupDialog(true)}
-            className="text-white hover:text-pinterest-purple transition-colors duration-200"
+            className="text-white hover:text-gray-200 transition-colors duration-200"
           >
             כניסה / הרשמה
           </Button>

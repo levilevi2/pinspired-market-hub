@@ -90,7 +90,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ onClose }) => {
             <FormItem>
               <FormLabel>דואר אלקטרוני</FormLabel>
               <FormControl>
-                <Input placeholder="your@email.com" {...field} />
+                <Input placeholder="your@email.com" type="email" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -104,7 +104,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ onClose }) => {
             <FormItem>
               <FormLabel>מספר טלפון</FormLabel>
               <FormControl>
-                <Input placeholder="מספר טלפון" {...field} />
+                <Input placeholder="מספר טלפון" type="tel" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -164,7 +164,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ onClose }) => {
         </div>
 
         <div className="flex justify-end space-x-2 pt-2">
-          <Button variant="outline" type="button" onClick={onClose}>ביטול</Button>
+          <Button variant="outline" type="button" onClick={onClose} className="ml-2">ביטול</Button>
           <Button type="submit">הרשמה</Button>
         </div>
       </form>

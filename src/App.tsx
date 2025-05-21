@@ -10,6 +10,7 @@ import RaffleEntry from "./pages/RaffleEntry";
 import DiscountedFlight from "./pages/DiscountedFlight";
 import InstructorDetails from "./pages/InstructorDetails";
 import CartPage from "./pages/CartPage";
+import LoginPage from "./pages/LoginPage";
 import { CartProvider } from "./contexts/CartContext";
 
 const queryClient = new QueryClient();
@@ -23,6 +24,7 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
+            <Route path="/login" element={<LoginPage />} />
             <Route path="/raffle-entry" element={<RaffleEntry />} />
             <Route path="/discounted-flight" element={<DiscountedFlight />} />
             <Route path="/instructor-details" element={<InstructorDetails />} />

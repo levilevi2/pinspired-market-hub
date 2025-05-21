@@ -1,6 +1,6 @@
 
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CartIcon from "./CartIcon";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -8,10 +8,15 @@ import SignupForm from "./SignupForm";
 
 const CustomHeader: React.FC = () => {
   const [showSignupDialog, setShowSignupDialog] = useState(false);
+  const navigate = useNavigate();
   
   const openSignupDialog = () => {
     console.log("Opening signup dialog");
     setShowSignupDialog(true);
+  };
+
+  const handleLoginClick = () => {
+    navigate("/login");
   };
   
   return (
@@ -26,10 +31,27 @@ const CustomHeader: React.FC = () => {
           
           <Button 
             variant="ghost" 
-            onClick={openSignupDialog}
-            className="text-white hover:text-gray-200 transition-colors duration-200"
+            onClick={handleLoginClick}
+            className="text-white hover:text-gray-200 transition-colors duration-200 ml-2"
           >
-            כניסה / הרשמה
+            כניסה
+          </Button>
+          
+          <Button 
+            variant="outline"
+            onClick={openSignupDialog}
+            className="text-white border-white hover:bg-white/10 transition-colors duration-200"
+          >
+            הרשמה
+          </Button>
+          
+          {/* Hidden button for triggering signup from login page */}
+          <Button
+            id="signup-trigger"
+            className="hidden"
+            onClick={openSignupDialog}
+          >
+            Hidden Signup Trigger
           </Button>
         </div>
       </div>

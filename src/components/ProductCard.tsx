@@ -29,7 +29,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onClick }) => {
 
   return (
     <Card 
-      className="rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all cursor-pointer"
+      className="rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all cursor-pointer h-full"
       onClick={() => onClick(product)}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -38,7 +38,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onClick }) => {
         <img 
           src={product.image} 
           alt={product.title}
-          className="w-full object-cover aspect-[3/4] transition-transform duration-300"
+          className="w-full object-cover aspect-[3/2] transition-transform duration-300"
           style={{ transform: isHovered ? "scale(1.03)" : "scale(1)" }}
         />
         <Button

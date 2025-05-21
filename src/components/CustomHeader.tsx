@@ -1,14 +1,16 @@
 
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import CartIcon from "./CartIcon";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import SignupForm from "./SignupForm";
+import { Home, Grid, Search, Percent, Bookmark } from "lucide-react";
 
 const CustomHeader: React.FC = () => {
   const [showSignupDialog, setShowSignupDialog] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
   
   const openSignupDialog = () => {
     console.log("Opening signup dialog");
@@ -27,6 +29,44 @@ const CustomHeader: React.FC = () => {
         </Link>
         
         <div className="flex items-center space-x-4">
+          <Link to="/">
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className={`transition-all hover:text-pinterest-purple text-white ${location.pathname === "/" ? "text-pinterest-purple" : ""}`}
+            >
+              <Home size={20} />
+            </Button>
+          </Link>
+
+          <Link to="/categories">
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="transition-all hover:text-pinterest-purple text-white"
+            >
+              <Grid size={20} />
+            </Button>
+          </Link>
+
+          <Link to="/discounted-flight">
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className={`transition-all hover:text-pinterest-purple text-white ${location.pathname === "/discounted-flight" ? "text-pinterest-purple" : ""}`}
+            >
+              <Percent size={20} />
+            </Button>
+          </Link>
+
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className="transition-all hover:text-pinterest-purple text-white"
+          >
+            <Bookmark size={20} />
+          </Button>
+          
           <CartIcon />
           
           <Button 

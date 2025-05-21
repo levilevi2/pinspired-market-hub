@@ -6,18 +6,42 @@ import { Card, CardContent } from "@/components/ui/card";
 import { ArrowLeft, Calendar, Clock, User } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
+import InstructorSchedule from "@/components/InstructorSchedule";
 
 const DiscountedFlight = () => {
   const { toast } = useToast();
   const [selectedOption, setSelectedOption] = useState("option1");
+  const [showSchedule, setShowSchedule] = useState(false);
+  const [scheduledDate, setScheduledDate] = useState<Date | undefined>();
+  const [scheduledTime, setScheduledTime] = useState<string | undefined>();
+  const [selectedInstructor, setSelectedInstructor] = useState({
+    id: "inst1",
+    name: "יוסי כהן"
+  });
 
   const handlePurchase = () => {
-    toast({
-      title: "הזמנה בוצעה בהצלחה",
-      description: "פרטי ההזמנה יישלחו למייל שלך",
-    });
+    if (scheduledDate && scheduledTime) {
+      toast({
+        title: "הזמנה בוצעה בהצלחה",
+        description: "פרטי ההזמנה יישלחו למייל שלך",
+      });
+      // Reset scheduled info after purchase
+      setScheduledDate(undefined);
+      setScheduledTime(undefined);
+    } else {
+      setShowSchedule(true);
+    }
+  };
+
+  const handleScheduleConfirmed = (date: Date | undefined, timeSlot: string) => {
+    setScheduledDate(date);
+    setScheduledTime(timeSlot);
+    setShowSchedule(false);
+  };
+
+  const cancelScheduling = () => {
+    setShowSchedule(false);
   };
 
   return (
@@ -34,70 +58,88 @@ const DiscountedFlight = () => {
           <h1 className="text-3xl font-bold text-white">שעת טיסה מוזל</h1>
         </div>
 
-        <Tabs defaultValue="student" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 mb-6 bg-blue-800/50">
-            <TabsTrigger value="student">תלמידים</TabsTrigger>
-            <TabsTrigger value="instructor">
-              <Link to="/instructor-details">מדריכים</Link>
-            </TabsTrigger>
-          </TabsList>
-          
-          <TabsContent value="student">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6" dir="rtl">
-              {discountOptions.map((option) => (
-                <Card 
-                  key={option.id} 
-                  className={`bg-white/10 backdrop-blur-md shadow-md border-pinterest-purple/20 transition-all duration-300 hover:shadow-xl ${
-                    selectedOption === option.id ? "border-pinterest-purple" : ""
-                  }`}
-                  onClick={() => setSelectedOption(option.id)}
-                >
-                  <CardContent className="p-6">
-                    <h3 className="text-xl font-bold text-white mb-2">{option.title}</h3>
-                    <div className="text-3xl font-bold text-pinterest-purple mb-4">₪{option.price}</div>
-                    
-                    <div className="space-y-3 mb-6 text-white/90">
-                      <div className="flex items-center">
-                        <Clock className="h-4 w-4 mr-2 text-pinterest-purple/70" />
-                        <span>{option.hours} שעות</span>
-                      </div>
-                      <div className="flex items-center">
-                        <Calendar className="h-4 w-4 mr-2 text-pinterest-purple/70" />
-                        <span>תוקף: {option.validity}</span>
-                      </div>
-                      <div className="flex items-center">
-                        <User className="h-4 w-4 mr-2 text-pinterest-purple/70" />
-                        <span>{option.instructorType}</span>
-                      </div>
-                    </div>
-                    
-                    <Button 
-                      className={`w-full ${
-                        selectedOption === option.id 
-                          ? "bg-pinterest-purple hover:bg-pinterest-dark-purple" 
-                          : "bg-blue-700 hover:bg-blue-600"
-                      }`}
-                      onClick={handlePurchase}
-                    >
-                      רכישה
-                    </Button>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+        {showSchedule ? (
+          <InstructorSchedule 
+            instructorId={selectedInstructor.id}
+            instructorName={selectedInstructor.name}
+            onScheduleConfirmed={handleScheduleConfirmed}
+            onCancel={cancelScheduling}
+          />
+        ) : (
+          <Tabs defaultValue="student" className="w-full">
+            <TabsList className="grid w-full grid-cols-2 mb-6 bg-blue-800/50">
+              <TabsTrigger value="student">תלמידים</TabsTrigger>
+              <TabsTrigger value="instructor">
+                <Link to="/instructor-details">מדריכים</Link>
+              </TabsTrigger>
+            </TabsList>
             
-            <Card className="bg-white/10 backdrop-blur-md shadow-md border-pinterest-purple/20 mt-8 p-6">
-              <h3 className="text-xl font-bold text-white mb-4" dir="rtl">הערות חשובות:</h3>
-              <ul className="list-disc list-inside space-y-2 text-white mr-4" dir="rtl">
-                <li>המחירים כוללים מע"מ</li>
-                <li>ניתן לבטל הזמנה עד 48 שעות לפני מועד הטיסה</li>
-                <li>הטיסות מתבצעות בכפוף לתנאי מזג האוויר</li>
-                <li>יש להגיע 30 דקות לפני מועד הטיסה</li>
-                <li>ניתן להזמין שעות נוספות בתיאום מראש</li>
-              </ul>
-            </Card>
-          </TabsContent>
-        </Tabs>
+            <TabsContent value="student">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6" dir="rtl">
+                {discountOptions.map((option) => (
+                  <Card 
+                    key={option.id} 
+                    className={`bg-white/10 backdrop-blur-md shadow-md border-pinterest-purple/20 transition-all duration-300 hover:shadow-xl ${
+                      selectedOption === option.id ? "border-pinterest-purple" : ""
+                    }`}
+                    onClick={() => setSelectedOption(option.id)}
+                  >
+                    <CardContent className="p-6">
+                      <h3 className="text-xl font-bold text-white mb-2">{option.title}</h3>
+                      <div className="text-3xl font-bold text-pinterest-purple mb-4">₪{option.price}</div>
+                      
+                      <div className="space-y-3 mb-6 text-white/90">
+                        <div className="flex items-center">
+                          <Clock className="h-4 w-4 mr-2 text-pinterest-purple/70" />
+                          <span>{option.hours} שעות</span>
+                        </div>
+                        <div className="flex items-center">
+                          <Calendar className="h-4 w-4 mr-2 text-pinterest-purple/70" />
+                          <span>תוקף: {option.validity}</span>
+                        </div>
+                        <div className="flex items-center">
+                          <User className="h-4 w-4 mr-2 text-pinterest-purple/70" />
+                          <span>{option.instructorType}</span>
+                        </div>
+                        
+                        {scheduledDate && scheduledTime && (
+                          <div className="mt-4 p-2 bg-green-100/20 rounded-md">
+                            <p className="text-white text-sm">
+                              נקבע לתאריך: {scheduledDate.toLocaleDateString('he-IL')} בשעה {scheduledTime}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                      
+                      <Button 
+                        className={`w-full ${
+                          selectedOption === option.id 
+                            ? "bg-pinterest-purple hover:bg-pinterest-dark-purple" 
+                            : "bg-blue-700 hover:bg-blue-600"
+                        }`}
+                        onClick={handlePurchase}
+                      >
+                        {scheduledDate && scheduledTime ? "רכישה" : "בחירת זמן ורכישה"}
+                      </Button>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+              
+              <Card className="bg-white/10 backdrop-blur-md shadow-md border-pinterest-purple/20 mt-8 p-6">
+                <h3 className="text-xl font-bold text-white mb-4" dir="rtl">הערות חשובות:</h3>
+                <ul className="list-disc list-inside space-y-2 text-white mr-4" dir="rtl">
+                  <li>המחירים כוללים מע"מ</li>
+                  <li>ניתן לבטל הזמנה עד 48 שעות לפני מועד הטיסה</li>
+                  <li>הטיסות מתבצעות בכפוף לתנאי מזג האוויר</li>
+                  <li>יש להגיע 30 דקות לפני מועד הטיסה</li>
+                  <li>ניתן להזמין שעות נוספות בתיאום מראש</li>
+                  <li>שיבוץ שלא אושר ברכישה מתבטל אוטומטית</li>
+                </ul>
+              </Card>
+            </TabsContent>
+          </Tabs>
+        )}
       </main>
     </div>
   );

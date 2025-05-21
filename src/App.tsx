@@ -15,27 +15,30 @@ import { CartProvider } from "./contexts/CartContext";
 
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <CartProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/raffle-entry" element={<RaffleEntry />} />
-            <Route path="/discounted-flight" element={<DiscountedFlight />} />
-            <Route path="/instructor-details" element={<InstructorDetails />} />
-            <Route path="/cart" element={<CartPage />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </CartProvider>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+// Wrap the App component in a function to ensure hooks are used in a component context
+const App = () => {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <CartProvider>
+          <TooltipProvider>
+            <Toaster />
+            <Sonner />
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/raffle-entry" element={<RaffleEntry />} />
+              <Route path="/discounted-flight" element={<DiscountedFlight />} />
+              <Route path="/instructor-details" element={<InstructorDetails />} />
+              <Route path="/cart" element={<CartPage />} />
+              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </TooltipProvider>
+        </CartProvider>
+      </BrowserRouter>
+    </QueryClientProvider>
+  );
+};
 
 export default App;

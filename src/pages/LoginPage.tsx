@@ -1,6 +1,6 @@
 
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -15,11 +15,13 @@ import SiteMap from "@/components/SiteMap";
 // Define the form schema with validations
 const loginFormSchema = z.object({
   email: z.string().email({ message: "כתובת אימייל לא תקינה" }),
-  password: z.string().min(6, { message: "סיסמה חייבת להכיל לפחות 6 תווים" }),
+  password: z.string().min(8, { message: "סיסמה חייבת להכיל לפחות 8 תווים" })
+    .regex(/^(?=.*[A-Za-z])(?=.*\d)/, { message: "סיסמה חייבת להכיל אותיות ומספרים" }),
 });
 
 const LoginPage: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
   
   const form = useForm<z.infer<typeof loginFormSchema>>({
     resolver: zodResolver(loginFormSchema),
@@ -31,14 +33,33 @@ const LoginPage: React.FC = () => {
 
   function onSubmit(values: z.infer<typeof loginFormSchema>) {
     console.log("Login form submitted with values:", values);
+    
+    // Simulate login - in a real app, this would call an API
+    // Extract name from email (before the @)
+    const userName = values.email.split('@')[0];
+    
+    // Save user info to localStorage
+    localStorage.setItem('user', JSON.stringify({ 
+      name: userName,
+      email: values.email,
+      isLoggedIn: true
+    }));
+    
     toast({
       title: "כניסה בוצעה בהצלחה",
-      description: "ברוכים הבאים לאקדמיית הטיסה",
+      description: `שלום ${userName}, ברוכים הבאים לאקדמיית הטיסה`,
     });
+    
+    // Navigate back to the previous page or to home if no history
+    navigate(-1);
   }
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
+  };
+
+  const handleSignupClick = () => {
+    document.getElementById("signup-trigger")?.click();
   };
 
   return (
@@ -116,9 +137,7 @@ const LoginPage: React.FC = () => {
               <Button 
                 variant="link" 
                 className="p-0 h-auto text-pinterest-purple font-medium" 
-                onClick={() => {
-                  document.getElementById("signup-trigger")?.click();
-                }}
+                onClick={handleSignupClick}
               >
                 הרשם עכשיו
               </Button>

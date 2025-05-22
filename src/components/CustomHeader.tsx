@@ -1,16 +1,26 @@
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import CartIcon from "./CartIcon";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import SignupForm from "./SignupForm";
-import { Home, Grid, Search, Percent, Bookmark } from "lucide-react";
+import { Home, Grid, Search, Percent, Bookmark, LogOut } from "lucide-react";
+import { toast } from "@/hooks/use-toast";
 
 const CustomHeader: React.FC = () => {
   const [showSignupDialog, setShowSignupDialog] = useState(false);
+  const [user, setUser] = useState<{ name: string; isLoggedIn: boolean } | null>(null);
   const navigate = useNavigate();
   const location = useLocation();
+  
+  useEffect(() => {
+    // Get user from localStorage
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, [location]); // Re-check on location change
   
   const openSignupDialog = () => {
     console.log("Opening signup dialog");
@@ -21,12 +31,30 @@ const CustomHeader: React.FC = () => {
     navigate("/login");
   };
   
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    setUser(null);
+    toast({
+      title: "התנתקת בהצלחה",
+    });
+    if (location.pathname === '/cart' || location.pathname === '/discounted-flight') {
+      navigate('/');
+    }
+  };
+  
   return (
     <header className="bg-blue-800/40 backdrop-blur-sm shadow-lg sticky top-0 z-50">
       <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
-        <Link to="/" className="font-bold text-xl text-white">
-          אקדמיית הטיסה
-        </Link>
+        <div className="flex items-center">
+          <Link to="/" className="font-bold text-xl text-white">
+            אקדמיית הטיסה
+          </Link>
+          {user?.isLoggedIn && (
+            <span className="text-white text-sm ml-4 hidden sm:inline-block">
+              שלום, {user.name}
+            </span>
+          )}
+        </div>
         
         <div className="flex items-center space-x-4">
           <Link to="/">
@@ -69,21 +97,35 @@ const CustomHeader: React.FC = () => {
           
           <CartIcon />
           
-          <Button 
-            variant="ghost" 
-            onClick={handleLoginClick}
-            className="text-white hover:text-gray-200 transition-colors duration-200 ml-2"
-          >
-            כניסה
-          </Button>
-          
-          <Button 
-            variant="outline"
-            onClick={openSignupDialog}
-            className="text-white border-white hover:bg-white/10 transition-colors duration-200"
-          >
-            הרשמה
-          </Button>
+          {user?.isLoggedIn ? (
+            <Button 
+              variant="ghost"
+              size="icon"
+              onClick={handleLogout} 
+              className="text-white hover:text-gray-200 transition-colors duration-200"
+              aria-label="Logout"
+            >
+              <LogOut size={20} />
+            </Button>
+          ) : (
+            <>
+              <Button 
+                variant="ghost" 
+                onClick={handleLoginClick}
+                className="text-white hover:text-gray-200 transition-colors duration-200 ml-2"
+              >
+                כניסה
+              </Button>
+              
+              <Button 
+                variant="outline"
+                onClick={openSignupDialog}
+                className="text-white border-white hover:bg-white/10 transition-colors duration-200"
+              >
+                הרשמה
+              </Button>
+            </>
+          )}
           
           {/* Hidden button for triggering signup from login page */}
           <Button

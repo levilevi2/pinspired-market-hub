@@ -11,6 +11,7 @@ const SiteMap: React.FC = () => {
     { name: "טיסות מוזלות", path: "/discounted-flight" },
     { name: "מדריכים", path: "/instructor-details" },
     { name: "סל הקניות", path: "/cart" },
+    { name: "מפת אתר חזותית", path: "/site-map-visual" },
   ];
 
   return (

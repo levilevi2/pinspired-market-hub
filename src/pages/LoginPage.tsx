@@ -11,6 +11,8 @@ import { Eye, EyeOff, Mail, Lock } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 import Header from "@/components/Header";
 import SiteMap from "@/components/SiteMap";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import SignupForm from "@/components/SignupForm";
 
 // Define the form schema with validations
 const loginFormSchema = z.object({
@@ -21,6 +23,7 @@ const loginFormSchema = z.object({
 
 const LoginPage: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [showSignupDialog, setShowSignupDialog] = useState(false);
   const navigate = useNavigate();
   
   const form = useForm<z.infer<typeof loginFormSchema>>({
@@ -59,7 +62,7 @@ const LoginPage: React.FC = () => {
   };
 
   const handleSignupClick = () => {
-    document.getElementById("signup-trigger")?.click();
+    setShowSignupDialog(true);
   };
 
   return (
@@ -147,6 +150,16 @@ const LoginPage: React.FC = () => {
       </main>
       
       <SiteMap />
+
+      {/* Signup Dialog */}
+      <Dialog open={showSignupDialog} onOpenChange={setShowSignupDialog}>
+        <DialogContent className="sm:max-w-md md:max-w-lg">
+          <DialogHeader>
+            <DialogTitle className="text-center text-xl">הרשמה לאקדמיית הטיסה</DialogTitle>
+          </DialogHeader>
+          <SignupForm onClose={() => setShowSignupDialog(false)} />
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

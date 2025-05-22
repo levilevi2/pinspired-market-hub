@@ -1,12 +1,16 @@
+
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ShoppingCart, Home, Grid, Search, Percent, Bookmark, LogOut } from "lucide-react";
 import SearchBar from "./SearchBar";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "@/hooks/use-toast";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import SignupForm from "./SignupForm";
 
 const Header: React.FC = () => {
   const [showSearch, setShowSearch] = useState(false);
+  const [showSignupDialog, setShowSignupDialog] = useState(false);
   const [user, setUser] = useState<{ name: string; isLoggedIn: boolean } | null>(null);
   const location = useLocation();
   const navigate = useNavigate();
@@ -28,6 +32,10 @@ const Header: React.FC = () => {
     if (location.pathname === '/cart' || location.pathname === '/discounted-flight') {
       navigate('/');
     }
+  };
+
+  const openSignupDialog = () => {
+    setShowSignupDialog(true);
   };
 
   return (
@@ -122,13 +130,32 @@ const Header: React.FC = () => {
             <LogOut size={20} />
           </Button>
         ) : (
-          <Link to="/login">
-            <Button className="hidden md:inline-flex bg-pinterest-purple hover:bg-pinterest-dark-purple text-white">
-              כניסה / הרשמה
+          <>
+            <Link to="/login">
+              <Button className="hidden md:inline-flex bg-pinterest-purple hover:bg-pinterest-dark-purple text-white">
+                כניסה
+              </Button>
+            </Link>
+            <Button 
+              variant="outline"
+              onClick={openSignupDialog}
+              className="text-white border-white hover:bg-white/10 transition-colors duration-200"
+            >
+              הרשמה
             </Button>
-          </Link>
+          </>
         )}
       </div>
+      
+      {/* Signup Dialog */}
+      <Dialog open={showSignupDialog} onOpenChange={setShowSignupDialog}>
+        <DialogContent className="sm:max-w-md md:max-w-lg">
+          <DialogHeader>
+            <DialogTitle className="text-center text-xl">הרשמה לאקדמיית הטיסה</DialogTitle>
+          </DialogHeader>
+          <SignupForm onClose={() => setShowSignupDialog(false)} />
+        </DialogContent>
+      </Dialog>
     </header>
   );
 };

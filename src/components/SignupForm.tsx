@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { toast } from "@/hooks/use-toast";
 import { Info } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 // Define the form schema with validations
 const formSchema = z.object({
@@ -17,7 +18,8 @@ const formSchema = z.object({
   email: z.string().email({ message: "כתובת אימייל לא תקינה" }),
   phone: z.string().min(10, { message: "מספר טלפון חייב להכיל לפחות 10 ספרות" }),
   idNumber: z.string().min(9, { message: "תעודת זהות חייבת להכיל 9 ספרות" }),
-  password: z.string().min(6, { message: "סיסמה חייבת להכיל לפחות 6 תווים" }),
+  password: z.string().min(8, { message: "סיסמה חייבת להכיל לפחות 6 תווים" })
+    .regex(/^(?=.*[A-Za-z])(?=.*\d)/, { message: "סיסמה חייבת להכיל אותיות ומספרים" }),
   confirmPassword: z.string(),
 }).refine((data) => data.password === data.confirmPassword, {
   message: "הסיסמאות אינן תואמות",
@@ -29,6 +31,8 @@ interface SignupFormProps {
 }
 
 const SignupForm: React.FC<SignupFormProps> = ({ onClose }) => {
+  const navigate = useNavigate();
+  
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -44,11 +48,25 @@ const SignupForm: React.FC<SignupFormProps> = ({ onClose }) => {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log("Form submitted with values:", values);
+    
+    // Save user to localStorage
+    localStorage.setItem('user', JSON.stringify({
+      name: values.firstName,
+      email: values.email,
+      isLoggedIn: true
+    }));
+    
     toast({
       title: "הרשמה בוצעה בהצלחה",
       description: "ברוכים הבאים לאקדמיית הטיסה",
     });
+    
     onClose();
+    
+    // If we're on the login page, navigate back
+    if (window.location.pathname === "/login") {
+      navigate(-1);
+    }
   }
 
   return (

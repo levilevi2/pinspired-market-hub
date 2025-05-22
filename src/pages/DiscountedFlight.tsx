@@ -12,7 +12,7 @@ import InstructorSchedule from "@/components/InstructorSchedule";
 const DiscountedFlight = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Simulating login status
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [selectedOption, setSelectedOption] = useState("option1");
   const [showSchedule, setShowSchedule] = useState(false);
   const [scheduledDate, setScheduledDate] = useState<Date | undefined>();
@@ -22,18 +22,25 @@ const DiscountedFlight = () => {
     name: "יוסי כהן"
   });
 
-  // Check login status (in a real app, this would check auth state)
+  // Check login status on mount and when navigating back
   useEffect(() => {
-    // Simulating auth check
-    const checkLoginStatus = () => {
-      const isUserLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-      setIsLoggedIn(isUserLoggedIn);
-    };
-    
     checkLoginStatus();
   }, []);
 
+  const checkLoginStatus = () => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      const user = JSON.parse(storedUser);
+      setIsLoggedIn(user.isLoggedIn);
+    } else {
+      setIsLoggedIn(false);
+    }
+  };
+
   const handlePurchase = () => {
+    // Check login status again in case it changed
+    checkLoginStatus();
+    
     if (!isLoggedIn) {
       toast({
         title: "נדרשת הרשמה",

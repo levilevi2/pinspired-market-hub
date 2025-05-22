@@ -1,13 +1,16 @@
 
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
 import FilterBar from "@/components/FilterBar";
 import ProductGrid from "@/components/ProductGrid";
 import SiteMap from "@/components/SiteMap";
-import { Users, Percent } from "lucide-react";
+import { Users, Percent, Trophy } from "lucide-react";
 import { Progress } from "@/components/ui/progress"; 
+import { Button } from "@/components/ui/button";
 
 const Index = () => {
+  const navigate = useNavigate();
   const [activeFilter, setActiveFilter] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   
@@ -19,6 +22,10 @@ const Index = () => {
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
+  };
+
+  const handleViewPrizes = () => {
+    navigate("/prizes");
   };
 
   return (
@@ -50,10 +57,20 @@ const Index = () => {
               </div>
               <span className="text-white text-sm">{raffleParticipants.toLocaleString()} / {maxRaffleParticipants.toLocaleString()}</span>
             </div>
-            <Progress 
-              value={raffleProgress} 
-              className="h-2 bg-gray-300/30" 
-            />
+            <div className="flex items-center gap-2">
+              <Progress 
+                value={raffleProgress} 
+                className="h-2 bg-gray-300/30 flex-grow" 
+              />
+              <Button 
+                onClick={handleViewPrizes} 
+                className="bg-pinterest-purple hover:bg-pinterest-dark-purple flex items-center gap-1 text-sm py-1 h-auto"
+                size="sm"
+              >
+                <Trophy size={14} />
+                לצפיה בפרסים
+              </Button>
+            </div>
           </div>
         </div>
         

@@ -1,16 +1,18 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowLeft, Calendar, Clock, User } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 import InstructorSchedule from "@/components/InstructorSchedule";
 
 const DiscountedFlight = () => {
   const { toast } = useToast();
+  const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Simulating login status
   const [selectedOption, setSelectedOption] = useState("option1");
   const [showSchedule, setShowSchedule] = useState(false);
   const [scheduledDate, setScheduledDate] = useState<Date | undefined>();
@@ -20,15 +22,30 @@ const DiscountedFlight = () => {
     name: "יוסי כהן"
   });
 
+  // Check login status (in a real app, this would check auth state)
+  useEffect(() => {
+    // Simulating auth check
+    const checkLoginStatus = () => {
+      const isUserLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+      setIsLoggedIn(isUserLoggedIn);
+    };
+    
+    checkLoginStatus();
+  }, []);
+
   const handlePurchase = () => {
-    if (scheduledDate && scheduledTime) {
+    if (!isLoggedIn) {
       toast({
-        title: "הזמנה בוצעה בהצלחה",
-        description: "פרטי ההזמנה יישלחו למייל שלך",
+        title: "נדרשת הרשמה",
+        description: "יש להירשם או להתחבר לפני רכישת שעת טיסה",
+        variant: "destructive"
       });
-      // Reset scheduled info after purchase
-      setScheduledDate(undefined);
-      setScheduledTime(undefined);
+      navigate("/login");
+      return;
+    }
+    
+    if (scheduledDate && scheduledTime) {
+      navigate("/cart");
     } else {
       setShowSchedule(true);
     }
@@ -119,7 +136,7 @@ const DiscountedFlight = () => {
                         }`}
                         onClick={handlePurchase}
                       >
-                        {scheduledDate && scheduledTime ? "רכישה" : "בחירת זמן ורכישה"}
+                        {scheduledDate && scheduledTime ? "הוסף לסל ועבור לקופה" : "בחירת זמן"}
                       </Button>
                     </CardContent>
                   </Card>

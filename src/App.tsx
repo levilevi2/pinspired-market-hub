@@ -11,6 +11,7 @@ import DiscountedFlight from "./pages/DiscountedFlight";
 import InstructorDetails from "./pages/InstructorDetails";
 import CartPage from "./pages/CartPage";
 import LoginPage from "./pages/LoginPage";
+import PrizesPage from "./pages/PrizesPage";
 import { CartProvider } from "./contexts/CartContext";
 
 const queryClient = new QueryClient();
@@ -18,9 +19,9 @@ const queryClient = new QueryClient();
 // Wrap the App component in a function to ensure hooks are used in a component context
 const App = () => {
   return (
-    <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <CartProvider>
+    <BrowserRouter>
+      <CartProvider>
+        <QueryClientProvider client={queryClient}>
           <TooltipProvider>
             <Toaster />
             <Sonner />
@@ -31,13 +32,14 @@ const App = () => {
               <Route path="/discounted-flight" element={<DiscountedFlight />} />
               <Route path="/instructor-details" element={<InstructorDetails />} />
               <Route path="/cart" element={<CartPage />} />
+              <Route path="/prizes" element={<PrizesPage />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
           </TooltipProvider>
-        </CartProvider>
-      </BrowserRouter>
-    </QueryClientProvider>
+        </QueryClientProvider>
+      </CartProvider>
+    </BrowserRouter>
   );
 };
 

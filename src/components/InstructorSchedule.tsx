@@ -5,6 +5,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { Card, CardHeader, CardContent, CardFooter } from "@/components/ui/card";
 import { Check } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
 
 interface ScheduleSlot {
   id: string;
@@ -26,6 +27,7 @@ const InstructorSchedule: React.FC<InstructorScheduleProps> = ({
   onCancel
 }) => {
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
   const [selectedTimeSlot, setSelectedTimeSlot] = useState<string | null>(null);
   const [timeSlots, setTimeSlots] = useState<ScheduleSlot[]>([
@@ -71,6 +73,22 @@ const InstructorSchedule: React.FC<InstructorScheduleProps> = ({
     }
   };
 
+  const handleAddToCartAndCheckout = () => {
+    if (selectedDate && selectedTimeSlot) {
+      onScheduleConfirmed(selectedDate, selectedTimeSlot);
+      toast({
+        title: "נוסף לסל",
+        description: `שעת טיסה נוספה לסל הקניות שלך`,
+      });
+      navigate("/cart");
+    } else {
+      toast({
+        title: "אנא בחר תאריך ושעה",
+        variant: "destructive",
+      });
+    }
+  };
+
   return (
     <Card className="w-full">
       <CardHeader dir="rtl">
@@ -84,7 +102,7 @@ const InstructorSchedule: React.FC<InstructorScheduleProps> = ({
               mode="single"
               selected={selectedDate}
               onSelect={handleDateChange}
-              className="border rounded-md"
+              className="border rounded-md pointer-events-auto"
               disabled={{ before: new Date() }}
             />
           </div>
@@ -110,7 +128,7 @@ const InstructorSchedule: React.FC<InstructorScheduleProps> = ({
           </div>
         </div>
       </CardContent>
-      <CardFooter className="flex justify-end gap-3">
+      <CardFooter className="flex justify-end gap-3" dir="rtl">
         <Button variant="outline" onClick={onCancel}>ביטול</Button>
         <Button 
           onClick={handleConfirm}
@@ -118,6 +136,13 @@ const InstructorSchedule: React.FC<InstructorScheduleProps> = ({
           disabled={!selectedDate || !selectedTimeSlot}
         >
           אישור
+        </Button>
+        <Button 
+          onClick={handleAddToCartAndCheckout}
+          className="bg-green-600 hover:bg-green-700 text-white"
+          disabled={!selectedDate || !selectedTimeSlot}
+        >
+          הוסף לסל ועבור לקופה
         </Button>
       </CardFooter>
     </Card>

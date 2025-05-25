@@ -1,5 +1,4 @@
-
-import React from "react";
+import React, { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -8,11 +7,13 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { toast } from "@/hooks/use-toast";
-import { Info } from "lucide-react";
+import { Info, Upload } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Card, CardContent } from "@/components/ui/card";
 
-// Define the form schema with validations
-const formSchema = z.object({
+// Define the form schema with validations for regular users
+const userFormSchema = z.object({
   firstName: z.string().min(2, { message: "שם פרטי חייב להכיל לפחות 2 תווים" }),
   lastName: z.string().min(2, { message: "שם משפחה חייב להכיל לפחות 2 תווים" }),
   email: z.string().email({ message: "כתובת אימייל לא תקינה" }),
@@ -26,15 +27,36 @@ const formSchema = z.object({
   path: ["confirmPassword"],
 });
 
+// Define the form schema for instructors
+const instructorFormSchema = z.object({
+  firstName: z.string().min(2, { message: "שם פרטי חייב להכיל לפחות 2 תווים" }),
+  lastName: z.string().min(2, { message: "שם משפחה חייב להכיל לפחות 2 תווים" }),
+  email: z.string().email({ message: "כתובת אימייל לא תקינה" }),
+  phone: z.string().min(10, { message: "מספר טלפון חייב להכיל לפחות 10 ספרות" }),
+  idNumber: z.string().min(9, { message: "תעודת זהות חייבת להכיל 9 ספרות" }),
+  password: z.string().min(8, { message: "סיסמה חייבת להכיל לפחות 6 תווים" })
+    .regex(/^(?=.*[A-Za-z])(?=.*\d)/, { message: "סיסמה חייבת להכיל אותיות ומספרים" }),
+  confirmPassword: z.string(),
+  licenseNumber: z.string().min(5, { message: "מספר רשיון טיס חייב להכיל לפחות 5 תווים" }),
+  experience: z.string().min(1, { message: "שנות ניסיון נדרשות" }),
+  hourlyRate: z.string().min(1, { message: "תעריף שעתי נדרש" }),
+}).refine((data) => data.password === data.confirmPassword, {
+  message: "הסיסמאות אינן תואמות",
+  path: ["confirmPassword"],
+});
+
 interface SignupFormProps {
   onClose: () => void;
 }
 
 const SignupForm: React.FC<SignupFormProps> = ({ onClose }) => {
   const navigate = useNavigate();
+  const [activeTab, setActiveTab] = useState("student");
+  const [pilotLicense, setPilotLicense] = useState<File | null>(null);
+  const [idPhoto, setIdPhoto] = useState<File | null>(null);
   
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const userForm = useForm<z.infer<typeof userFormSchema>>({
+    resolver: zodResolver(userFormSchema),
     defaultValues: {
       firstName: "",
       lastName: "",
@@ -46,14 +68,31 @@ const SignupForm: React.FC<SignupFormProps> = ({ onClose }) => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log("Form submitted with values:", values);
+  const instructorForm = useForm<z.infer<typeof instructorFormSchema>>({
+    resolver: zodResolver(instructorFormSchema),
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      idNumber: "",
+      password: "",
+      confirmPassword: "",
+      licenseNumber: "",
+      experience: "",
+      hourlyRate: "",
+    },
+  });
+
+  function onUserSubmit(values: z.infer<typeof userFormSchema>) {
+    console.log("User form submitted with values:", values);
     
     // Save user to localStorage
     localStorage.setItem('user', JSON.stringify({
       name: values.firstName,
       email: values.email,
-      isLoggedIn: true
+      isLoggedIn: true,
+      type: 'student'
     }));
     
     toast({
@@ -69,124 +108,381 @@ const SignupForm: React.FC<SignupFormProps> = ({ onClose }) => {
     }
   }
 
+  function onInstructorSubmit(values: z.infer<typeof instructorFormSchema>) {
+    console.log("Instructor form submitted with values:", values);
+    console.log("Pilot license file:", pilotLicense);
+    console.log("ID photo file:", idPhoto);
+    
+    if (!pilotLicense || !idPhoto) {
+      toast({
+        title: "חסרים קבצים",
+        description: "יש להעלות צילום רשיון טיס וצילום תעודת זהות",
+        variant: "destructive"
+      });
+      return;
+    }
+    
+    toast({
+      title: "בקשת הרשמה נשלחה",
+      description: "הבקשה שלך נשלחה לבדיקה. תקבל הודעה לאחר אישור המנהל",
+    });
+    
+    onClose();
+  }
+
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>, type: 'license' | 'id') => {
+    const file = event.target.files?.[0];
+    if (file) {
+      if (type === 'license') {
+        setPilotLicense(file);
+      } else {
+        setIdPhoto(file);
+      }
+    }
+  };
+
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 mt-2 rtl">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <FormField
-            control={form.control}
-            name="firstName"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>שם פרטי</FormLabel>
-                <FormControl>
-                  <Input placeholder="שם פרטי" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="lastName"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>שם משפחה</FormLabel>
-                <FormControl>
-                  <Input placeholder="שם משפחה" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
+    <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+      <TabsList className="grid w-full grid-cols-2">
+        <TabsTrigger value="student">הרשמה רגילה</TabsTrigger>
+        <TabsTrigger value="instructor">הרשמת מדריך טיסה</TabsTrigger>
+      </TabsList>
+      
+      <TabsContent value="student">
+        <Form {...userForm}>
+          <form onSubmit={userForm.handleSubmit(onUserSubmit)} className="space-y-4 mt-2 rtl">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <FormField
+                control={userForm.control}
+                name="firstName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>שם פרטי</FormLabel>
+                    <FormControl>
+                      <Input placeholder="שם פרטי" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={userForm.control}
+                name="lastName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>שם משפחה</FormLabel>
+                    <FormControl>
+                      <Input placeholder="שם משפחה" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
 
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>דואר אלקטרוני</FormLabel>
-              <FormControl>
-                <Input placeholder="your@email.com" type="email" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+            <FormField
+              control={userForm.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>דואר אלקטרוני</FormLabel>
+                  <FormControl>
+                    <Input placeholder="your@email.com" type="email" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-        <FormField
-          control={form.control}
-          name="phone"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>מספר טלפון</FormLabel>
-              <FormControl>
-                <Input placeholder="מספר טלפון" type="tel" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+            <FormField
+              control={userForm.control}
+              name="phone"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>מספר טלפון</FormLabel>
+                  <FormControl>
+                    <Input placeholder="מספר טלפון" type="tel" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-        <FormField
-          control={form.control}
-          name="idNumber"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>תעודת זהות</FormLabel>
-              <FormControl>
-                <Input placeholder="תעודת זהות" {...field} />
-              </FormControl>
-              <div className="flex items-start mt-1">
-                <Info className="w-4 h-4 text-blue-500 mt-0.5 ml-1" />
-                <p className="text-xs text-gray-500">הצורך בת.ז. למניעת הרשמה כפולה</p>
-              </div>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+            <FormField
+              control={userForm.control}
+              name="idNumber"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>תעודת זהות</FormLabel>
+                  <FormControl>
+                    <Input placeholder="תעודת זהות" {...field} />
+                  </FormControl>
+                  <div className="flex items-start mt-1">
+                    <Info className="w-4 h-4 text-blue-500 mt-0.5 ml-1" />
+                    <p className="text-xs text-gray-500">הצורך בת.ז. למניעת הרשמה כפולה</p>
+                  </div>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>סיסמה</FormLabel>
-              <FormControl>
-                <Input type="password" placeholder="סיסמה" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+            <FormField
+              control={userForm.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>סיסמה</FormLabel>
+                  <FormControl>
+                    <Input type="password" placeholder="סיסמה" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-        <FormField
-          control={form.control}
-          name="confirmPassword"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>אימות סיסמה</FormLabel>
-              <FormControl>
-                <Input type="password" placeholder="אימות סיסמה" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+            <FormField
+              control={userForm.control}
+              name="confirmPassword"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>אימות סיסמה</FormLabel>
+                  <FormControl>
+                    <Input type="password" placeholder="אימות סיסמה" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-        <Separator className="my-4" />
-        
-        <div className="bg-blue-50 p-3 rounded-md border border-blue-100">
-          <p className="text-sm text-blue-800 text-center">יש לרכוש מוצר אחד לפחות כדי להיכנס להגרלה</p>
-        </div>
+            <Separator className="my-4" />
+            
+            <div className="bg-blue-50 p-3 rounded-md border border-blue-100">
+              <p className="text-sm text-blue-800 text-center">יש לרכוש מוצר אחד לפחות כדי להיכנס להגרלה</p>
+            </div>
 
-        <div className="flex justify-end space-x-2 pt-2">
-          <Button variant="outline" type="button" onClick={onClose} className="ml-2">ביטול</Button>
-          <Button type="submit">הרשמה</Button>
-        </div>
-      </form>
-    </Form>
+            <div className="flex justify-end space-x-2 pt-2">
+              <Button variant="outline" type="button" onClick={onClose} className="ml-2">ביטול</Button>
+              <Button type="submit">הרשמה</Button>
+            </div>
+          </form>
+        </Form>
+      </TabsContent>
+      
+      <TabsContent value="instructor">
+        <Form {...instructorForm}>
+          <form onSubmit={instructorForm.handleSubmit(onInstructorSubmit)} className="space-y-4 mt-2 rtl">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <FormField
+                control={instructorForm.control}
+                name="firstName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>שם פרטי</FormLabel>
+                    <FormControl>
+                      <Input placeholder="שם פרטי" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={instructorForm.control}
+                name="lastName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>שם משפחה</FormLabel>
+                    <FormControl>
+                      <Input placeholder="שם משפחה" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            <FormField
+              control={instructorForm.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>דואר אלקטרוני</FormLabel>
+                  <FormControl>
+                    <Input placeholder="your@email.com" type="email" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={instructorForm.control}
+              name="phone"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>מספר טלפון</FormLabel>
+                  <FormControl>
+                    <Input placeholder="מספר טלפון" type="tel" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={instructorForm.control}
+              name="idNumber"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>תעודת זהות</FormLabel>
+                  <FormControl>
+                    <Input placeholder="תעודת זהות" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <FormField
+                control={instructorForm.control}
+                name="licenseNumber"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>מספר רשיון טיס</FormLabel>
+                    <FormControl>
+                      <Input placeholder="מספר רשיון" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={instructorForm.control}
+                name="experience"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>שנות ניסיון</FormLabel>
+                    <FormControl>
+                      <Input placeholder="מספר שנים" type="number" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            <FormField
+              control={instructorForm.control}
+              name="hourlyRate"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>תעריף לשעה (₪)</FormLabel>
+                  <FormControl>
+                    <Input placeholder="תעריף שעתי" type="number" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={instructorForm.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>סיסמה</FormLabel>
+                  <FormControl>
+                    <Input type="password" placeholder="סיסמה" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={instructorForm.control}
+              name="confirmPassword"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>אימות סיסמה</FormLabel>
+                  <FormControl>
+                    <Input type="password" placeholder="אימות סיסמה" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <Separator className="my-4" />
+            
+            <div className="space-y-4">
+              <h3 className="text-lg font-medium">העלאת מסמכים</h3>
+              
+              <Card className="p-4">
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium mb-2">צילום רשיון טיס</label>
+                    <div className="flex items-center space-x-2">
+                      <input
+                        type="file"
+                        accept="image/*,.pdf"
+                        onChange={(e) => handleFileUpload(e, 'license')}
+                        className="hidden"
+                        id="pilot-license"
+                      />
+                      <label
+                        htmlFor="pilot-license"
+                        className="flex items-center px-4 py-2 bg-blue-500 text-white rounded-md cursor-pointer hover:bg-blue-600"
+                      >
+                        <Upload className="w-4 h-4 mr-2" />
+                        העלה קובץ
+                      </label>
+                      {pilotLicense && (
+                        <span className="text-sm text-green-600">{pilotLicense.name}</span>
+                      )}
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <label className="block text-sm font-medium mb-2">צילום תעודת זהות</label>
+                    <div className="flex items-center space-x-2">
+                      <input
+                        type="file"
+                        accept="image/*,.pdf"
+                        onChange={(e) => handleFileUpload(e, 'id')}
+                        className="hidden"
+                        id="id-photo"
+                      />
+                      <label
+                        htmlFor="id-photo"
+                        className="flex items-center px-4 py-2 bg-blue-500 text-white rounded-md cursor-pointer hover:bg-blue-600"
+                      >
+                        <Upload className="w-4 h-4 mr-2" />
+                        העלה קובץ
+                      </label>
+                      {idPhoto && (
+                        <span className="text-sm text-green-600">{idPhoto.name}</span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </div>
+
+            <div className="bg-yellow-50 p-3 rounded-md border border-yellow-200">
+              <p className="text-sm text-yellow-800 text-center">
+                הבקשה תישלח לבדיקה ואישור המנהל. תקבל הודעה לאחר עיבוד הבקשה.
+              </p>
+            </div>
+
+            <div className="flex justify-end space-x-2 pt-2">
+              <Button variant="outline" type="button" onClick={onClose} className="ml-2">ביטול</Button>
+              <Button type="submit">שלח לאישור</Button>
+            </div>
+          </form>
+        </Form>
+      </TabsContent>
+    </Tabs>
   );
 };
 

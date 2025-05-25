@@ -7,6 +7,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "@/hooks/use-toast";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import SignupForm from "./SignupForm";
+import { useCart } from "@/contexts/CartContext";
 
 const Header: React.FC = () => {
   const [showSearch, setShowSearch] = useState(false);
@@ -14,6 +15,8 @@ const Header: React.FC = () => {
   const [user, setUser] = useState<{ name: string; isLoggedIn: boolean } | null>(null);
   const location = useLocation();
   const navigate = useNavigate();
+  const { getTotalItems } = useCart();
+  const cartItemCount = getTotalItems();
 
   useEffect(() => {
     // Get user from localStorage
@@ -41,7 +44,7 @@ const Header: React.FC = () => {
   return (
     <header className="sticky top-0 z-10 bg-blue-900/90 backdrop-blur-md shadow-sm px-4 sm:px-6 py-4 flex items-center justify-between">
       <div className="flex items-center">
-        <Link to="/" className="text-xl sm:text-2xl font-bold text-pinterest-purple mr-4">PinShop</Link>
+        <Link to="/" className="text-xl sm:text-2xl font-bold text-black mr-4">PinShop</Link>
         {user?.isLoggedIn && (
           <span className="text-white text-sm md:text-base ml-2">
             שלום, {user.name}
@@ -59,7 +62,7 @@ const Header: React.FC = () => {
             variant="ghost" 
             size="icon" 
             onClick={() => setShowSearch(true)}
-            className="transition-all hover:text-pinterest-purple text-white"
+            className="transition-all hover:text-black text-white"
             aria-label="Search"
           >
             <Search size={20} />
@@ -70,7 +73,7 @@ const Header: React.FC = () => {
           <Button 
             variant="ghost" 
             size="icon" 
-            className={`transition-all hover:text-pinterest-purple text-white ${location.pathname === "/" ? "text-pinterest-purple" : ""}`}
+            className={`transition-all hover:text-black text-white ${location.pathname === "/" ? "text-black" : ""}`}
             aria-label="Home"
           >
             <Home size={20} />
@@ -81,7 +84,7 @@ const Header: React.FC = () => {
           <Button 
             variant="ghost" 
             size="icon" 
-            className="transition-all hover:text-pinterest-purple text-white"
+            className="transition-all hover:text-black text-white"
             aria-label="Categories"
           >
             <Grid size={20} />
@@ -92,7 +95,7 @@ const Header: React.FC = () => {
           <Button 
             variant="ghost" 
             size="icon" 
-            className={`transition-all hover:text-pinterest-purple text-white ${location.pathname === "/discounted-flight" ? "text-pinterest-purple" : ""}`}
+            className={`transition-all hover:text-black text-white ${location.pathname === "/discounted-flight" ? "text-black" : ""}`}
             aria-label="Discounted Flight"
           >
             <Percent size={20} />
@@ -102,7 +105,7 @@ const Header: React.FC = () => {
         <Button 
           variant="ghost" 
           size="icon" 
-          className="transition-all hover:text-pinterest-purple text-white"
+          className="transition-all hover:text-black text-white"
           aria-label="Saved items"
         >
           <Bookmark size={20} />
@@ -112,10 +115,15 @@ const Header: React.FC = () => {
           <Button 
             variant="ghost" 
             size="icon" 
-            className={`transition-all hover:text-pinterest-purple text-white ${location.pathname === "/cart" ? "text-pinterest-purple" : ""}`}
+            className={`relative transition-all hover:text-black text-white ${location.pathname === "/cart" ? "text-black" : ""}`}
             aria-label="Shopping cart"
           >
             <ShoppingCart size={20} />
+            {cartItemCount > 0 && (
+              <span className="absolute -top-1 -right-1 bg-black text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                {cartItemCount}
+              </span>
+            )}
           </Button>
         </Link>
 
@@ -124,7 +132,7 @@ const Header: React.FC = () => {
             variant="ghost"
             size="icon"
             onClick={handleLogout} 
-            className="transition-all hover:text-pinterest-purple text-white"
+            className="transition-all hover:text-black text-white"
             aria-label="Logout"
           >
             <LogOut size={20} />
@@ -132,7 +140,7 @@ const Header: React.FC = () => {
         ) : (
           <>
             <Link to="/login">
-              <Button className="hidden md:inline-flex bg-pinterest-purple hover:bg-pinterest-dark-purple text-white">
+              <Button className="hidden md:inline-flex bg-black hover:bg-gray-800 text-white">
                 כניסה
               </Button>
             </Link>

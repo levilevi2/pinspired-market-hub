@@ -1,56 +1,90 @@
 
-import { useState } from "react";
+import React from "react";
 import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
-import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { useForm } from "react-hook-form";
-import { useToast } from "@/hooks/use-toast";
+import InstructorCard, { Instructor } from "@/components/InstructorCard";
 
-interface InstructorFormValues {
-  fullName: string;
-  email: string;
-  phone: string;
-  licenseNumber: string;
-  experience: string;
-  availability: string;
-  bio: string;
-}
-
-const InstructorDetails = () => {
-  const { toast } = useToast();
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  
-  const form = useForm<InstructorFormValues>({
-    defaultValues: {
-      fullName: "",
-      email: "",
-      phone: "",
-      licenseNumber: "",
-      experience: "",
-      availability: "",
-      bio: ""
+const InstructorDetails: React.FC = () => {
+  const instructors: Instructor[] = [
+    {
+      id: "inst1",
+      name: "יוסי כהן",
+      experience: 15,
+      hourlyRate: 450,
+      rating: 4.8,
+      totalFlights: 1200,
+      specialties: ["טיסות לילה", "ניווט מתקדם", "הדרכת מתחילים"],
+      aircraftTypes: ["Cessna 172", "Piper Cherokee", "Diamond DA40"],
+      location: "שדה התעופה הרצליה",
+      description: "מדריך טיסה מנוסה עם התמחות בהדרכת תלמידים מתחילים. בעל ניסיון רב בטיסות אווירובטיקה וניווט מתקדם.",
+      image: "/api/placeholder/64/64",
+      flightSettings: {
+        maxAltitude: "3,000 רגל",
+        flightZone: "צפון תל אביב",
+        aircraftModel: "Cessna 172SP",
+        safetyLevel: "גבוהה מאוד"
+      }
+    },
+    {
+      id: "inst2", 
+      name: "רחל לוי",
+      experience: 12,
+      hourlyRate: 420,
+      rating: 4.9,
+      totalFlights: 950,
+      specialties: ["טיסות פנורמיות", "צילום אווירי", "טיסות חוף"],
+      aircraftTypes: ["Piper Cherokee", "Cessna 182", "Beechcraft Bonanza"],
+      location: "שדה התעופה בן גוריון",
+      description: "מדריכה מקצועית עם התמחות בטיסות פנורמיות וצילום אווירי. מתמחה בהדרכה עדינה ומותאמת אישית.",
+      image: "/api/placeholder/64/64",
+      flightSettings: {
+        maxAltitude: "2,500 רגל",
+        flightZone: "חוף הים התיכון",
+        aircraftModel: "Piper PA-28",
+        safetyLevel: "גבוהה"
+      }
+    },
+    {
+      id: "inst3",
+      name: "דוד מזרחי", 
+      experience: 20,
+      hourlyRate: 500,
+      rating: 4.7,
+      totalFlights: 1800,
+      specialties: ["אווירובטיקה", "טיסות מתקדמות", "הכנה לבחינות"],
+      aircraftTypes: ["Extra 300", "Pitts Special", "Cessna 172"],
+      location: "שדה התעופה קרית שמונה",
+      description: "מדריך בכיר עם ניסיון נרחב באווירובטיקה וטיסות מתקדמות. מתמחה בהכנת תלמידים לבחינות רשיון טיס מסחרי.",
+      image: "/api/placeholder/64/64",
+      flightSettings: {
+        maxAltitude: "5,000 רגל",
+        flightZone: "צפון ישראל",
+        aircraftModel: "Extra 300L",
+        safetyLevel: "גבוהה"
+      }
+    },
+    {
+      id: "inst4",
+      name: "מירי בן דוד",
+      experience: 8,
+      hourlyRate: 380,
+      rating: 4.6,
+      totalFlights: 600,
+      specialties: ["טיסות תיירות", "ניווט בסיסי", "הדרכת נשים"],
+      aircraftTypes: ["Cessna 150", "Piper Cherokee", "Diamond DA20"],
+      location: "שדה התעופה חיפה",
+      description: "מדריכה צעירה ומקצועית עם גישה חדשנית להדרכה. מתמחה בטיסות תיירות והדרכת נשים בסביבה נוחה.",
+      image: "/api/placeholder/64/64",
+      flightSettings: {
+        maxAltitude: "2,000 רגל",
+        flightZone: "מפרץ חיפה",
+        aircraftModel: "Cessna 150M",
+        safetyLevel: "גבוהה"
+      }
     }
-  });
-
-  const onSubmit = (data: InstructorFormValues) => {
-    setIsSubmitting(true);
-    
-    // Simulate form submission
-    setTimeout(() => {
-      console.log("Form submitted:", data);
-      toast({
-        title: "הטופס נשלח בהצלחה",
-        description: "נחזור אליך בהקדם האפשרי",
-      });
-      setIsSubmitting(false);
-      form.reset();
-    }, 1500);
-  };
+  ];
 
   return (
     <div className="min-h-screen flex flex-col bg-blue-900/70">
@@ -63,134 +97,32 @@ const InstructorDetails = () => {
               חזרה
             </Link>
           </Button>
-          <h1 className="text-3xl font-bold text-white">פרטי מדריך</h1>
+          <h1 className="text-3xl font-bold text-white">מדריכי הטיסה שלנו</h1>
         </div>
 
-        <Card className="bg-white/10 backdrop-blur-md shadow-xl border-pinterest-purple/20 p-6">
-          <div dir="rtl">
-            <h2 className="text-2xl font-bold text-white mb-6 border-b border-pinterest-purple/30 pb-2">
-              טופס הרשמה למדריכים
-            </h2>
-            
-            <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 text-white">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <FormField
-                    control={form.control}
-                    name="fullName"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>שם מלא</FormLabel>
-                        <FormControl>
-                          <Input placeholder="הכנס את שמך המלא" {...field} className="bg-white/20 text-white placeholder:text-white/50" />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  
-                  <FormField
-                    control={form.control}
-                    name="email"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>אימייל</FormLabel>
-                        <FormControl>
-                          <Input type="email" placeholder="your@email.com" {...field} className="bg-white/20 text-white placeholder:text-white/50" />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  
-                  <FormField
-                    control={form.control}
-                    name="phone"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>טלפון</FormLabel>
-                        <FormControl>
-                          <Input placeholder="מספר טלפון" {...field} className="bg-white/20 text-white placeholder:text-white/50" />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  
-                  <FormField
-                    control={form.control}
-                    name="licenseNumber"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>מספר רישיון</FormLabel>
-                        <FormControl>
-                          <Input placeholder="מספר רישיון הטיסה שלך" {...field} className="bg-white/20 text-white placeholder:text-white/50" />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  
-                  <FormField
-                    control={form.control}
-                    name="experience"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>ניסיון (בשנים)</FormLabel>
-                        <FormControl>
-                          <Input type="number" placeholder="מספר שנות ניסיון" {...field} className="bg-white/20 text-white placeholder:text-white/50" />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  
-                  <FormField
-                    control={form.control}
-                    name="availability"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>זמינות</FormLabel>
-                        <FormControl>
-                          <Input placeholder="ימים ושעות זמינות" {...field} className="bg-white/20 text-white placeholder:text-white/50" />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-                
-                <FormField
-                  control={form.control}
-                  name="bio"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>מידע נוסף על עצמך</FormLabel>
-                      <FormControl>
-                        <Textarea 
-                          placeholder="ספר לנו עוד על הניסיון שלך בהדרכה" 
-                          {...field} 
-                          className="bg-white/20 text-white placeholder:text-white/50 min-h-[120px]" 
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                
-                <div className="flex justify-end">
-                  <Button 
-                    type="submit" 
-                    className="bg-pinterest-purple hover:bg-pinterest-dark-purple text-white"
-                    disabled={isSubmitting}
-                  >
-                    {isSubmitting ? "שולח..." : "שליחה"}
-                  </Button>
-                </div>
-              </form>
-            </Form>
-          </div>
-        </Card>
+        <div className="mb-6">
+          <p className="text-white/80 text-lg text-right">
+            בחר את המדריך המתאים לך מתוך צוות המדריכים המקצועיים שלנו
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6" dir="rtl">
+          {instructors.map((instructor) => (
+            <InstructorCard key={instructor.id} instructor={instructor} />
+          ))}
+        </div>
+
+        <div className="mt-8 bg-white/10 backdrop-blur-md rounded-lg p-6 border border-white/20">
+          <h3 className="text-xl font-bold text-white mb-4 text-right">הערות חשובות:</h3>
+          <ul className="list-disc list-inside space-y-2 text-white/90 text-right">
+            <li>כל המדריכים בעלי רשיון טיס מסחרי ובדוק</li>
+            <li>ניתן לבטל או לשנות מועד עד 48 שעות לפני הטיסה</li>
+            <li>הטיסות מתבצעות בכפוף לתנאי מזג האוויר</li>
+            <li>יש להגיע 30 דקות לפני מועד הטיסה</li>
+            <li>כל המטוסים עוברים בדיקות בטיחות יומיות</li>
+            <li>ביטוח מקיף כלול בכל טיסה</li>
+          </ul>
+        </div>
       </main>
     </div>
   );

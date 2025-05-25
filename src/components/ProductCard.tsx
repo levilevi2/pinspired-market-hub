@@ -45,16 +45,16 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onClick }) => {
           variant="ghost"
           size="icon"
           className={`absolute top-2 right-2 rounded-full bg-white/80 hover:bg-white p-1.5 ${
-            isBookmarked ? "text-pinterest-purple" : "text-gray-600"
+            isBookmarked ? "text-black" : "text-gray-600"
           }`}
           onClick={handleBookmarkClick}
         >
-          <Bookmark size={18} fill={isBookmarked ? "#8B5CF6" : "none"} />
+          <Bookmark size={18} fill={isBookmarked ? "#000000" : "none"} />
         </Button>
       </div>
       <div className="p-3" dir="rtl">
         <h3 className="font-medium text-sm line-clamp-1">{product.title}</h3>
-        <p className="text-pinterest-purple font-bold mt-1">{`₪${product.price.toFixed(2)}`}</p>
+        <p className="text-black font-bold mt-1">{`₪${product.price.toFixed(2)}`}</p>
       </div>
     </Card>
   );

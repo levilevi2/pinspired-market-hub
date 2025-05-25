@@ -34,6 +34,12 @@ const ProductModal: React.FC<ProductModalProps> = ({
   if (!product) return null;
 
   const handleAddToCart = () => {
+    if (product.category === "discounted-flight") {
+      onClose();
+      navigate("/discounted-flight");
+      return;
+    }
+    
     addToCart(product, quantity);
     toast({
       title: "הוסף לסל",
@@ -42,6 +48,12 @@ const ProductModal: React.FC<ProductModalProps> = ({
   };
 
   const handleBuyNow = () => {
+    if (product.category === "discounted-flight") {
+      onClose();
+      navigate("/discounted-flight");
+      return;
+    }
+    
     addToCart(product, quantity);
     onClose();
     navigate("/cart");
@@ -66,7 +78,7 @@ const ProductModal: React.FC<ProductModalProps> = ({
           <DialogTitle dir="rtl" className="text-xl font-bold">
             {product.title}
           </DialogTitle>
-          <DialogDescription dir="rtl" className="text-pinterest-purple font-bold text-lg">
+          <DialogDescription dir="rtl" className="text-black font-bold text-lg">
             ₪{product.price.toFixed(2)}
           </DialogDescription>
         </DialogHeader>
@@ -84,43 +96,40 @@ const ProductModal: React.FC<ProductModalProps> = ({
             <h3 className="font-semibold text-lg mb-2">תיאור המוצר</h3>
             <p className="text-gray-700 mb-4">{product.description}</p>
             
-            <div className="mb-4">
-              <div className="flex items-center justify-between mb-2">
-                <span className="font-medium">כמות:</span>
-                <div className="flex items-center border rounded-md">
-                  <Button 
-                    variant="ghost" 
-                    size="sm" 
-                    onClick={decrementQuantity}
-                    disabled={quantity <= 1}
-                    className="px-2"
-                  >
-                    <MinusIcon size={16} />
-                  </Button>
-                  <span className="px-4">{quantity}</span>
-                  <Button 
-                    variant="ghost" 
-                    size="sm" 
-                    onClick={incrementQuantity}
-                    disabled={product.category === "discounted-flight" && quantity >= 2}
-                    className="px-2"
-                  >
-                    <PlusIcon size={16} />
-                  </Button>
+            {product.category !== "discounted-flight" && (
+              <div className="mb-4">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="font-medium">כמות:</span>
+                  <div className="flex items-center border rounded-md">
+                    <Button 
+                      variant="ghost" 
+                      size="sm" 
+                      onClick={decrementQuantity}
+                      disabled={quantity <= 1}
+                      className="px-2"
+                    >
+                      <MinusIcon size={16} />
+                    </Button>
+                    <span className="px-4">{quantity}</span>
+                    <Button 
+                      variant="ghost" 
+                      size="sm" 
+                      onClick={incrementQuantity}
+                      className="px-2"
+                    >
+                      <PlusIcon size={16} />
+                    </Button>
+                  </div>
                 </div>
               </div>
-              
-              {product.category === "discounted-flight" && (
-                <p className="text-xs text-gray-500 mb-2">* ניתן לרכוש עד שתי שעות טיסה בהזמנה אחת</p>
-              )}
-            </div>
+            )}
             
             <div className="space-y-4">
               <Button 
-                className="w-full bg-pinterest-purple hover:bg-pinterest-dark-purple"
+                className="w-full bg-black hover:bg-gray-800 text-white"
                 onClick={handleBuyNow}
               >
-                רכישה מיידית
+                {product.category === "discounted-flight" ? "בחירת זמן" : "רכישה מיידית"}
               </Button>
               
               <Button 
@@ -129,7 +138,7 @@ const ProductModal: React.FC<ProductModalProps> = ({
                 onClick={handleAddToCart}
               >
                 <ShoppingCart size={18} />
-                <span>הוסף לסל</span>
+                <span>{product.category === "discounted-flight" ? "בחירת זמן" : "הוסף לסל"}</span>
               </Button>
               
               <div className="flex space-x-2">
@@ -140,8 +149,8 @@ const ProductModal: React.FC<ProductModalProps> = ({
                 >
                   <Bookmark 
                     size={18} 
-                    className={isBookmarked ? "text-pinterest-purple" : ""} 
-                    fill={isBookmarked ? "#8B5CF6" : "none"} 
+                    className={isBookmarked ? "text-black" : ""} 
+                    fill={isBookmarked ? "#000000" : "none"} 
                   />
                   <span>שמור</span>
                 </Button>

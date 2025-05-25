@@ -116,7 +116,7 @@ const InstructorSchedule: React.FC<InstructorScheduleProps> = ({
                   variant={selectedTimeSlot === slot.time ? "default" : "outline"}
                   disabled={!slot.available}
                   className={`${
-                    selectedTimeSlot === slot.time ? "bg-pinterest-purple hover:bg-pinterest-dark-purple" : ""
+                    selectedTimeSlot === slot.time ? "bg-black hover:bg-gray-800 text-white" : ""
                   }`}
                   onClick={() => handleTimeSlotSelect(slot.time)}
                 >
@@ -132,7 +132,7 @@ const InstructorSchedule: React.FC<InstructorScheduleProps> = ({
         <Button variant="outline" onClick={onCancel}>ביטול</Button>
         <Button 
           onClick={handleConfirm}
-          className="bg-pinterest-purple hover:bg-pinterest-dark-purple"
+          className="bg-black hover:bg-gray-800 text-white"
           disabled={!selectedDate || !selectedTimeSlot}
         >
           אישור

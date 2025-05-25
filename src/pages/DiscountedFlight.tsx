@@ -103,26 +103,26 @@ const DiscountedFlight = () => {
                 {discountOptions.map((option) => (
                   <Card 
                     key={option.id} 
-                    className={`bg-white/10 backdrop-blur-md shadow-md border-pinterest-purple/20 transition-all duration-300 hover:shadow-xl ${
-                      selectedOption === option.id ? "border-pinterest-purple" : ""
+                    className={`bg-white/10 backdrop-blur-md shadow-md border-black/20 transition-all duration-300 hover:shadow-xl ${
+                      selectedOption === option.id ? "border-black" : ""
                     }`}
                     onClick={() => setSelectedOption(option.id)}
                   >
                     <CardContent className="p-6">
                       <h3 className="text-xl font-bold text-white mb-2">{option.title}</h3>
-                      <div className="text-3xl font-bold text-pinterest-purple mb-4">₪{option.price}</div>
+                      <div className="text-3xl font-bold text-black mb-4">₪{option.price}</div>
                       
                       <div className="space-y-3 mb-6 text-white/90">
                         <div className="flex items-center">
-                          <Clock className="h-4 w-4 mr-2 text-pinterest-purple/70" />
+                          <Clock className="h-4 w-4 mr-2 text-black/70" />
                           <span>{option.hours} שעות</span>
                         </div>
                         <div className="flex items-center">
-                          <Calendar className="h-4 w-4 mr-2 text-pinterest-purple/70" />
+                          <Calendar className="h-4 w-4 mr-2 text-black/70" />
                           <span>תוקף: {option.validity}</span>
                         </div>
                         <div className="flex items-center">
-                          <User className="h-4 w-4 mr-2 text-pinterest-purple/70" />
+                          <User className="h-4 w-4 mr-2 text-black/70" />
                           <span>{option.instructorType}</span>
                         </div>
                         
@@ -138,7 +138,7 @@ const DiscountedFlight = () => {
                       <Button 
                         className={`w-full ${
                           selectedOption === option.id 
-                            ? "bg-pinterest-purple hover:bg-pinterest-dark-purple" 
+                            ? "bg-black hover:bg-gray-800 text-white" 
                             : "bg-blue-700 hover:bg-blue-600"
                         }`}
                         onClick={handlePurchase}
@@ -150,7 +150,7 @@ const DiscountedFlight = () => {
                 ))}
               </div>
               
-              <Card className="bg-white/10 backdrop-blur-md shadow-md border-pinterest-purple/20 mt-8 p-6">
+              <Card className="bg-white/10 backdrop-blur-md shadow-md border-black/20 mt-8 p-6">
                 <h3 className="text-xl font-bold text-white mb-4" dir="rtl">הערות חשובות:</h3>
                 <ul className="list-disc list-inside space-y-2 text-white mr-4" dir="rtl">
                   <li>המחירים כוללים מע"מ</li>

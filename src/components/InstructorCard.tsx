@@ -61,7 +61,7 @@ const InstructorCard: React.FC<InstructorCardProps> = ({ instructor }) => {
       <CardHeader className="pb-4">
         <div className="flex items-start justify-between">
           <div className="flex items-center space-x-4">
-            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-black flex items-center justify-center">
               <User className="w-8 h-8 text-white" />
             </div>
             <div>
@@ -74,7 +74,7 @@ const InstructorCard: React.FC<InstructorCardProps> = ({ instructor }) => {
             </div>
           </div>
           <div className="text-left">
-            <div className="text-2xl font-bold text-white">₪{instructor.hourlyRate}</div>
+            <div className="text-2xl font-bold text-black">₪{instructor.hourlyRate}</div>
             <div className="text-white/60 text-sm">לשעה</div>
           </div>
         </div>
@@ -96,7 +96,7 @@ const InstructorCard: React.FC<InstructorCardProps> = ({ instructor }) => {
           <h4 className="text-white font-medium mb-2">התמחויות:</h4>
           <div className="flex flex-wrap gap-2">
             {instructor.specialties.map((specialty, index) => (
-              <Badge key={index} variant="secondary" className="bg-blue-600/50 text-white">
+              <Badge key={index} variant="secondary" className="bg-black/50 text-white">
                 {specialty}
               </Badge>
             ))}

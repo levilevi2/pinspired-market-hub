@@ -11,6 +11,7 @@ import { Info, Upload } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
+import { Textarea } from "@/components/ui/textarea";
 
 // Define the form schema with validations for regular users
 const userFormSchema = z.object({
@@ -40,6 +41,7 @@ const instructorFormSchema = z.object({
   licenseNumber: z.string().min(5, { message: "מספר רשיון טיס חייב להכיל לפחות 5 תווים" }),
   experience: z.string().min(1, { message: "שנות ניסיון נדרשות" }),
   hourlyRate: z.string().min(1, { message: "תעריף שעתי נדרש" }),
+  description: z.string().min(10, { message: "תיאור חייב להכיל לפחות 10 תווים" }),
 }).refine((data) => data.password === data.confirmPassword, {
   message: "הסיסמאות אינן תואמות",
   path: ["confirmPassword"],
@@ -81,6 +83,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ onClose }) => {
       licenseNumber: "",
       experience: "",
       hourlyRate: "",
+      description: "",
     },
   });
 
@@ -379,6 +382,23 @@ const SignupForm: React.FC<SignupFormProps> = ({ onClose }) => {
                   <FormLabel>תעריף לשעה (₪)</FormLabel>
                   <FormControl>
                     <Input placeholder="תעריף שעתי" type="number" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={instructorForm.control}
+              name="description"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>תיאור מדריך</FormLabel>
+                  <FormControl>
+                    <Textarea 
+                      placeholder="תאר את הניסיון שלך, התמחויות, סגנון הוראה ומה שחשוב למועמדים לדעת עליך כמדריך טיסה"
+                      {...field} 
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

@@ -1,22 +1,20 @@
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useCart } from "@/contexts/CartContext";
 import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { Trash2, Plus, Minus, CreditCard } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Trash2, Plus, Minus, CreditCard, User } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import { Textarea } from "@/components/ui/textarea";
-
-// Simple mock authentication state
-const isAuthenticated = false; // This would come from your auth context
 
 const CartPage = () => {
   const { items, removeFromCart, updateQuantity, getTotalPrice, clearCart } = useCart();
   const { toast } = useToast();
-  const [step, setStep] = useState(isAuthenticated ? "payment" : "user-details");
+  const navigate = useNavigate();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [step, setStep] = useState("authentication-check");
   
   // Form states
   const [userDetails, setUserDetails] = useState({
@@ -25,14 +23,44 @@ const CartPage = () => {
     phone: "",
     address: ""
   });
+
+  // Check authentication status
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      const user = JSON.parse(storedUser);
+      setIsAuthenticated(user.isLoggedIn);
+      if (user.isLoggedIn) {
+        setStep("payment");
+      } else {
+        setStep("registration-required");
+      }
+    } else {
+      setIsAuthenticated(false);
+      setStep("registration-required");
+    }
+  }, []);
   
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setUserDetails(prev => ({ ...prev, [name]: value }));
   };
+
+  const handleRegisterRedirect = () => {
+    navigate("/login");
+  };
   
   const handleCheckout = () => {
-    // Validate user details
+    if (!isAuthenticated) {
+      toast({
+        title: "נדרשת הרשמה",
+        description: "יש להירשם או להתחבר לפני ביצוע רכישה",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    // Validate user details if needed
     if (step === "user-details") {
       if (!userDetails.fullName || !userDetails.email || !userDetails.phone) {
         toast({
@@ -72,6 +100,82 @@ const CartPage = () => {
     );
   }
 
+  // Show registration required screen for unauthenticated users
+  if (!isAuthenticated && step === "registration-required") {
+    return (
+      <div className="min-h-screen flex flex-col bg-blue-900/70">
+        <Header />
+        <main className="flex-1 px-4 sm:px-6 lg:px-8 max-w-screen-xl mx-auto py-8">
+          <h1 className="text-3xl font-bold mb-6 text-white text-center">סל הקניות</h1>
+          
+          <div className="max-w-2xl mx-auto">
+            <div className="bg-white/10 backdrop-blur-md p-8 rounded-lg shadow-md text-center">
+              <User className="w-16 h-16 text-white mx-auto mb-4" />
+              <h2 className="text-2xl font-bold text-white mb-4">נדרשת הרשמה לפני רכישה</h2>
+              <p className="text-white/90 mb-6 text-lg">
+                כדי להמשיך ברכישה, יש להירשם למערכת תחילה
+              </p>
+              
+              <div className="bg-green-100/20 p-4 rounded-md mb-6">
+                <h3 className="text-white font-bold mb-2">יתרונות ההרשמה:</h3>
+                <ul className="text-white/90 text-sm space-y-1">
+                  <li>• השתתפות אוטומטית בהגרלה הקרובה</li>
+                  <li>• מעקב אחר הזמנות והיסטוריית רכישות</li>
+                  <li>• קבלת עדכונים על מבצעים והטבות</li>
+                  <li>• גישה מהירה לשעות טיסה ותיאומים</li>
+                </ul>
+              </div>
+
+              <div className="space-y-4">
+                <Button 
+                  onClick={handleRegisterRedirect}
+                  className="w-full bg-black hover:bg-gray-800 text-white"
+                >
+                  עבור להרשמה
+                </Button>
+                
+                <Button 
+                  variant="outline" 
+                  className="w-full text-white border-white/30 hover:bg-white/10"
+                  asChild
+                >
+                  <Link to="/">המשך בקניות</Link>
+                </Button>
+              </div>
+            </div>
+
+            {/* Show cart items but disabled */}
+            <div className="mt-8 bg-white/5 backdrop-blur-md p-6 rounded-lg shadow-md opacity-60">
+              <h3 className="text-lg font-semibold text-white mb-4">המוצרים שלך (נדרשת הרשמה):</h3>
+              <div className="space-y-3">
+                {items.map((item) => (
+                  <div key={item.id} className="flex gap-4 bg-white/5 p-3 rounded-lg">
+                    <img 
+                      src={item.image} 
+                      alt={item.title} 
+                      className="w-16 h-16 object-cover rounded-md"
+                    />
+                    <div className="flex-grow" dir="rtl">
+                      <h4 className="font-medium text-white text-sm">{item.title}</h4>
+                      <p className="text-xs text-white/70">{item.category}</p>
+                      <p className="font-bold text-black text-sm">₪{item.price.toFixed(2)} x {item.quantity}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-4 pt-4 border-t border-white/20">
+                <div className="flex justify-between text-white font-bold">
+                  <span>סה״כ לתשלום:</span>
+                  <span className="text-black">₪{getTotalPrice().toFixed(2)}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen flex flex-col bg-blue-900/70">
       <Header />
@@ -96,7 +200,7 @@ const CartPage = () => {
                     <div className="flex-grow" dir="rtl">
                       <h3 className="font-medium text-white mb-1">{item.title}</h3>
                       <p className="text-sm text-white/70 mb-2">{item.category}</p>
-                      <p className="font-bold text-pinterest-purple">₪{item.price.toFixed(2)}</p>
+                      <p className="font-bold text-black">₪{item.price.toFixed(2)}</p>
                     </div>
                     
                     <div className="flex flex-col items-center gap-3">
@@ -165,7 +269,7 @@ const CartPage = () => {
                 </div>
                 <div className="flex justify-between text-white" dir="rtl">
                   <span>סה״כ לתשלום:</span>
-                  <span className="font-bold text-pinterest-purple">₪{getTotalPrice().toFixed(2)}</span>
+                  <span className="font-bold text-black">₪{getTotalPrice().toFixed(2)}</span>
                 </div>
               </div>
               
@@ -273,8 +377,9 @@ const CartPage = () => {
               )}
               
               <Button 
-                className="w-full mt-6 bg-pinterest-purple hover:bg-pinterest-dark-purple flex items-center gap-2"
+                className="w-full mt-6 bg-black hover:bg-gray-800 text-white flex items-center gap-2"
                 onClick={handleCheckout}
+                disabled={!isAuthenticated}
               >
                 {step === "payment" && <CreditCard size={18} />}
                 {step === "user-details" ? "המשך לתשלום" : "בצע תשלום"}

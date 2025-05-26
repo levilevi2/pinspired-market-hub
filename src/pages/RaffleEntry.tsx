@@ -48,29 +48,29 @@ const RaffleEntry = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-blue-900/70">
+    <div className="min-h-screen flex flex-col relative">
       <Header />
       <main className="flex-1 px-4 sm:px-6 lg:px-8 max-w-screen-xl mx-auto py-8">
         <div className="mb-6 flex items-center">
-          <Button variant="ghost" size="sm" asChild className="text-white mr-2">
+          <Button variant="ghost" size="sm" asChild className="text-white mr-2 hover:bg-white/20">
             <Link to="/">
               <ArrowLeft className="mr-2 h-4 w-4" />
               חזרה
             </Link>
           </Button>
-          <h1 className="text-3xl font-bold text-white">כניסה להגרלה</h1>
+          <h1 className="text-3xl font-bold text-white drop-shadow-lg">כניסה להגרלה</h1>
         </div>
 
-        <Card className="bg-white/10 backdrop-blur-md shadow-xl border-pinterest-purple/20 p-6">
+        <Card className="glass-card p-8 float-animation">
           <div className="space-y-6" dir="rtl">
-            <h2 className="text-2xl font-bold text-white border-b border-pinterest-purple/30 pb-2">
+            <h2 className="text-2xl font-bold text-white border-b border-white/30 pb-3">
               תנאי השתתפות בהגרלה
             </h2>
             
             <div className="space-y-4 text-white">
-              <p className="text-lg">ברוכים הבאים להגרלה השנתית שלנו! להלן התנאים להשתתפות:</p>
+              <p className="text-lg opacity-90">ברוכים הבאים להגרלה השנתית שלנו! להלן התנאים להשתתפות:</p>
               
-              <ul className="list-disc list-inside space-y-2 mr-4">
+              <ul className="list-disc list-inside space-y-3 mr-4 opacity-90">
                 <li>ההשתתפות מותרת לחברי מועדון בלבד</li>
                 <li>יש להשלים לפחות 10 שעות טיסה בשנה האחרונה</li>
                 <li>יש לרכוש לפחות פריט אחד מקטגוריית "ציוד לטייס"</li>
@@ -78,22 +78,22 @@ const RaffleEntry = () => {
                 <li>ההרשמה תסתיים בתאריך 31.12.2025</li>
               </ul>
               
-              <h3 className="text-xl font-semibold text-pinterest-purple mt-6">פרסים</h3>
-              <ul className="list-disc list-inside space-y-2 mr-4">
+              <h3 className="text-xl font-semibold text-white mt-8">פרסים</h3>
+              <ul className="list-disc list-inside space-y-3 mr-4 opacity-90">
                 <li>פרס ראשון: 10 שעות טיסה חינם</li>
                 <li>פרס שני: סט ציוד טיסה מקצועי</li>
                 <li>פרס שלישי: שובר בשווי ₪1,000 למוצרי החנות</li>
               </ul>
               
-              <div className="bg-pinterest-purple/20 p-4 rounded-md mt-6">
-                <h3 className="text-xl font-semibold text-pinterest-purple">שימו לב!</h3>
-                <p>ההגרלה תתקיים כאשר נגיע ל-3,000 משתתפים. עקבו אחר מספר המשתתפים בדף הבית.</p>
+              <div className="bg-white/20 backdrop-blur-sm p-6 rounded-xl mt-8 border border-white/30">
+                <h3 className="text-xl font-semibold text-white mb-3">שימו לב!</h3>
+                <p className="opacity-90">ההגרלה תתקיים כאשר נגיע ל-3,000 משתתפים. עקבו אחר מספר המשתתפים בדף הבית.</p>
               </div>
             </div>
             
             <Button 
               onClick={handleRaffleRegistration}
-              className="w-full mt-8 bg-pinterest-purple hover:bg-pinterest-dark-purple text-white"
+              className="w-full mt-8 modern-button bg-white/20 backdrop-blur-sm hover:bg-white/30 border border-white/30 text-white text-lg py-3 h-auto"
             >
               הירשם להגרלה
             </Button>
@@ -102,17 +102,17 @@ const RaffleEntry = () => {
       </main>
 
       <Dialog open={showDialog} onOpenChange={setShowDialog}>
-        <DialogContent className="sm:max-w-md">
+        <DialogContent className="sm:max-w-md glass-card border-white/30">
           <DialogHeader>
-            <DialogTitle className="text-center text-xl">הגרלה</DialogTitle>
+            <DialogTitle className="text-center text-xl text-white">הגרלה</DialogTitle>
           </DialogHeader>
           <div className="space-y-4" dir="rtl">
-            <p className="text-center">{dialogMessage}</p>
-            <div className="flex gap-2 justify-center">
-              <Button onClick={navigateToShop} className="bg-pinterest-purple hover:bg-pinterest-dark-purple">
+            <p className="text-center text-white opacity-90">{dialogMessage}</p>
+            <div className="flex gap-3 justify-center">
+              <Button onClick={navigateToShop} className="modern-button bg-white/20 backdrop-blur-sm hover:bg-white/30 border border-white/30 text-white">
                 עבור לחנות
               </Button>
-              <Button variant="outline" onClick={() => setShowDialog(false)}>
+              <Button variant="outline" onClick={() => setShowDialog(false)} className="border-white/30 text-white hover:bg-white/10">
                 סגור
               </Button>
             </div>

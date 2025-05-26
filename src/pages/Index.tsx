@@ -29,52 +29,54 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-blue-900/70">
+    <div className="min-h-screen flex flex-col relative">
       <Header />
       <main className="flex-1 px-4 sm:px-6 lg:px-8 max-w-screen-xl mx-auto py-6">
-        <h1 className="text-3xl font-bold mb-6 text-center text-white">מוצרים מומלצים</h1>
+        <h1 className="text-3xl font-bold mb-6 text-center text-white drop-shadow-lg">מוצרים מומלצים</h1>
         
-        <div className="flex flex-col md:flex-row justify-between items-center mb-6 bg-white/10 backdrop-blur-sm p-4 rounded-lg">
+        <div className="flex flex-col md:flex-row justify-between items-center mb-6 glass-card p-6 float-animation">
           <div className="flex items-center mb-3 md:mb-0">
-            <div className="bg-pinterest-purple/20 p-2 rounded-full mr-2">
-              <Users size={20} className="text-pinterest-purple" />
+            <div className="bg-white/20 p-3 rounded-full mr-3 backdrop-blur-sm">
+              <Users size={24} className="text-white" />
             </div>
             <div className="text-white">
-              <p className="text-sm">מספר חברים</p>
-              <p className="font-semibold">{friendsCount.toLocaleString()}</p>
+              <p className="text-sm opacity-90">מספר חברים</p>
+              <p className="font-semibold text-lg">{friendsCount.toLocaleString()}</p>
             </div>
           </div>
           
           <div className="flex flex-col w-full md:w-1/2">
-            <div className="flex items-center justify-between mb-1">
+            <div className="flex items-center justify-between mb-2">
               <div className="flex items-center">
-                <div className="bg-pinterest-purple/20 p-2 rounded-full mr-2">
-                  <Percent size={20} className="text-pinterest-purple" />
+                <div className="bg-white/20 p-3 rounded-full mr-3 backdrop-blur-sm">
+                  <Percent size={24} className="text-white" />
                 </div>
                 <div className="text-white">
-                  <p className="text-sm">משתתפים בהגרלה</p>
+                  <p className="text-sm opacity-90">משתתפים בהגרלה</p>
                 </div>
               </div>
-              <span className="text-white text-sm">{raffleParticipants.toLocaleString()} / {maxRaffleParticipants.toLocaleString()}</span>
+              <span className="text-white text-sm font-medium">{raffleParticipants.toLocaleString()} / {maxRaffleParticipants.toLocaleString()}</span>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3">
               <Progress 
                 value={raffleProgress} 
-                className="h-2 bg-gray-300/30 flex-grow" 
+                className="h-3 bg-white/20 flex-grow" 
               />
               <Button 
                 onClick={handleViewPrizes} 
-                className="bg-pinterest-purple hover:bg-pinterest-dark-purple flex items-center gap-1 text-sm py-1 h-auto"
+                className="modern-button bg-white/20 backdrop-blur-sm hover:bg-white/30 border border-white/30 flex items-center gap-2 text-sm py-2 h-auto text-white"
                 size="sm"
               >
-                <Trophy size={14} />
+                <Trophy size={16} />
                 לצפיה בפרסים
               </Button>
             </div>
           </div>
         </div>
         
-        <FilterBar onFilterChange={setActiveFilter} />
+        <div className="glass-card p-4 mb-6">
+          <FilterBar onFilterChange={setActiveFilter} />
+        </div>
         
         <div className="mt-6">
           <ProductGrid filter={activeFilter} searchQuery={searchQuery} />

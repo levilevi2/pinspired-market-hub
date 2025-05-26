@@ -2,10 +2,51 @@
 import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useCart } from "@/contexts/CartContext";
+import { toast } from "@/hooks/use-toast";
 
 const RaffleEntry = () => {
+  const [user, setUser] = useState<{ name: string; isLoggedIn: boolean } | null>(null);
+  const [showDialog, setShowDialog] = useState(false);
+  const [dialogMessage, setDialogMessage] = useState("");
+  const { items } = useCart();
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
+
+  const handleRaffleRegistration = () => {
+    // Check if user is logged in
+    if (!user?.isLoggedIn) {
+      setDialogMessage("כדי להירשם להגרלה עליך לרכוש מוצר מהאתר. הרכישה אוטומטית רושמת אותך להגרלה ותקבל מספר משתתף לאחר הקנייה.");
+      setShowDialog(true);
+      return;
+    }
+
+    // Check if user has purchased anything
+    const hasPurchases = items.length > 0 || localStorage.getItem('userPurchases');
+    
+    if (hasPurchases) {
+      setDialogMessage("אתה כבר רשום להגרלה! אם אתה רוצה עוד כרטיס להגרלה עליך לרכוש עוד מוצר מהאתר.");
+      setShowDialog(true);
+    } else {
+      setDialogMessage("כדי להירשם להגרלה עליך לרכוש מוצר מהאתר. הרכישה אוטומטית רושמת אותך להגרלה ותקבל מספר משתתף לאחר הקנייה.");
+      setShowDialog(true);
+    }
+  };
+
+  const navigateToShop = () => {
+    setShowDialog(false);
+    window.location.href = "/";
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-blue-900/70">
       <Header />
@@ -50,12 +91,34 @@ const RaffleEntry = () => {
               </div>
             </div>
             
-            <Button className="w-full mt-8 bg-pinterest-purple hover:bg-pinterest-dark-purple text-white">
+            <Button 
+              onClick={handleRaffleRegistration}
+              className="w-full mt-8 bg-pinterest-purple hover:bg-pinterest-dark-purple text-white"
+            >
               הירשם להגרלה
             </Button>
           </div>
         </Card>
       </main>
+
+      <Dialog open={showDialog} onOpenChange={setShowDialog}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-center text-xl">הגרלה</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4" dir="rtl">
+            <p className="text-center">{dialogMessage}</p>
+            <div className="flex gap-2 justify-center">
+              <Button onClick={navigateToShop} className="bg-pinterest-purple hover:bg-pinterest-dark-purple">
+                עבור לחנות
+              </Button>
+              <Button variant="outline" onClick={() => setShowDialog(false)}>
+                סגור
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ShoppingCart, Home, Grid, Search, Percent, Bookmark, LogOut } from "lucide-react";
@@ -10,7 +9,11 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import SignupForm from "./SignupForm";
 import { useCart } from "@/contexts/CartContext";
 
-const Header: React.FC = () => {
+interface HeaderProps {
+  onSearch?: (query: string) => void;
+}
+
+const Header: React.FC<HeaderProps> = ({ onSearch }) => {
   const [showSearch, setShowSearch] = useState(false);
   const [showSignupDialog, setShowSignupDialog] = useState(false);
   const [user, setUser] = useState<{ name: string; isLoggedIn: boolean } | null>(null);
@@ -42,6 +45,12 @@ const Header: React.FC = () => {
     setShowSignupDialog(true);
   };
 
+  const handleSearch = (query: string) => {
+    if (onSearch) {
+      onSearch(query);
+    }
+  };
+
   return (
     <TooltipProvider>
       <header className="sticky top-0 z-10 bg-blue-900/90 backdrop-blur-md shadow-sm px-4 sm:px-6 py-4 flex items-center justify-between">
@@ -57,7 +66,7 @@ const Header: React.FC = () => {
         <div className="flex items-center space-x-3">
           {showSearch ? (
             <div className="animate-fade-in">
-              <SearchBar onClose={() => setShowSearch(false)} />
+              <SearchBar onClose={() => setShowSearch(false)} onSearch={handleSearch} />
             </div>
           ) : (
             <Tooltip>

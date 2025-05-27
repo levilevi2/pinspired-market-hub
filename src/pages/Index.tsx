@@ -41,7 +41,7 @@ const Index = () => {
             </div>
           </div>
           
-          <div className="flex flex-col w-full md:w-1/2">
+          <div className="flex flex-col w-full md:w-1/2 my-[12px] mx-0 px-[89px]">
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center">
                 <div className="bg-white/20 p-3 rounded-full mr-3 backdrop-blur-sm">

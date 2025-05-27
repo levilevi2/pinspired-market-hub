@@ -55,11 +55,11 @@ const AnimatedWorldMap = () => {
       }
     };
 
-    // Draw world map outline (simplified continents)
+    // Draw world map outline (simplified continents) - darker theme
     const drawWorldMap = () => {
-      ctx.strokeStyle = 'rgba(59, 130, 246, 0.3)';
+      ctx.strokeStyle = 'rgba(14, 165, 233, 0.4)';
       ctx.lineWidth = 2;
-      ctx.fillStyle = 'rgba(30, 58, 138, 0.1)';
+      ctx.fillStyle = 'rgba(15, 23, 42, 0.2)';
 
       // North America
       ctx.beginPath();
@@ -124,28 +124,28 @@ const AnimatedWorldMap = () => {
       ctx.stroke();
     };
 
-    // Draw cities as location markers
+    // Draw cities as location markers - enhanced for dark theme
     const drawCities = () => {
       cities.forEach(city => {
-        // Location pin
-        ctx.fillStyle = 'rgba(239, 68, 68, 0.8)';
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.9)';
-        ctx.lineWidth = 2;
+        // Location pin - brighter for dark background
+        ctx.fillStyle = 'rgba(14, 165, 233, 0.9)';
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.95)';
+        ctx.lineWidth = 3;
         
         ctx.beginPath();
-        ctx.arc(city.x, city.y, 6, 0, Math.PI * 2);
+        ctx.arc(city.x, city.y, 7, 0, Math.PI * 2);
         ctx.fill();
         ctx.stroke();
         
-        // Pin top
+        // Pin top - brighter
         ctx.beginPath();
-        ctx.arc(city.x, city.y, 3, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+        ctx.arc(city.x, city.y, 4, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
         ctx.fill();
       });
     };
 
-    // Draw flight routes with animated planes
+    // Draw flight routes with animated planes - enhanced visibility
     const drawFlightRoutes = () => {
       routesRef.current.forEach(route => {
         const { from, to, progress } = route;
@@ -154,24 +154,24 @@ const AnimatedWorldMap = () => {
         const currentX = from.x + (to.x - from.x) * progress;
         const currentY = from.y + (to.y - from.y) * progress;
         
-        // Draw route line (fading behind the plane)
+        // Draw route line (fading behind the plane) - brighter for dark background
         const gradient = ctx.createLinearGradient(from.x, from.y, to.x, to.y);
-        gradient.addColorStop(0, 'rgba(59, 130, 246, 0.3)');
-        gradient.addColorStop(progress - 0.1, 'rgba(59, 130, 246, 0.6)');
-        gradient.addColorStop(progress, 'rgba(59, 130, 246, 0.9)');
-        gradient.addColorStop(progress + 0.1, 'rgba(59, 130, 246, 0.3)');
-        gradient.addColorStop(1, 'rgba(59, 130, 246, 0.1)');
+        gradient.addColorStop(0, 'rgba(14, 165, 233, 0.4)');
+        gradient.addColorStop(progress - 0.1, 'rgba(14, 165, 233, 0.7)');
+        gradient.addColorStop(progress, 'rgba(14, 165, 233, 1)');
+        gradient.addColorStop(progress + 0.1, 'rgba(14, 165, 233, 0.5)');
+        gradient.addColorStop(1, 'rgba(14, 165, 233, 0.2)');
         
         ctx.strokeStyle = gradient;
-        ctx.lineWidth = 2;
-        ctx.setLineDash([5, 5]);
+        ctx.lineWidth = 3;
+        ctx.setLineDash([8, 8]);
         ctx.beginPath();
         ctx.moveTo(from.x, from.y);
         ctx.lineTo(to.x, to.y);
         ctx.stroke();
         ctx.setLineDash([]);
         
-        // Draw animated plane
+        // Draw animated plane - brighter and larger
         ctx.save();
         ctx.translate(currentX, currentY);
         
@@ -179,23 +179,24 @@ const AnimatedWorldMap = () => {
         const angle = Math.atan2(to.y - from.y, to.x - from.x);
         ctx.rotate(angle);
         
-        // Draw plane
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
-        ctx.strokeStyle = 'rgba(59, 130, 246, 1)';
-        ctx.lineWidth = 1;
+        // Draw plane - enhanced visibility
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+        ctx.strokeStyle = 'rgba(14, 165, 233, 1)';
+        ctx.lineWidth = 2;
         
         ctx.beginPath();
-        ctx.moveTo(8, 0);
-        ctx.lineTo(-8, -3);
-        ctx.lineTo(-8, 3);
+        ctx.moveTo(10, 0);
+        ctx.lineTo(-10, -4);
+        ctx.lineTo(-10, 4);
         ctx.closePath();
         ctx.fill();
         ctx.stroke();
         
-        // Plane wings
+        // Plane wings - enhanced
         ctx.beginPath();
-        ctx.moveTo(-2, -6);
-        ctx.lineTo(-2, 6);
+        ctx.moveTo(-3, -8);
+        ctx.lineTo(-3, 8);
+        ctx.lineWidth = 3;
         ctx.stroke();
         
         ctx.restore();
@@ -241,13 +242,13 @@ const AnimatedWorldMap = () => {
   }, []);
 
   return (
-    <div className="fixed inset-0 z-[-1] overflow-hidden opacity-30">
+    <div className="fixed inset-0 z-[-1] overflow-hidden opacity-25">
       <canvas
         ref={canvasRef}
         className="w-full h-full object-cover"
         style={{
-          filter: 'blur(1px)',
-          transform: 'scale(1.1)',
+          filter: 'blur(0.5px)',
+          transform: 'scale(1.05)',
         }}
       />
     </div>

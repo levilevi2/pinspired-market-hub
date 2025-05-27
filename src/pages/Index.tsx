@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import FilterBar from "@/components/FilterBar";
 import ProductGrid from "@/components/ProductGrid";
 import SiteMap from "@/components/SiteMap";
+import AnimatedWorldMap from "@/components/AnimatedWorldMap";
 import { Users, Percent, Trophy } from "lucide-react";
 import { Progress } from "@/components/ui/progress"; 
 import { Button } from "@/components/ui/button";
@@ -29,8 +30,9 @@ const Index = () => {
 
   return (
     <div className="min-h-screen flex flex-col relative">
+      <AnimatedWorldMap />
       <Header onSearch={handleSearch} />
-      <main className="flex-1 px-4 sm:px-6 lg:px-8 max-w-screen-xl mx-auto py-6">
+      <main className="flex-1 px-4 sm:px-6 lg:px-8 max-w-screen-xl mx-auto py-6 relative z-10">
         <h1 className="text-3xl font-bold mb-6 text-center text-white drop-shadow-lg">מוצרים מומלצים</h1>
         
         <div className="flex flex-col md:flex-row justify-between items-center mb-6 glass-card p-6 float-animation">

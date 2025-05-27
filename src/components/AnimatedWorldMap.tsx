@@ -145,7 +145,7 @@ const AnimatedWorldMap = () => {
       });
     };
 
-    // Draw flight routes with animated planes - enhanced visibility
+    // Draw flight routes with animated planes - fixed gradient values
     const drawFlightRoutes = () => {
       routesRef.current.forEach(route => {
         const { from, to, progress } = route;
@@ -154,12 +154,18 @@ const AnimatedWorldMap = () => {
         const currentX = from.x + (to.x - from.x) * progress;
         const currentY = from.y + (to.y - from.y) * progress;
         
-        // Draw route line (fading behind the plane) - brighter for dark background
+        // Draw route line with proper gradient bounds
         const gradient = ctx.createLinearGradient(from.x, from.y, to.x, to.y);
-        gradient.addColorStop(0, 'rgba(14, 165, 233, 0.4)');
-        gradient.addColorStop(progress - 0.1, 'rgba(14, 165, 233, 0.7)');
-        gradient.addColorStop(progress, 'rgba(14, 165, 233, 1)');
-        gradient.addColorStop(progress + 0.1, 'rgba(14, 165, 233, 0.5)');
+        
+        // Ensure all gradient stops are between 0 and 1
+        const startStop = Math.max(0, progress - 0.2);
+        const progressStop = Math.max(0, Math.min(1, progress));
+        const endStop = Math.min(1, progress + 0.2);
+        
+        gradient.addColorStop(0, 'rgba(14, 165, 233, 0.2)');
+        gradient.addColorStop(startStop, 'rgba(14, 165, 233, 0.4)');
+        gradient.addColorStop(progressStop, 'rgba(14, 165, 233, 1)');
+        gradient.addColorStop(endStop, 'rgba(14, 165, 233, 0.5)');
         gradient.addColorStop(1, 'rgba(14, 165, 233, 0.2)');
         
         ctx.strokeStyle = gradient;

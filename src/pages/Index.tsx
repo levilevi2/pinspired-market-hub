@@ -31,7 +31,7 @@ const Index = () => {
         <h1 className="text-3xl font-bold mb-6 text-center text-white drop-shadow-lg">מוצרים מומלצים</h1>
         
         <div className="flex flex-col md:flex-row justify-between items-center mb-6 glass-card p-6 float-animation py-0 mx-[240px] my-0 px-[18px] rounded-2xl">
-          <div className="flex items-center mb-3 md:mb-0">
+          <div className="flex items-center mb-3 md:mb-0 px-0 py-0 mx-0">
             <div className="bg-white/20 p-3 rounded-full mr-3 backdrop-blur-sm">
               <Users size={24} className="text-white" />
             </div>
@@ -53,9 +53,9 @@ const Index = () => {
               </div>
               <span className="text-white text-sm font-medium">{raffleParticipants.toLocaleString()} / {maxRaffleParticipants.toLocaleString()}</span>
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 px-0 py-0 mx-0">
               <Progress value={raffleProgress} className="h-3 bg-white/20 flex-grow" />
-              <Button onClick={handleViewPrizes} className="modern-button bg-white/20 backdrop-blur-sm hover:bg-white/30 border border-white/30 flex items-center gap-2 text-sm py-2 h-auto text-white" size="sm">
+              <Button onClick={handleViewPrizes} size="sm" className="modern-button bg-white/20 backdrop-blur-sm hover:bg-white/30 border border-white/30 flex items-center gap-2 py-2 h-auto text-white text-sm px-[49px]">
                 <Trophy size={16} />
                 לצפיה בפרסים
               </Button>

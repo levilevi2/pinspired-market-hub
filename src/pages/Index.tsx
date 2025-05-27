@@ -30,7 +30,7 @@ const Index = () => {
       <main className="flex-1 px-4 sm:px-6 lg:px-8 max-w-screen-xl mx-auto py-6 relative z-10">
         <h1 className="text-3xl font-bold mb-6 text-center text-white drop-shadow-lg">מוצרים מומלצים</h1>
         
-        <div className="flex flex-col md:flex-row justify-between items-center mb-6 glass-card p-6 float-animation">
+        <div className="flex flex-col md:flex-row justify-between items-center mb-6 glass-card p-6 float-animation py-0 mx-[240px] my-0 px-[18px] rounded-2xl">
           <div className="flex items-center mb-3 md:mb-0">
             <div className="bg-white/20 p-3 rounded-full mr-3 backdrop-blur-sm">
               <Users size={24} className="text-white" />

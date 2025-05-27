@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
@@ -8,9 +7,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 import InstructorSchedule from "@/components/InstructorSchedule";
-
 const DiscountedFlight = () => {
-  const { toast } = useToast();
+  const {
+    toast
+  } = useToast();
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [selectedOption, setSelectedOption] = useState("option1");
@@ -26,7 +26,6 @@ const DiscountedFlight = () => {
   useEffect(() => {
     checkLoginStatus();
   }, []);
-
   const checkLoginStatus = () => {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
@@ -36,11 +35,9 @@ const DiscountedFlight = () => {
       setIsLoggedIn(false);
     }
   };
-
   const handlePurchase = () => {
     // Check login status again in case it changed
     checkLoginStatus();
-    
     if (!isLoggedIn) {
       toast({
         title: "נדרשת הרשמה",
@@ -50,26 +47,21 @@ const DiscountedFlight = () => {
       navigate("/login");
       return;
     }
-    
     if (scheduledDate && scheduledTime) {
       navigate("/cart");
     } else {
       setShowSchedule(true);
     }
   };
-
   const handleScheduleConfirmed = (date: Date | undefined, timeSlot: string) => {
     setScheduledDate(date);
     setScheduledTime(timeSlot);
     setShowSchedule(false);
   };
-
   const cancelScheduling = () => {
     setShowSchedule(false);
   };
-
-  return (
-    <div className="min-h-screen flex flex-col bg-blue-900/70">
+  return <div className="min-h-screen flex flex-col bg-blue-900/70">
       <Header />
       <main className="flex-1 px-4 sm:px-6 lg:px-8 max-w-screen-xl mx-auto py-8">
         <div className="mb-6 flex items-center">
@@ -82,32 +74,17 @@ const DiscountedFlight = () => {
           <h1 className="text-3xl font-bold text-white">שעת טיסה מוזל</h1>
         </div>
 
-        {showSchedule ? (
-          <InstructorSchedule 
-            instructorId={selectedInstructor.id}
-            instructorName={selectedInstructor.name}
-            onScheduleConfirmed={handleScheduleConfirmed}
-            onCancel={cancelScheduling}
-          />
-        ) : (
-          <Tabs defaultValue="student" className="w-full">
+        {showSchedule ? <InstructorSchedule instructorId={selectedInstructor.id} instructorName={selectedInstructor.name} onScheduleConfirmed={handleScheduleConfirmed} onCancel={cancelScheduling} /> : <Tabs defaultValue="student" className="w-full">
             <TabsList className="grid w-full grid-cols-2 mb-6 bg-blue-800/50">
               <TabsTrigger value="student">תלמידים</TabsTrigger>
-              <TabsTrigger value="instructor">
+              <TabsTrigger value="instructor" className="bg-teal-400 hover:bg-teal-300">
                 <Link to="/instructor-details">מדריכים</Link>
               </TabsTrigger>
             </TabsList>
             
             <TabsContent value="student">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6" dir="rtl">
-                {discountOptions.map((option) => (
-                  <Card 
-                    key={option.id} 
-                    className={`bg-white/10 backdrop-blur-md shadow-md border-black/20 transition-all duration-300 hover:shadow-xl ${
-                      selectedOption === option.id ? "border-black" : ""
-                    }`}
-                    onClick={() => setSelectedOption(option.id)}
-                  >
+                {discountOptions.map(option => <Card key={option.id} className={`bg-white/10 backdrop-blur-md shadow-md border-black/20 transition-all duration-300 hover:shadow-xl ${selectedOption === option.id ? "border-black" : ""}`} onClick={() => setSelectedOption(option.id)}>
                     <CardContent className="p-6">
                       <h3 className="text-xl font-bold text-white mb-2">{option.title}</h3>
                       <div className="text-3xl font-bold text-black mb-4">₪{option.price}</div>
@@ -126,28 +103,18 @@ const DiscountedFlight = () => {
                           <span>{option.instructorType}</span>
                         </div>
                         
-                        {scheduledDate && scheduledTime && (
-                          <div className="mt-4 p-2 bg-green-100/20 rounded-md">
+                        {scheduledDate && scheduledTime && <div className="mt-4 p-2 bg-green-100/20 rounded-md">
                             <p className="text-white text-sm">
                               נקבע לתאריך: {scheduledDate.toLocaleDateString('he-IL')} בשעה {scheduledTime}
                             </p>
-                          </div>
-                        )}
+                          </div>}
                       </div>
                       
-                      <Button 
-                        className={`w-full ${
-                          selectedOption === option.id 
-                            ? "bg-black hover:bg-gray-800 text-white" 
-                            : "bg-blue-700 hover:bg-blue-600"
-                        }`}
-                        onClick={handlePurchase}
-                      >
+                      <Button className={`w-full ${selectedOption === option.id ? "bg-black hover:bg-gray-800 text-white" : "bg-blue-700 hover:bg-blue-600"}`} onClick={handlePurchase}>
                         {scheduledDate && scheduledTime ? "הוסף לסל ועבור לקופה" : "בחירת זמן"}
                       </Button>
                     </CardContent>
-                  </Card>
-                ))}
+                  </Card>)}
               </div>
               
               <Card className="bg-white/10 backdrop-blur-md shadow-md border-black/20 mt-8 p-6">
@@ -162,39 +129,32 @@ const DiscountedFlight = () => {
                 </ul>
               </Card>
             </TabsContent>
-          </Tabs>
-        )}
+          </Tabs>}
       </main>
-    </div>
-  );
+    </div>;
 };
 
 // Sample discount options data
-const discountOptions = [
-  {
-    id: "option1",
-    title: "חבילה בסיסית",
-    price: 500,
-    hours: 1,
-    validity: "חודש",
-    instructorType: "מדריך מתחיל"
-  },
-  {
-    id: "option2",
-    title: "חבילה מורחבת",
-    price: 1200,
-    hours: 3,
-    validity: "3 חודשים",
-    instructorType: "מדריך בכיר"
-  },
-  {
-    id: "option3",
-    title: "חבילה מקצועית",
-    price: 2000,
-    hours: 5,
-    validity: "6 חודשים",
-    instructorType: "מדריך בכיר"
-  }
-];
-
+const discountOptions = [{
+  id: "option1",
+  title: "חבילה בסיסית",
+  price: 500,
+  hours: 1,
+  validity: "חודש",
+  instructorType: "מדריך מתחיל"
+}, {
+  id: "option2",
+  title: "חבילה מורחבת",
+  price: 1200,
+  hours: 3,
+  validity: "3 חודשים",
+  instructorType: "מדריך בכיר"
+}, {
+  id: "option3",
+  title: "חבילה מקצועית",
+  price: 2000,
+  hours: 5,
+  validity: "6 חודשים",
+  instructorType: "מדריך בכיר"
+}];
 export default DiscountedFlight;

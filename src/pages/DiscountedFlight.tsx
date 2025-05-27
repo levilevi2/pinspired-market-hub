@@ -77,7 +77,7 @@ const DiscountedFlight = () => {
         {showSchedule ? <InstructorSchedule instructorId={selectedInstructor.id} instructorName={selectedInstructor.name} onScheduleConfirmed={handleScheduleConfirmed} onCancel={cancelScheduling} /> : <Tabs defaultValue="student" className="w-full">
             <TabsList className="grid w-full grid-cols-2 mb-6 bg-blue-800/50">
               <TabsTrigger value="student">תלמידים</TabsTrigger>
-              <TabsTrigger value="instructor" className="bg-teal-400 hover:bg-teal-300">
+              <TabsTrigger value="instructor" className="bg-gray-50">
                 <Link to="/instructor-details">מדריכים</Link>
               </TabsTrigger>
             </TabsList>

@@ -39,7 +39,7 @@ const FilterBar: React.FC<FilterBarProps> = ({
       <div className="flex space-x-2 mx-auto py-2">
         {categories.map(category => category.path ? <Button key={category.value} variant={activeFilter === category.value ? "default" : "outline"} size="sm" className={`text-sm whitespace-nowrap ${activeFilter === category.value ? "bg-pinterest-purple hover:bg-pinterest-dark-purple" : "hover:border-pinterest-purple hover:text-pinterest-purple"}`} asChild>
               <Link to={category.path}>{category.label}</Link>
-            </Button> : <Button key={category.value} variant={activeFilter === category.value ? "default" : "outline"} size="sm" onClick={() => handleFilterClick(category.value)} className="text-slate-50">
+            </Button> : <Button key={category.value} variant={activeFilter === category.value ? "default" : "outline"} size="sm" onClick={() => handleFilterClick(category.value)} className="text-slate-950 bg-sky-400 hover:bg-sky-300 rounded-3xl">
               {category.label}
             </Button>)}
       </div>

@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import ProductCard, { Product } from "./ProductCard";
 import ProductModal from "./ProductModal";
@@ -44,7 +43,7 @@ const ProductGrid: React.FC<ProductGridProps> = ({ filter, searchQuery }) => {
         id: 4,
         title: "אוזניות בלוטות' פרימיום",
         price: 599.99,
-        image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7",
+        image: "/lovable-uploads/3c217c8e-891c-4cfb-85f0-cc4f307ca681.png",
         category: "electronics",
         description: "אוזניות בלוטות' עם ביטול רעשים אקטיבי וסאונד איכותי."
       },

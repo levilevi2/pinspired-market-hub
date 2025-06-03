@@ -1,6 +1,7 @@
+
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { ShoppingCart, Home, Grid, Search, Percent, Bookmark, LogOut } from "lucide-react";
+import { ShoppingCart, Home, Grid, Search, Percent, Bookmark, LogOut, Info, Users } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip";
 import SearchBar from "./SearchBar";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -120,6 +121,42 @@ const Header: React.FC<HeaderProps> = ({ onSearch }) => {
             </TooltipTrigger>
             <TooltipContent>
               <p>קטגוריות</p>
+            </TooltipContent>
+          </Tooltip>
+
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Link to="/about">
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  className={`transition-all hover:text-black text-white ${location.pathname === "/about" ? "text-black" : ""}`}
+                  aria-label="About"
+                >
+                  <Info size={20} />
+                </Button>
+              </Link>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>אודות האתר</p>
+            </TooltipContent>
+          </Tooltip>
+
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Link to="/community-updates">
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  className={`transition-all hover:text-black text-white ${location.pathname === "/community-updates" ? "text-black" : ""}`}
+                  aria-label="Community Updates"
+                >
+                  <Users size={20} />
+                </Button>
+              </Link>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>עדכונים בקהילה</p>
             </TooltipContent>
           </Tooltip>
 

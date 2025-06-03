@@ -6,6 +6,7 @@ import { Card, CardHeader, CardContent, CardFooter } from "@/components/ui/card"
 import { Check } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
+import { useCart } from "@/contexts/CartContext";
 
 interface ScheduleSlot {
   id: string;
@@ -28,6 +29,7 @@ const InstructorSchedule: React.FC<InstructorScheduleProps> = ({
 }) => {
   const { toast } = useToast();
   const navigate = useNavigate();
+  const { addToCart } = useCart();
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
   const [selectedTimeSlot, setSelectedTimeSlot] = useState<string | null>(null);
   const [timeSlots, setTimeSlots] = useState<ScheduleSlot[]>([
@@ -75,11 +77,27 @@ const InstructorSchedule: React.FC<InstructorScheduleProps> = ({
 
   const handleAddToCartAndCheckout = () => {
     if (selectedDate && selectedTimeSlot) {
+      // Create a flight lesson product to add to cart
+      const flightProduct = {
+        id: Date.now(), // Generate unique ID
+        title: `שעת טיסה עם ${instructorName}`,
+        price: 500,
+        image: "/placeholder.svg",
+        category: "discounted-flight" as const,
+        description: `שעת טיסה מתוזמנת לתאריך ${selectedDate.toLocaleDateString('he-IL')} בשעה ${selectedTimeSlot} עם המדריך ${instructorName}`
+      };
+
+      // Add to cart
+      addToCart(flightProduct, 1);
+      
+      // Confirm the schedule
       onScheduleConfirmed(selectedDate, selectedTimeSlot);
+      
       toast({
         title: "נוסף לסל",
         description: `שעת טיסה נוספה לסל הקניות שלך`,
       });
+      
       navigate("/cart");
     } else {
       toast({

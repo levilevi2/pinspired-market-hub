@@ -8,6 +8,7 @@ import { Trash2, Plus, Minus, CreditCard, User } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import { Textarea } from "@/components/ui/textarea";
+
 const CartPage = () => {
   const {
     items,
@@ -47,6 +48,7 @@ const CartPage = () => {
       setStep("registration-required");
     }
   }, []);
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const {
       name,
@@ -57,9 +59,11 @@ const CartPage = () => {
       [name]: value
     }));
   };
+
   const handleRegisterRedirect = () => {
     navigate("/login");
   };
+
   const handleCheckout = () => {
     if (!isAuthenticated) {
       toast({
@@ -91,6 +95,7 @@ const CartPage = () => {
       // Would redirect to a thank you page or order confirmation in a real app
     }
   };
+
   if (items.length === 0) {
     return <div className="min-h-screen flex flex-col bg-blue-900/70">
         <Header />
@@ -99,7 +104,7 @@ const CartPage = () => {
           <div className="bg-white/10 backdrop-blur-md p-8 rounded-lg shadow-md text-center">
             <h2 className="text-xl font-medium text-white mb-4">סל הקניות שלך ריק</h2>
             <p className="text-white/80 mb-6">לא הוספת עדיין מוצרים לסל הקניות</p>
-            <Button asChild>
+            <Button asChild className="bg-green-600 hover:bg-green-700 text-white">
               <Link to="/">המשך בקניות</Link>
             </Button>
           </div>
@@ -137,7 +142,7 @@ const CartPage = () => {
                   עבור להרשמה
                 </Button>
                 
-                <Button variant="outline" className="w-full text-white border-white/30 hover:bg-white/10" asChild>
+                <Button variant="outline" className="w-full bg-green-600 hover:bg-green-700 text-white border-green-600" asChild>
                   <Link to="/">המשך בקניות</Link>
                 </Button>
               </div>
@@ -167,6 +172,7 @@ const CartPage = () => {
         </main>
       </div>;
   }
+
   return <div className="min-h-screen flex flex-col bg-blue-900/70">
       <Header />
       <main className="flex-1 px-4 sm:px-6 lg:px-8 max-w-screen-xl mx-auto py-8">
@@ -207,8 +213,8 @@ const CartPage = () => {
               </div>
               
               <div className="mt-6 flex justify-between">
-                <Button variant="outline" className="text-white border-white/30 hover:bg-white/10" asChild>
-                  <Link to="/" className="\u05E9\u05E0\u05D4 \u05DC\u05E6\u05D1\u05E2 \u05D9\u05E8\u05D5\u05E7">המשך בקניות</Link>
+                <Button variant="outline" className="bg-green-600 hover:bg-green-700 text-white border-green-600" asChild>
+                  <Link to="/">המשך בקניות</Link>
                 </Button>
                 
                 <Button variant="destructive" onClick={clearCart}>
@@ -294,4 +300,5 @@ const CartPage = () => {
       </main>
     </div>;
 };
+
 export default CartPage;

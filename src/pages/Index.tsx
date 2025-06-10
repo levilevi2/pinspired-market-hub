@@ -8,7 +8,6 @@ import AnimatedWorldMap from "@/components/AnimatedWorldMap";
 import { Users, Percent, Trophy } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
-
 const Index = () => {
   const navigate = useNavigate();
   const [activeFilter, setActiveFilter] = useState("all");
@@ -19,17 +18,13 @@ const Index = () => {
   const [raffleParticipants] = useState(1560); // Example value
   const maxRaffleParticipants = 3000;
   const raffleProgress = Math.round(raffleParticipants / maxRaffleParticipants * 100);
-
   const handleSearch = (query: string) => {
     setSearchQuery(query);
   };
-
   const handleViewPrizes = () => {
     navigate("/prizes");
   };
-
-  return (
-    <div className="min-h-screen flex flex-col relative">
+  return <div className="min-h-screen flex flex-col relative">
       <AnimatedWorldMap />
       <Header onSearch={handleSearch} />
       <main className="flex-1 px-4 sm:px-6 lg:px-8 max-w-screen-xl mx-auto py-6 relative z-10">
@@ -76,7 +71,7 @@ const Index = () => {
           </div>
         </div>
         
-        <div className="glass-card p-4 mb-6 py-0 px-0 mx-[240px] my-0">
+        <div className="glass-card p-4 mb-6 px-0 mx-[240px] py-[4px] my-[7px]">
           <FilterBar onFilterChange={setActiveFilter} />
         </div>
         
@@ -86,8 +81,6 @@ const Index = () => {
       </main>
       
       <SiteMap />
-    </div>
-  );
+    </div>;
 };
-
 export default Index;

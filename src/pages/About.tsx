@@ -8,57 +8,59 @@ const About = () => {
     <div className="min-h-screen flex flex-col relative">
       <AnimatedWorldMap />
       <Header />
-      <main className="flex-1 px-4 sm:px-6 lg:px-8 max-w-screen-xl mx-auto py-8 relative z-10">
-        <div className="glass-card p-8 mx-4 md:mx-8 lg:mx-16">
-          <h1 className="text-4xl font-bold mb-8 text-center text-white drop-shadow-lg">
-            אודות האתר
-          </h1>
-          
-          <div className="text-white space-y-6 text-lg leading-relaxed">
-            <p className="text-xl font-semibold text-center mb-8">
+      <main className="flex-1 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto py-8 relative z-10">
+        <div className="glass-card p-6 mx-4 md:mx-8 lg:mx-12">
+          <div className="text-white space-y-4 text-sm leading-relaxed text-center max-w-3xl mx-auto">
+            <h1 className="text-2xl font-bold mb-6 text-center text-white drop-shadow-lg">
               ברוכים הבאים למועדון התעופה שלנו – המקום שבו חלום ההמראה פוגש הזדמנות אמיתית.
-            </p>
+            </h1>
             
-            <p>
+            <p className="mb-4">
               אנחנו קהילה שנועדה לקרב את עולם התעופה לכל אחד ואחת מכם – בין אם אתם חובבי טיסה, 
-              חולמים להפוך לטייסים, או פשוט מחפשים חוויה ייחודית ושונה.
+              פרחי טיס בתחילת הדרך, או פשוט מחפשים חוויה ייחודית ושונה.
             </p>
             
-            <p>
-              באתר תמצאו מגוון מוצרים ייחודיים בתחום התעופה – גאדג'טים, פריטי אספנות, ציוד טיסה, 
-              אביזרי השראה ומתנות מקוריות. כל רכישה באתר אינה רק קנייה – היא כרטיס להגרלה על פרסים 
-              יוצאי דופן, ובהם גם פרס יוקרתי במיוחד: רישיון טיס פרטי בשווי 50,000 ש"ח!
-            </p>
-            
-            <p>
-              המטרה שלנו היא להפוך את הדרך לרישיון טיס לנגישה יותר, חווייתית, ומהנה – דרך מכירה 
-              חכמה ומודל של תמיכה הדדית בקהילה.
-            </p>
-            
-            <div className="mt-8">
-              <h2 className="text-2xl font-bold mb-6 text-center">מה מייחד אותנו?</h2>
+            <div className="mb-6">
+              <h2 className="text-lg font-bold mb-4">באתר תוכלו למצוא:</h2>
               
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="bg-white/10 backdrop-blur-sm p-6 rounded-lg">
-                  <h3 className="font-semibold mb-2">כל קנייה משתתפת אוטומטית בהגרלות תקופתיות</h3>
+              <div className="space-y-3 text-right">
+                <p>✈️ מכירת מוצרים ואביזרים ייחודיים לפרחי טיס – ציוד, גאדג'טים, מתנות ומזכרות מעולם התעופה.</p>
+                <p>📚 שיעורי טיסה מוזלים – בשיתוף מדריכי טיסה מוסמכים ובתי ספר לטיסה מובילים.</p>
+                <p>📅 סגירת שיעורי טיסה ותיאום תאריכים ישירות מול מדריך דרך האתר – קל, מהיר ומדויק.</p>
+                <p>🎁 חבילות טיסה משתלמות – הכוללות מספר שיעורים, התנסות בפיקוד או סיורים אוויריים.</p>
+                <p>🎉 הגרלות תקופתיות – כל רכישה באתר מקנה כרטיס להשתתפות בהגרלות, כשהפרס הגדול הוא רישיון טיס פרטי בשווי 50,000 ש"ח!</p>
+              </div>
+            </div>
+            
+            <p className="mb-4">
+              המטרה שלנו היא לא רק למכור – אלא לבנות מסלול המראה שלם עבורכם.
+              להפוך את עולם התעופה לנגיש, מהנה, שיתופי וחווייתי.
+            </p>
+            
+            <div className="mb-6">
+              <h2 className="text-lg font-bold mb-4">מה מייחד אותנו?</h2>
+              
+              <div className="grid md:grid-cols-2 gap-4 text-right">
+                <div className="bg-white/10 backdrop-blur-sm p-4 rounded-lg">
+                  <p className="text-sm">שילוב בין מכירת מוצרים לבין אפשרות ממשית להתחיל ללמוד לטוס</p>
                 </div>
                 
-                <div className="bg-white/10 backdrop-blur-sm p-6 rounded-lg">
-                  <h3 className="font-semibold mb-2">שיתופי פעולה עם בתי ספר לטיסה להנחות קבוצתיות</h3>
+                <div className="bg-white/10 backdrop-blur-sm p-4 rounded-lg">
+                  <p className="text-sm">מערכת נוחה לסגירת שיעורים וחבילות טיסה אונליין</p>
                 </div>
                 
-                <div className="bg-white/10 backdrop-blur-sm p-6 rounded-lg">
-                  <h3 className="font-semibold mb-2">הזדמנויות חד־פעמיות להיכרות עם עולם התעופה מקרוב</h3>
+                <div className="bg-white/10 backdrop-blur-sm p-4 rounded-lg">
+                  <p className="text-sm">חוויית קנייה עם ערך מוסף – כל רכישה מקדמת אתכם צעד נוסף לעבר השמיים</p>
                 </div>
                 
-                <div className="bg-white/10 backdrop-blur-sm p-6 rounded-lg">
-                  <h3 className="font-semibold mb-2">חוויית משתמש מהנה, אמינה ובטוחה</h3>
+                <div className="bg-white/10 backdrop-blur-sm p-4 rounded-lg">
+                  <p className="text-sm">קהילה גדלה של חובבי טיסה, טייסים, מדריכים ושותפים לדרך</p>
                 </div>
               </div>
             </div>
             
-            <p className="text-xl font-semibold text-center mt-8 bg-white/10 backdrop-blur-sm p-6 rounded-lg">
-              בין אם אתם רק ממריאים או כבר עפים גבוה – אנחנו כאן כדי ללוות אתכם.
+            <p className="text-sm font-semibold bg-white/10 backdrop-blur-sm p-4 rounded-lg">
+              בין אם אתם רק חולמים להמריא או כבר בדרך לקבל את הכנפיים – אנחנו כאן בשבילכם, עם כל הכלים, התמיכה וההזדמנויות שאתם צריכים כדי לעוף קדימה.
             </p>
           </div>
         </div>

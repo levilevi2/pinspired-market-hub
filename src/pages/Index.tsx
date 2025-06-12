@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
@@ -8,6 +9,7 @@ import AnimatedWorldMap from "@/components/AnimatedWorldMap";
 import { Users, Percent, Trophy } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
+
 const Index = () => {
   const navigate = useNavigate();
   const [activeFilter, setActiveFilter] = useState("all");
@@ -18,17 +20,20 @@ const Index = () => {
   const [raffleParticipants] = useState(1560); // Example value
   const maxRaffleParticipants = 3000;
   const raffleProgress = Math.round(raffleParticipants / maxRaffleParticipants * 100);
+
   const handleSearch = (query: string) => {
     setSearchQuery(query);
   };
+
   const handleViewPrizes = () => {
     navigate("/prizes");
   };
-  return <div className="min-h-screen flex flex-col relative">
+
+  return (
+    <div className="min-h-screen flex flex-col relative">
       <AnimatedWorldMap />
       <Header onSearch={handleSearch} />
       <main className="flex-1 px-4 sm:px-6 lg:px-8 max-w-screen-xl mx-auto py-6 relative z-10">
-        <h1 className="text-3xl font-bold mb-6 text-center text-white drop-shadow-lg">מוצרים מומלצים</h1>
         
         <div className="flex flex-col md:flex-row justify-between items-center mb-6 glass-card p-6 float-animation py-0 mx-[120px] my-0 px-[18px] rounded-2xl">
           <div className="flex items-center mb-3 md:mb-0 px-0 py-0 mx-0">
@@ -70,6 +75,8 @@ const Index = () => {
             </div>
           </div>
         </div>
+
+        <h1 className="text-3xl font-bold mb-6 text-center text-white drop-shadow-lg">מוצרים מומלצים</h1>
         
         <div className="glass-card p-4 mb-6 px-0 mx-[240px] py-[4px] my-[7px]">
           <FilterBar onFilterChange={setActiveFilter} />
@@ -81,6 +88,8 @@ const Index = () => {
       </main>
       
       <SiteMap />
-    </div>;
+    </div>
+  );
 };
+
 export default Index;

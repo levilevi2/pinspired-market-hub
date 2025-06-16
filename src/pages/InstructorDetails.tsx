@@ -1,10 +1,10 @@
-
 import React from "react";
 import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import InstructorCard, { Instructor } from "@/components/InstructorCard";
+import FlightCoursesDrawer from "@/components/FlightCoursesDrawer";
 
 const InstructorDetails: React.FC = () => {
   const instructors: Instructor[] = [
@@ -90,14 +90,21 @@ const InstructorDetails: React.FC = () => {
     <div className="min-h-screen flex flex-col bg-blue-900/70">
       <Header />
       <main className="flex-1 px-4 sm:px-6 lg:px-8 max-w-screen-xl mx-auto py-8">
-        <div className="mb-6 flex items-center">
-          <Button variant="ghost" size="sm" asChild className="text-white mr-2">
-            <Link to="/discounted-flight">
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              חזרה
-            </Link>
-          </Button>
-          <h1 className="text-3xl font-bold text-white">מדריכי הטיסה שלנו</h1>
+        <div className="mb-6 flex items-center justify-between">
+          <div className="flex items-center">
+            <Button variant="ghost" size="sm" asChild className="text-white mr-2">
+              <Link to="/discounted-flight">
+                <ArrowLeft className="mr-2 h-4 w-4" />
+                חזרה
+              </Link>
+            </Button>
+            <h1 className="text-3xl font-bold text-white">מדריכי הטיסה שלנו</h1>
+          </div>
+          
+          {/* Flight Courses Drawer */}
+          <div className="fixed top-4 left-4 z-50">
+            <FlightCoursesDrawer />
+          </div>
         </div>
 
         <div className="mb-6">

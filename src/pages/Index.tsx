@@ -6,6 +6,7 @@ import FilterBar from "@/components/FilterBar";
 import ProductGrid from "@/components/ProductGrid";
 import SiteMap from "@/components/SiteMap";
 import AnimatedWorldMap from "@/components/AnimatedWorldMap";
+import FlightCoursesDrawer from "@/components/FlightCoursesDrawer";
 import { Users, Percent, Trophy } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
@@ -74,6 +75,11 @@ const Index = () => {
               <span>יעד: {maxRaffleParticipants.toLocaleString()} משתתפים</span>
             </div>
           </div>
+        </div>
+
+        {/* Flight Courses Drawer */}
+        <div className="flex justify-center mb-6">
+          <FlightCoursesDrawer />
         </div>
 
         <h1 className="text-3xl font-bold mb-6 text-center text-white drop-shadow-lg">מוצרים מומלצים</h1>

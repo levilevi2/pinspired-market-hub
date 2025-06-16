@@ -12,6 +12,7 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { GraduationCap, Plane, Users, Clock, BookOpen, Trophy, Heart, DollarSign } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const courses = [
   {
@@ -93,11 +94,27 @@ const courses = [
 
 const FlightCoursesDrawer = () => {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleCourseClick = () => {
+    navigate("/instructor-details");
+    setOpen(false);
+  };
+
+  const handleMainButtonClick = () => {
+    const productSection = document.querySelector('h1');
+    if (productSection) {
+      productSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>
-        <Button className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded-lg shadow-lg">
+        <Button 
+          className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded-lg shadow-lg"
+          onClick={handleMainButtonClick}
+        >
           <GraduationCap className="mr-2 h-5 w-5" />
           קורסי טיסה
         </Button>
@@ -118,6 +135,7 @@ const FlightCoursesDrawer = () => {
                   <div
                     key={index}
                     className="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 cursor-pointer transition-colors"
+                    onClick={handleCourseClick}
                   >
                     <IconComponent className="h-5 w-5 text-blue-600 mr-3 flex-shrink-0" />
                     <div className="flex-1 min-w-0">

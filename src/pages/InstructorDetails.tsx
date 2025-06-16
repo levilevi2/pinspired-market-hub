@@ -1,3 +1,4 @@
+
 import React from "react";
 import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
@@ -15,10 +16,10 @@ const InstructorDetails: React.FC = () => {
       hourlyRate: 450,
       rating: 4.8,
       totalFlights: 1200,
-      specialties: ["טיסות לילה", "ניווט מתקדם", "הדרכת מתחילים"],
+      specialties: ["PPL - קורס טיס פרטי", "טיסות לילה", "הדרכת מתחילים"],
       aircraftTypes: ["Cessna 172", "Piper Cherokee", "Diamond DA40"],
       location: "שדה התעופה הרצליה",
-      description: "מדריך טיסה מנוסה עם התמחות בהדרכת תלמידים מתחילים. בעל ניסיון רב בטיסות אווירובטיקה וניווט מתקדם.",
+      description: "מדריך טיסה מנוסה עם התמחות בהדרכת תלמידים מתחילים לקורס PPL. בעל ניסיון רב בטיסות לילה וניווט מתקדם.",
       image: "/api/placeholder/64/64",
       flightSettings: {
         maxAltitude: "3,000 רגל",
@@ -34,10 +35,10 @@ const InstructorDetails: React.FC = () => {
       hourlyRate: 420,
       rating: 4.9,
       totalFlights: 950,
-      specialties: ["טיסות פנורמיות", "צילום אווירי", "טיסות חוף"],
+      specialties: ["CPL - קורס טיס מסחרי", "טיסות פנורמיות", "צילום אווירי"],
       aircraftTypes: ["Piper Cherokee", "Cessna 182", "Beechcraft Bonanza"],
       location: "שדה התעופה בן גוריון",
-      description: "מדריכה מקצועית עם התמחות בטיסות פנורמיות וצילום אווירי. מתמחה בהדרכה עדינה ומותאמת אישית.",
+      description: "מדריכה מקצועית עם התמחות בקורס CPL וטיסות מסחריות. מתמחה בהדרכה עדינה ומותאמת אישית.",
       image: "/api/placeholder/64/64",
       flightSettings: {
         maxAltitude: "2,500 רגל",
@@ -53,10 +54,10 @@ const InstructorDetails: React.FC = () => {
       hourlyRate: 500,
       rating: 4.7,
       totalFlights: 1800,
-      specialties: ["אווירובטיקה", "טיסות מתקדמות", "הכנה לבחינות"],
-      aircraftTypes: ["Extra 300", "Pitts Special", "Cessna 172"],
+      specialties: ["ATPL - קורס טייס קווים", "אווירובטיקה", "הכנה לבחינות"],
+      aircraftTypes: ["Extra 300", "Pitts Special", "Boeing 737 Sim"],
       location: "שדה התעופה קרית שמונה",
-      description: "מדריך בכיר עם ניסיון נרחב באווירובטיקה וטיסות מתקדמות. מתמחה בהכנת תלמידים לבחינות רשיון טיס מסחרי.",
+      description: "מדריך בכיר עם ניסיון נרחב בקורס ATPL וטיסות מתקדמות. מתמחה בהכנת תלמידים לבחינות רשיון טיס של חברות תעופה.",
       image: "/api/placeholder/64/64",
       flightSettings: {
         maxAltitude: "5,000 רגל",
@@ -72,16 +73,168 @@ const InstructorDetails: React.FC = () => {
       hourlyRate: 380,
       rating: 4.6,
       totalFlights: 600,
-      specialties: ["טיסות תיירות", "ניווט בסיסי", "הדרכת נשים"],
+      specialties: ["שיעור טיסה היכרות", "טיסות תיירות", "הדרכת נשים"],
       aircraftTypes: ["Cessna 150", "Piper Cherokee", "Diamond DA20"],
       location: "שדה התעופה חיפה",
-      description: "מדריכה צעירה ומקצועית עם גישה חדשנית להדרכה. מתמחה בטיסות תיירות והדרכת נשים בסביבה נוחה.",
+      description: "מדריכה צעירה ומקצועית עם גישה חדשנית להדרכה. מתמחה בשיעורי היכרות וטיסות תיירות בסביבה נוחה.",
       image: "/api/placeholder/64/64",
       flightSettings: {
         maxAltitude: "2,000 רגל",
         flightZone: "מפרץ חיפה",
         aircraftModel: "Cessna 150M",
         safetyLevel: "גבוהה"
+      }
+    },
+    {
+      id: "inst5",
+      name: "אבי שמעון",
+      experience: 18,
+      hourlyRate: 470,
+      rating: 4.9,
+      totalFlights: 1500,
+      specialties: ["FI - קורס מדריך טיסה", "הכשרת מדריכים", "בדיקות טיסה"],
+      aircraftTypes: ["Cessna 172", "Piper Cherokee", "Diamond DA40"],
+      location: "שדה התעופה הרצליה",
+      description: "מדריך מדריכים מנוסה עם התמחות בהכשרת דור הבא של מדריכי הטיסה. בעל ניסיון רב בבדיקות טיסה ואישורים.",
+      image: "/api/placeholder/64/64",
+      flightSettings: {
+        maxAltitude: "4,000 רגל",
+        flightZone: "מרכז הארץ",
+        aircraftModel: "Cessna 172R",
+        safetyLevel: "גבוהה מאוד"
+      }
+    },
+    {
+      id: "inst6",
+      name: "תמר גולן",
+      experience: 14,
+      hourlyRate: 520,
+      rating: 4.8,
+      totalFlights: 1100,
+      specialties: ["IR - טיסת מכשירים", "טיסות לילה", "טיסה עיוורת"],
+      aircraftTypes: ["Cessna 172", "Piper Cherokee", "Beechcraft Baron"],
+      location: "שדה התעופה בן גוריון",
+      description: "מומחית בטיסת מכשירים וטיסות בתנאי ראות מוגבלת. מתמחה בהדרכה לטיסות לילה ותנאי מזג אוויר קשים.",
+      image: "/api/placeholder/64/64",
+      flightSettings: {
+        maxAltitude: "6,000 רגל",
+        flightZone: "מרכז הארץ",
+        aircraftModel: "Cessna 172SP",
+        safetyLevel: "גבוהה מאוד"
+      }
+    },
+    {
+      id: "inst7",
+      name: "רון אברהם",
+      experience: 16,
+      hourlyRate: 490,
+      rating: 4.7,
+      totalFlights: 1350,
+      specialties: ["ME - טיסה דו-מנועית", "מטוסים מתקדמים", "הדרכה טכנית"],
+      aircraftTypes: ["Beechcraft Baron", "Piper Seneca", "Diamond DA42"],
+      location: "שדה התעופה הרצליה",
+      description: "מדריך מנוסה במטוסים דו-מנועיים ומערכות מתקדמות. מתמחה בהעברת ידע טכני והדרכה על מטוסים מורכבים.",
+      image: "/api/placeholder/64/64",
+      flightSettings: {
+        maxAltitude: "8,000 רגל",
+        flightZone: "צפון תל אביב",
+        aircraftModel: "Beechcraft Baron 58",
+        safetyLevel: "גבוהה"
+      }
+    },
+    {
+      id: "inst8",
+      name: "שרה כץ",
+      experience: 10,
+      hourlyRate: 390,
+      rating: 4.8,
+      totalFlights: 750,
+      specialties: ["תיאוריה", "הכנה למבחנים", "לימוד תיאורטי"],
+      aircraftTypes: ["Cessna 172", "Simulator"],
+      location: "מרכז ההדרכה תל אביב",
+      description: "מומחית בהוראת תיאוריית הטיסה והכנה למבחני רישוי. מתמחה בהסברים ברורים ושיטות לימוד יעילות.",
+      image: "/api/placeholder/64/64",
+      flightSettings: {
+        maxAltitude: "כיתה/סימולטור",
+        flightZone: "מרכז הדרכה",
+        aircraftModel: "סימולטור מתקדם",
+        safetyLevel: "גבוהה מאוד"
+      }
+    },
+    {
+      id: "inst9",
+      name: "יגאל דנינו",
+      experience: 22,
+      hourlyRate: 550,
+      rating: 4.9,
+      totalFlights: 2000,
+      specialties: ["סימולטור טיסה", "הדרכה מתקדמת", "מצבי חירום"],
+      aircraftTypes: ["Boeing 737 Sim", "Airbus A320 Sim", "Cessna Citation"],
+      location: "מרכז סימולציה בן גוריון",
+      description: "מדריך בכיר עם התמחות בסימולטורי טיסה מתקדמים. מתמחה בהדרכה למצבי חירום וטיסות מורכבות.",
+      image: "/api/placeholder/64/64",
+      flightSettings: {
+        maxAltitude: "35,000 רגל",
+        flightZone: "סימולטור מלא",
+        aircraftModel: "Boeing 737-800",
+        safetyLevel: "גבוהה מאוד"
+      }
+    },
+    {
+      id: "inst10",
+      name: "נועה אלון",
+      experience: 7,
+      hourlyRate: 350,
+      rating: 4.7,
+      totalFlights: 450,
+      specialties: ["קורס ריענון", "חזרה לטיסה", "שיעורים זוגיים"],
+      aircraftTypes: ["Cessna 150", "Piper Cherokee"],
+      location: "שדה התעופה חיפה",
+      description: "מדריכה המתמחה בקורסי ריענון לטייסים חוזרים ושיעורי טיסה זוגיים. גישה סבלנית ומותאמת אישית.",
+      image: "/api/placeholder/64/64",
+      flightSettings: {
+        maxAltitude: "2,500 רגל",
+        flightZone: "צפון הארץ",
+        aircraftModel: "Cessna 150",
+        safetyLevel: "גבוהה"
+      }
+    },
+    {
+      id: "inst11",
+      name: "עמוס גרין",
+      experience: 25,
+      hourlyRate: 400,
+      rating: 4.6,
+      totalFlights: 2200,
+      specialties: ["מלגות וסיוע", "הדרכה כלכלית", "תוכניות מיוחדות"],
+      aircraftTypes: ["Cessna 172", "Piper Cherokee"],
+      location: "משרד ניהול מלגות",
+      description: "רכז מלגות ותוכניות סיוע כלכלי לקורסי טיסה. מתמחה בייעוץ כלכלי ובניית תוכניות תשלום מותאמות.",
+      image: "/api/placeholder/64/64",
+      flightSettings: {
+        maxAltitude: "ייעוץ משרדי",
+        flightZone: "כל הארץ",
+        aircraftModel: "תוכניות מותאמות",
+        safetyLevel: "גבוהה"
+      }
+    },
+    {
+      id: "inst12",
+      name: "אילן ברק",
+      experience: 13,
+      hourlyRate: 320,
+      rating: 4.8,
+      totalFlights: 850,
+      specialties: ["מסלול מלא PPL-ATPL", "ליווי אישי", "תכנון קריירה"],
+      aircraftTypes: ["Cessna 172", "Piper Cherokee", "Simulator"],
+      location: "מרכז ההדרכה הרצליה",
+      description: "מדריך המתמחה בליווי תלמידים לאורך המסלול המלא מרישיון פרטי ועד טייס קווים. מתמחה בתכנון קריירה בתעופה.",
+      image: "/api/placeholder/64/64",
+      flightSettings: {
+        maxAltitude: "משתנה לפי שלב",
+        flightZone: "כל הארץ",
+        aircraftModel: "מגוון מטוסים",
+        safetyLevel: "גבוהה מאוד"
       }
     }
   ];
@@ -100,11 +253,11 @@ const InstructorDetails: React.FC = () => {
             </Button>
             <h1 className="text-3xl font-bold text-white">מדריכי הטיסה שלנו</h1>
           </div>
-          
-          {/* Flight Courses Drawer */}
-          <div className="fixed top-4 left-4 z-50">
-            <FlightCoursesDrawer />
-          </div>
+        </div>
+
+        {/* Flight Courses Drawer - Centered */}
+        <div className="flex justify-center mb-6">
+          <FlightCoursesDrawer />
         </div>
 
         <div className="mb-6">

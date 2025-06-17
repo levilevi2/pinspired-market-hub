@@ -119,8 +119,8 @@ const FlightCoursesDrawer = () => {
           קורסי טיסה
         </Button>
       </DrawerTrigger>
-      <DrawerContent className="max-h-[85vh]">
-        <div className="mx-auto w-full max-w-sm">
+      <DrawerContent className="max-h-[85vh] bg-transparent border-none shadow-none">
+        <div className="mx-auto w-full max-w-sm bg-white/95 backdrop-blur-md rounded-lg shadow-xl border border-white/20">
           <DrawerHeader>
             <DrawerTitle className="text-center text-xl font-bold">קורסי טיסה ושירותים</DrawerTitle>
             <DrawerDescription className="text-center">

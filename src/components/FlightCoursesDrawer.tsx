@@ -12,6 +12,7 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { GraduationCap, Plane, Users, Clock, BookOpen, Trophy, Heart, DollarSign } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const courses = [
   {
@@ -107,14 +108,20 @@ const courses = [
 ];
 
 interface FlightCoursesDrawerProps {
-  onCourseSelect: (filterKey: string) => void;
+  onCourseSelect?: (filterKey: string) => void;
 }
 
 const FlightCoursesDrawer = ({ onCourseSelect }: FlightCoursesDrawerProps) => {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleCourseClick = (filterKey: string) => {
-    onCourseSelect(filterKey);
+    if (onCourseSelect) {
+      onCourseSelect(filterKey);
+    } else {
+      // Default behavior: navigate to instructor details with filter
+      navigate(`/instructor-details?course=${filterKey}`);
+    }
     setOpen(false);
   };
 
@@ -123,6 +130,16 @@ const FlightCoursesDrawer = ({ onCourseSelect }: FlightCoursesDrawerProps) => {
     if (productSection) {
       productSection.scrollIntoView({ behavior: 'smooth' });
     }
+  };
+
+  const handleShowAllInstructors = () => {
+    if (onCourseSelect) {
+      onCourseSelect('all');
+    } else {
+      // Default behavior: navigate to instructor details
+      navigate('/instructor-details');
+    }
+    setOpen(false);
   };
 
   return (
@@ -136,7 +153,7 @@ const FlightCoursesDrawer = ({ onCourseSelect }: FlightCoursesDrawerProps) => {
           קורסי טיסה
         </Button>
       </DrawerTrigger>
-      <DrawerContent className="max-h-[85vh] bg-blue-900/70 border-none shadow-none">
+      <DrawerContent className="max-h-[85vh] bg-blue-900/50 backdrop-blur-md border-none shadow-none">
         <div className="mx-auto w-full max-w-sm bg-white/95 backdrop-blur-md rounded-lg shadow-xl border border-white/20">
           <DrawerHeader>
             <DrawerTitle className="text-center text-xl font-bold">קורסי טיסה ושירותים</DrawerTitle>
@@ -170,7 +187,7 @@ const FlightCoursesDrawer = ({ onCourseSelect }: FlightCoursesDrawerProps) => {
           </div>
           <DrawerFooter>
             <Button 
-              onClick={() => onCourseSelect('all')}
+              onClick={handleShowAllInstructors}
               className="mb-2 bg-blue-600 hover:bg-blue-700 text-white"
             >
               הצג את כל המדריכים

@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -143,62 +142,64 @@ const FlightCoursesDrawer = ({ onCourseSelect }: FlightCoursesDrawerProps) => {
   };
 
   return (
-    <Drawer open={open} onOpenChange={setOpen}>
-      <DrawerTrigger asChild>
-        <Button 
-          className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded-lg shadow-lg"
-          onClick={handleMainButtonClick}
-        >
-          <GraduationCap className="mr-2 h-5 w-5" />
-          קורסי טיסה
-        </Button>
-      </DrawerTrigger>
-      <DrawerContent className="max-h-[85vh] bg-blue-900/50 backdrop-blur-md border-none shadow-none">
-        <div className="mx-auto w-full max-w-sm bg-white/95 backdrop-blur-md rounded-lg shadow-xl border border-white/20">
-          <DrawerHeader>
-            <DrawerTitle className="text-center text-xl font-bold">קורסי טיסה ושירותים</DrawerTitle>
-            <DrawerDescription className="text-center">
-              בחרו מתוך מגוון הקורסים והשירותים שלנו
-            </DrawerDescription>
-          </DrawerHeader>
-          <div className="p-4 pb-0 max-h-[50vh] overflow-y-auto">
-            <div className="space-y-3">
-              {courses.map((course, index) => {
-                const IconComponent = course.icon;
-                return (
-                  <div
-                    key={index}
-                    className="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 cursor-pointer transition-colors"
-                    onClick={() => handleCourseClick(course.filterKey)}
-                  >
-                    <IconComponent className="h-5 w-5 text-blue-600 mr-3 flex-shrink-0" />
-                    <div className="flex-1 min-w-0">
-                      <h3 className="font-medium text-sm text-gray-900 truncate">
-                        {course.title}
-                      </h3>
-                      <p className="text-xs text-gray-600 mt-1">
-                        {course.description}
-                      </p>
+    <div className="fixed bottom-6 right-6 z-50">
+      <Drawer open={open} onOpenChange={setOpen}>
+        <DrawerTrigger asChild>
+          <Button 
+            className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 animate-pulse"
+            onClick={handleMainButtonClick}
+          >
+            <GraduationCap className="mr-2 h-5 w-5" />
+            קורסי טיסה
+          </Button>
+        </DrawerTrigger>
+        <DrawerContent className="max-h-[85vh] bg-blue-900/50 backdrop-blur-md border-none shadow-none">
+          <div className="mx-auto w-full max-w-sm bg-white/95 backdrop-blur-md rounded-lg shadow-xl border border-white/20">
+            <DrawerHeader>
+              <DrawerTitle className="text-center text-xl font-bold">קורסי טיסה ושירותים</DrawerTitle>
+              <DrawerDescription className="text-center">
+                בחרו מתוך מגוון הקורסים והשירותים שלנו
+              </DrawerDescription>
+            </DrawerHeader>
+            <div className="p-4 pb-0 max-h-[50vh] overflow-y-auto">
+              <div className="space-y-3">
+                {courses.map((course, index) => {
+                  const IconComponent = course.icon;
+                  return (
+                    <div
+                      key={index}
+                      className="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 cursor-pointer transition-colors"
+                      onClick={() => handleCourseClick(course.filterKey)}
+                    >
+                      <IconComponent className="h-5 w-5 text-blue-600 mr-3 flex-shrink-0" />
+                      <div className="flex-1 min-w-0">
+                        <h3 className="font-medium text-sm text-gray-900 truncate">
+                          {course.title}
+                        </h3>
+                        <p className="text-xs text-gray-600 mt-1">
+                          {course.description}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
+            <DrawerFooter>
+              <Button 
+                onClick={handleShowAllInstructors}
+                className="mb-2 bg-blue-600 hover:bg-blue-700 text-white"
+              >
+                הצג את כל המדריכים
+              </Button>
+              <DrawerClose asChild>
+                <Button variant="outline">סגור</Button>
+              </DrawerClose>
+            </DrawerFooter>
           </div>
-          <DrawerFooter>
-            <Button 
-              onClick={handleShowAllInstructors}
-              className="mb-2 bg-blue-600 hover:bg-blue-700 text-white"
-            >
-              הצג את כל המדריכים
-            </Button>
-            <DrawerClose asChild>
-              <Button variant="outline">סגור</Button>
-            </DrawerClose>
-          </DrawerFooter>
-        </div>
-      </DrawerContent>
-    </Drawer>
+        </DrawerContent>
+      </Drawer>
+    </div>
   );
 };
 

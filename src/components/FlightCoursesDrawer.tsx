@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Drawer,
@@ -112,7 +112,17 @@ interface FlightCoursesDrawerProps {
 
 const FlightCoursesDrawer = ({ onCourseSelect }: FlightCoursesDrawerProps) => {
   const [open, setOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 100);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const handleCourseClick = (filterKey: string) => {
     if (onCourseSelect) {
@@ -142,11 +152,15 @@ const FlightCoursesDrawer = ({ onCourseSelect }: FlightCoursesDrawerProps) => {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50">
+    <div className={`fixed z-50 transition-all duration-300 ${
+      isScrolled 
+        ? 'bottom-6 right-6' 
+        : 'top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'
+    }`}>
       <Drawer open={open} onOpenChange={setOpen}>
         <DrawerTrigger asChild>
           <Button 
-            className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 animate-pulse"
+            className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200"
             onClick={handleMainButtonClick}
           >
             <GraduationCap className="mr-2 h-5 w-5" />

@@ -5,6 +5,7 @@ import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import InstructorCard, { Instructor } from "@/components/InstructorCard";
 import FlightCoursesDrawer from "@/components/FlightCoursesDrawer";
+
 const InstructorDetails: React.FC = () => {
   const [selectedCourse, setSelectedCourse] = useState<string>('all');
   const instructors: Instructor[] = [{
@@ -248,9 +249,16 @@ const InstructorDetails: React.FC = () => {
     const searchTerm = filterMap[course] || course;
     return instructors.filter(instructor => instructor.specialties.some(specialty => specialty.includes(searchTerm) || specialty.toLowerCase().includes(searchTerm.toLowerCase())));
   };
+
   const filteredInstructors = filterInstructorsByCourse(selectedCourse);
-  return <div className="min-h-screen flex flex-col bg-blue-900/70">
+
+  return (
+    <div className="min-h-screen flex flex-col bg-blue-900/70">
       <Header />
+      
+      {/* Flight Courses Drawer - Now floating */}
+      <FlightCoursesDrawer onCourseSelect={setSelectedCourse} />
+      
       <main className="flex-1 px-4 sm:px-6 lg:px-8 max-w-screen-xl mx-auto py-8">
         <div className="mb-6 flex items-center justify-between">
           <div className="flex items-center">
@@ -264,11 +272,6 @@ const InstructorDetails: React.FC = () => {
           </div>
         </div>
 
-        {/* Flight Courses Drawer - Centered */}
-        <div className="flex justify-center mb-6">
-          <FlightCoursesDrawer onCourseSelect={setSelectedCourse} />
-        </div>
-
         <div className="mb-6">
           <p className="text-white/80 text-lg text-right">
             {selectedCourse === 'all' ? 'בחר את המדריך המתאים לך מתוך צוות המדריכים המקצועיים שלנו' : `מציג מדריכים עבור: ${selectedCourse === 'PPL' ? 'קורס טיס פרטי' : selectedCourse === 'CPL' ? 'קורס טיס מסחרי' : selectedCourse === 'ATPL' ? 'קורס טייס קווים' : selectedCourse === 'FI' ? 'קורס מדריך טיסה' : selectedCourse === 'IR' ? 'טיסת מכשירים' : selectedCourse === 'ME' ? 'טיסה דו-מנועית' : selectedCourse === 'היכרות' ? 'שיעור היכרות' : selectedCourse === 'מסלול מלא' ? 'מסלול מלא' : selectedCourse === 'תיאוריה' ? 'תיאוריה' : selectedCourse === 'סימולטור' ? 'סימולטור' : selectedCourse === 'ריענון' ? 'קורס ריענון' : selectedCourse === 'זוגי' ? 'שיעורים זוגיים' : selectedCourse === 'מלגות' ? 'מלגות וסיוע' : selectedCourse} (${filteredInstructors.length} מדריכים)`}
@@ -276,12 +279,16 @@ const InstructorDetails: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6" dir="rtl">
-          {filteredInstructors.map(instructor => <InstructorCard key={instructor.id} instructor={instructor} />)}
+          {filteredInstructors.map(instructor => (
+            <InstructorCard key={instructor.id} instructor={instructor} />
+          ))}
         </div>
 
-        {filteredInstructors.length === 0 && <div className="text-center py-12">
+        {filteredInstructors.length === 0 && (
+          <div className="text-center py-12">
             <p className="text-white/80 text-lg">לא נמצאו מדריכים עבור הקורס שנבחר</p>
-          </div>}
+          </div>
+        )}
 
         <div className="mt-8 bg-white/10 backdrop-blur-md rounded-lg p-6 border border-white/20">
           <h3 className="text-xl font-bold text-white mb-4 text-right">הערות חשובות:</h3>
@@ -295,6 +302,8 @@ const InstructorDetails: React.FC = () => {
           </ul>
         </div>
       </main>
-    </div>;
+    </div>
+  );
 };
+
 export default InstructorDetails;

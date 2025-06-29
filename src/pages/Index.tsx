@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
@@ -87,11 +88,11 @@ const Index = () => {
           <FlightCoursesDrawer />
         </div>
 
-        <h1 className="text-3xl font-bold mb-6 text-center text-white drop-shadow-lg">מוצרים מומלצים</h1>
-        
         <div className="glass-card p-4 mb-6 px-0 mx-[240px] py-[4px] my-[7px]">
           <FilterBar onFilterChange={setActiveFilter} />
         </div>
+        
+        <h1 className="text-3xl font-bold mb-6 text-center text-white drop-shadow-lg">מוצרים מומלצים</h1>
         
         <div className="mt-6">
           <ProductGrid filter={activeFilter} searchQuery={searchQuery} />

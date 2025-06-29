@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import ProductCard, { Product } from "./ProductCard";
 import ProductModal from "./ProductModal";
@@ -116,7 +117,7 @@ const ProductGrid: React.FC<ProductGridProps> = ({ filter, searchQuery }) => {
 
   return (
     <>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 max-h-[50vh] overflow-y-auto pb-4">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 pb-4">
         {filteredProducts.map((product) => (
           <div key={product.id} className="animate-fade-in" style={{animationDelay: `${product.id * 0.05}s`}}>
             <ProductCard product={product} onClick={handleProductClick} />

@@ -1,5 +1,4 @@
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -50,14 +49,19 @@ const instructorFormSchema = z.object({
 
 interface SignupFormProps {
   onClose: () => void;
+  defaultTab?: string;
 }
 
-const SignupForm: React.FC<SignupFormProps> = ({ onClose }) => {
+const SignupForm: React.FC<SignupFormProps> = ({ onClose, defaultTab = "student" }) => {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState("student");
+  const [activeTab, setActiveTab] = useState(defaultTab);
   const [pilotLicense, setPilotLicense] = useState<File | null>(null);
   const [idPhoto, setIdPhoto] = useState<File | null>(null);
   
+  useEffect(() => {
+    setActiveTab(defaultTab);
+  }, [defaultTab]);
+
   const userForm = useForm<z.infer<typeof userFormSchema>>({
     resolver: zodResolver(userFormSchema),
     defaultValues: {

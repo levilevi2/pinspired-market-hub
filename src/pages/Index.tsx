@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
@@ -7,14 +6,18 @@ import ProductGrid from "@/components/ProductGrid";
 import SiteMap from "@/components/SiteMap";
 import AnimatedWorldMap from "@/components/AnimatedWorldMap";
 import FlightCoursesDrawer from "@/components/FlightCoursesDrawer";
-import { Users, Percent, Trophy } from "lucide-react";
+import SignupForm from "@/components/SignupForm";
+import { Users, Percent, Trophy, UserPlus } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
 const Index = () => {
   const navigate = useNavigate();
   const [activeFilter, setActiveFilter] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
+  const [isSignupOpen, setIsSignupOpen] = useState(false);
+  const [signupTab, setSignupTab] = useState("student");
 
   // Dynamic values for friends and raffle participants
   const [friendsCount] = useState(842); // Example value
@@ -29,6 +32,11 @@ const Index = () => {
   const handleViewPrizes = () => {
     console.log("Navigating to prizes page");
     navigate("/prizes");
+  };
+
+  const handleInstructorSignup = () => {
+    setSignupTab("instructor");
+    setIsSignupOpen(true);
   };
 
   return (
@@ -83,9 +91,23 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Flight Courses Drawer */}
-        <div className="flex justify-center mb-6">
+        {/* Flight Courses Drawer and Instructor Signup */}
+        <div className="flex justify-center gap-4 mb-6">
           <FlightCoursesDrawer />
+          <Dialog open={isSignupOpen} onOpenChange={setIsSignupOpen}>
+            <DialogTrigger asChild>
+              <Button 
+                onClick={handleInstructorSignup}
+                className="bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-3 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200"
+              >
+                <UserPlus className="mr-2 h-5 w-5" />
+                הרשמה כמדריך
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[900px] max-h-[90vh] overflow-y-auto">
+              <SignupForm onClose={() => setIsSignupOpen(false)} defaultTab={signupTab} />
+            </DialogContent>
+          </Dialog>
         </div>
 
         <div className="glass-card p-4 mb-6 px-0 mx-[240px] py-[4px] my-[7px]">

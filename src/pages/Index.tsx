@@ -101,7 +101,7 @@ const Index = () => {
                 className="bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-3 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200"
               >
                 <UserPlus className="mr-2 h-5 w-5" />
-                הרשמה כמדריך
+                הרשמה כמדריך/מתלמד
               </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[900px] max-h-[90vh] overflow-y-auto">

@@ -30,10 +30,10 @@ const Index = () => {
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
-      setIsScrolled(scrollPosition > 100);
+      setIsScrolled(scrollPosition > 150);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -57,10 +57,10 @@ const Index = () => {
       <Header onSearch={handleSearch} />
       <main className="flex-1 px-2 sm:px-4 lg:px-8 max-w-screen-xl mx-auto py-4 sm:py-6 relative z-10">
         
-        {/* Stats Card - Mobile and Desktop responsive */}
-        <div className={`flex flex-col md:flex-row justify-between items-center mb-4 sm:mb-6 glass-card p-3 sm:p-6 float-animation rounded-2xl transition-all duration-1000 ease-out ${
+        {/* Stats Card - Improved mobile and desktop responsive */}
+        <div className={`flex flex-col md:flex-row justify-between items-center mb-4 sm:mb-6 glass-card p-3 sm:p-6 float-animation rounded-2xl transition-all duration-500 ease-in-out ${
           isScrolled && window.innerWidth >= 1024
-            ? 'fixed top-20 right-6 w-[280px] z-30 mx-0 transform translate-x-0 scale-95 opacity-90' 
+            ? 'fixed top-20 right-4 w-[300px] z-30 mx-0 transform translate-x-0 scale-90 shadow-2xl' 
             : 'mx-2 sm:mx-[120px] my-0 w-auto'
         }`}>
           <div className="flex items-center mb-3 md:mb-0 w-full md:w-auto justify-center md:justify-start">
@@ -109,10 +109,10 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Action Buttons - Mobile responsive */}
-        <div className={`flex flex-col sm:flex-row justify-center gap-2 sm:gap-4 mb-4 sm:mb-6 px-2 sm:px-0 transition-all duration-1000 ease-out ${
+        {/* Action Buttons - Improved mobile responsive */}
+        <div className={`flex flex-col sm:flex-row justify-center gap-2 sm:gap-4 mb-4 sm:mb-6 px-2 sm:px-0 transition-all duration-500 ease-in-out ${
           isScrolled && window.innerWidth >= 1024
-            ? 'fixed top-[320px] right-6 z-30 flex-col w-[280px] transform translate-x-0' 
+            ? 'fixed top-[360px] right-4 z-30 flex-col w-[300px] transform translate-x-0' 
             : 'w-auto'
         }`}>
           <FlightCoursesDrawer />
@@ -133,14 +133,20 @@ const Index = () => {
           </Dialog>
         </div>
 
-        {/* Filter Bar - Mobile responsive */}
-        <div className="glass-card p-2 sm:p-4 mb-4 sm:mb-6 mx-2 sm:mx-[240px] py-2 sm:py-[4px] my-2 sm:my-[7px]">
+        {/* Filter Bar - Mobile responsive with better spacing */}
+        <div className={`glass-card p-2 sm:p-4 mb-4 sm:mb-6 mx-2 sm:mx-[240px] py-2 sm:py-[4px] my-2 sm:my-[7px] transition-all duration-300 ${
+          isScrolled && window.innerWidth >= 1024 ? 'mr-[320px]' : ''
+        }`}>
           <FilterBar onFilterChange={setActiveFilter} />
         </div>
         
-        <h1 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-center text-white drop-shadow-lg px-2">מוצרים מומלצים</h1>
+        <h1 className={`text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-center text-white drop-shadow-lg px-2 transition-all duration-300 ${
+          isScrolled && window.innerWidth >= 1024 ? 'mr-[160px]' : ''
+        }`}>מוצרים מומלצים</h1>
         
-        <div className="mt-4 sm:mt-6 px-2 sm:px-0">
+        <div className={`mt-4 sm:mt-6 px-2 sm:px-0 transition-all duration-300 ${
+          isScrolled && window.innerWidth >= 1024 ? 'mr-[160px]' : ''
+        }`}>
           <ProductGrid filter={activeFilter} searchQuery={searchQuery} />
         </div>
       </main>

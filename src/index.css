@@ -89,6 +89,10 @@
     @apply border-border;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply bg-background text-foreground;
     background: linear-gradient(135deg, #0f172a 0%, #1e293b 15%, #0c4a6e 30%, #075985 45%, #0369a1 60%, #0284c7 75%, #0ea5e9 90%, #38bdf8 100%);
@@ -186,9 +190,10 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.15);
 }
 
-/* Enhanced floating animation */
+/* Enhanced floating animation with smoother transitions */
 .float-animation {
   animation: modernFloat 8s ease-in-out infinite;
+  will-change: transform;
 }
 
 @keyframes modernFloat {
@@ -232,6 +237,16 @@
   box-shadow: 0 15px 35px rgba(15, 23, 42, 0.5);
 }
 
+/* Smooth scrolling improvements */
+* {
+  scroll-margin-top: 100px;
+}
+
+/* Better scroll performance */
+.scroll-smooth {
+  scroll-behavior: smooth;
+}
+
 /* Mobile responsive adjustments */
 @media (max-width: 768px) {
   body {
@@ -273,6 +288,15 @@
     bottom: 0;
     background: rgba(0, 0, 0, 0.5);
     z-index: 40;
+  }
+
+  /* Disable floating elements on mobile for better scrolling */
+  .fixed {
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
+    width: auto !important;
+    transform: none !important;
   }
 }
 
@@ -325,5 +349,12 @@
   .glass-card {
     margin: 1rem;
     padding: 1.5rem;
+  }
+}
+
+/* Better desktop scroll experience */
+@media (min-width: 1024px) {
+  .floating-elements {
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   }
 }

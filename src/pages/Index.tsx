@@ -55,14 +55,12 @@ const Index = () => {
     <div className="min-h-screen flex flex-col relative">
       <AnimatedWorldMap />
       <Header onSearch={handleSearch} />
-      <main className={`flex-1 px-4 sm:px-6 lg:px-8 max-w-screen-xl mx-auto py-6 relative z-10 transition-all duration-500 ${
-        isScrolled ? 'pr-[320px]' : ''
-      }`}>
+      <main className="flex-1 px-4 sm:px-6 lg:px-8 max-w-screen-xl mx-auto py-6 relative z-10">
         
-        <div className={`flex flex-col md:flex-row justify-between items-center mb-6 glass-card p-6 float-animation py-0 px-[18px] rounded-2xl transition-all duration-700 ease-in-out ${
+        <div className={`flex flex-col md:flex-row justify-between items-center mb-6 glass-card p-6 float-animation py-0 px-[18px] rounded-2xl transition-all duration-1000 ease-out ${
           isScrolled 
-            ? 'fixed top-20 right-4 w-[300px] z-20 mx-0 transform scale-90 opacity-95' 
-            : 'mx-[120px] my-0'
+            ? 'fixed top-20 right-6 w-[280px] z-30 mx-0 transform translate-x-0 scale-95 opacity-90' 
+            : 'mx-[120px] my-0 w-auto'
         }`}>
           <div className="flex items-center mb-3 md:mb-0 px-0 py-0 mx-0">
             <div className="bg-white/20 p-3 rounded-full mr-3 backdrop-blur-sm">
@@ -110,10 +108,10 @@ const Index = () => {
         </div>
 
         {/* Flight Courses Drawer and Instructor Signup */}
-        <div className={`flex justify-center gap-4 mb-6 transition-all duration-700 ease-in-out ${
+        <div className={`flex justify-center gap-4 mb-6 transition-all duration-1000 ease-out ${
           isScrolled 
-            ? 'fixed top-[340px] right-4 z-20 flex-col w-[300px]' 
-            : ''
+            ? 'fixed top-[320px] right-6 z-30 flex-col w-[280px] transform translate-x-0' 
+            : 'w-auto'
         }`}>
           <FlightCoursesDrawer />
           <Dialog open={isSignupOpen} onOpenChange={setIsSignupOpen}>

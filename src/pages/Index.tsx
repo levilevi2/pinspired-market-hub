@@ -65,7 +65,7 @@ const Index = () => {
         }`}>
           <div className="flex items-center mb-3 md:mb-0 w-full md:w-auto justify-center md:justify-start">
             <div className="bg-white/20 p-2 sm:p-3 rounded-full mr-3 backdrop-blur-sm">
-              <Users size={20} sm:size={24} className="text-white" />
+              <Users size={20} className="text-white w-5 h-5 sm:w-6 sm:h-6" />
             </div>
             <div className="text-white">
               <p className="text-xs sm:text-sm opacity-90">מספר חברים</p>
@@ -77,7 +77,7 @@ const Index = () => {
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center">
                 <div className="bg-white/20 p-2 sm:p-3 rounded-full mr-3 backdrop-blur-sm">
-                  <Percent size={20} sm:size={24} className="text-white" />
+                  <Percent size={20} className="text-white w-5 h-5 sm:w-6 sm:h-6" />
                 </div>
                 <div className="text-white">
                   <p className="text-xs sm:text-sm opacity-90">משתתפים בהגרלה</p>
@@ -97,7 +97,7 @@ const Index = () => {
                 className="modern-button bg-white/20 backdrop-blur-sm hover:bg-white/30 border border-white/30 flex items-center gap-1 sm:gap-2 py-2 h-auto text-white text-xs sm:text-sm px-3 sm:px-[20px] cursor-pointer"
                 type="button"
               >
-                <Trophy size={14} sm:size={16} />
+                <Trophy size={16} className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 <span className="hidden sm:inline">לצפיה בפרסים</span>
                 <span className="sm:hidden">פרסים</span>
               </Button>

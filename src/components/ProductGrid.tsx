@@ -117,7 +117,7 @@ const ProductGrid: React.FC<ProductGridProps> = ({ filter, searchQuery }) => {
 
   return (
     <>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 pb-4">
+      <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 sm:gap-4 lg:gap-6 pb-4">
         {filteredProducts.map((product) => (
           <div key={product.id} className="animate-fade-in" style={{animationDelay: `${product.id * 0.05}s`}}>
             <ProductCard product={product} onClick={handleProductClick} />
@@ -127,8 +127,8 @@ const ProductGrid: React.FC<ProductGridProps> = ({ filter, searchQuery }) => {
 
       {filteredProducts.length === 0 && (
         <div className="flex flex-col items-center justify-center py-10 text-center">
-          <p className="text-xl font-medium text-gray-600 mb-2">לא נמצאו מוצרים</p>
-          <p className="text-gray-500">נסה לחפש משהו אחר או לשנות את הסינון</p>
+          <p className="text-lg sm:text-xl font-medium text-white mb-2">לא נמצאו מוצרים</p>
+          <p className="text-sm sm:text-base text-white/80">נסה לחפש משהו אחר או לשנות את הסינון</p>
         </div>
       )}
 

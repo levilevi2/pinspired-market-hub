@@ -3,14 +3,17 @@ import { Button } from "@/components/ui/button";
 import { ShoppingCart, Home, Grid, Search, Percent, Bookmark, LogOut, Info, Users } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip";
 import SearchBar from "./SearchBar";
+import MobileNavigation from "./MobileNavigation";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "@/hooks/use-toast";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import SignupForm from "./SignupForm";
 import { useCart } from "@/contexts/CartContext";
+
 interface HeaderProps {
   onSearch?: (query: string) => void;
 }
+
 const Header: React.FC<HeaderProps> = ({
   onSearch
 }) => {
@@ -55,13 +58,21 @@ const Header: React.FC<HeaderProps> = ({
   return <TooltipProvider>
       <header className="sticky top-0 z-10 bg-blue-900/90 backdrop-blur-md shadow-sm px-4 sm:px-6 py-4 flex items-center justify-between">
         <div className="flex items-center">
-          <Link to="/" className="text-xl sm:text-2xl font-bold text-black mr-4">PinShop</Link>
-          {user?.isLoggedIn && <span className="text-white text-sm md:text-base ml-2">
+          <Link to="/" className="text-xl sm:text-2xl font-bold text-white mr-4">PinShop</Link>
+          {user?.isLoggedIn && (
+            <span className="text-white text-sm md:text-base ml-2 hidden sm:inline">
               שלום, {user.name}
-            </span>}
+            </span>
+          )}
         </div>
 
-        <div className="flex items-center space-x-3">
+        {/* Mobile Navigation */}
+        <div className="md:hidden">
+          <MobileNavigation onSearch={onSearch} />
+        </div>
+
+        {/* Desktop Navigation */}
+        <div className="hidden md:flex items-center space-x-3">
           {showSearch ? <div className="animate-fade-in">
               <SearchBar onClose={() => setShowSearch(false)} onSearch={handleSearch} />
             </div> : <Tooltip>
@@ -178,7 +189,7 @@ const Header: React.FC<HeaderProps> = ({
               </TooltipContent>
             </Tooltip> : <>
               <Link to="/login">
-                <Button className="hidden md:inline-flex bg-black hover:bg-gray-800 text-white">
+                <Button className="hidden lg:inline-flex bg-black hover:bg-gray-800 text-white">
                   כניסה
                 </Button>
               </Link>

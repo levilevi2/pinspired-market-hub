@@ -241,7 +241,7 @@
   .glass-card {
     border-radius: 16px;
     backdrop-filter: blur(20px);
-    margin: 0.5rem;
+    margin: 0.25rem;
     background: rgba(15, 23, 42, 0.3);
   }
   
@@ -256,6 +256,23 @@
     50% {
       transform: translateY(-8px);
     }
+  }
+
+  /* Mobile specific button styles */
+  .modern-button {
+    backdrop-filter: blur(10px);
+    font-size: 0.875rem;
+  }
+
+  /* Mobile navigation improvements */
+  .mobile-nav-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 40;
   }
 }
 
@@ -273,5 +290,40 @@
     100% {
       transform: translate(80px, 80px) rotate(360deg);
     }
+  }
+
+  /* Extra small mobile adjustments */
+  .glass-card {
+    padding: 0.75rem;
+    margin: 0.125rem;
+  }
+
+  .modern-button {
+    font-size: 0.75rem;
+    padding: 0.5rem 0.75rem;
+  }
+
+  /* Improve touch targets on mobile */
+  button {
+    min-height: 44px;
+  }
+}
+
+/* Landscape mobile optimizations */
+@media (max-width: 896px) and (orientation: landscape) {
+  .glass-card {
+    padding: 0.5rem;
+  }
+
+  .float-animation {
+    animation: none;
+  }
+}
+
+/* Tablet responsive */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .glass-card {
+    margin: 1rem;
+    padding: 1.5rem;
   }
 }

@@ -65,7 +65,7 @@ const Index = () => {
       <Header onSearch={handleSearch} />
       <main className="flex-1 px-2 sm:px-4 lg:px-8 max-w-screen-xl mx-auto py-4 sm:py-6 relative z-10">
         
-        {/* Stats Card - Smoother floating animation */}
+        {/* Stats Card - Removed side movement animation */}
         <div className={`flex flex-col md:flex-row justify-between items-center mb-4 sm:mb-6 glass-card p-3 sm:p-6 rounded-2xl transition-all duration-700 ease-out transform ${
           isScrolled && window.innerWidth >= 1024
             ? 'fixed top-20 right-4 w-[300px] z-30 scale-90 shadow-2xl opacity-95' 
@@ -117,7 +117,7 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Action Buttons - Smoother animation */}
+        {/* Action Buttons - Removed side movement animation */}
         <div className={`flex flex-col sm:flex-row justify-center gap-2 sm:gap-4 mb-4 sm:mb-6 px-2 sm:px-0 transition-all duration-700 ease-out ${
           isScrolled && window.innerWidth >= 1024
             ? 'fixed top-[360px] right-4 z-30 flex-col w-[300px] opacity-95' 
@@ -141,20 +141,16 @@ const Index = () => {
           </Dialog>
         </div>
 
-        {/* Filter Bar - Smooth transitions */}
-        <div className={`glass-card p-2 sm:p-4 mb-4 sm:mb-6 mx-2 sm:mx-[240px] py-2 sm:py-[4px] my-2 sm:my-[7px] transition-all duration-500 ease-out ${
-          isScrolled && window.innerWidth >= 1024 ? 'transform translate-x-[-160px]' : 'transform translate-x-0'
-        }`}>
+        {/* Filter Bar - Removed side movement animation */}
+        <div className="glass-card p-2 sm:p-4 mb-4 sm:mb-6 mx-2 sm:mx-[240px] py-2 sm:py-[4px] my-2 sm:my-[7px] transition-all duration-500 ease-out">
           <FilterBar onFilterChange={setActiveFilter} />
         </div>
         
-        <h1 className={`text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-center text-white drop-shadow-lg px-2 transition-all duration-500 ease-out ${
-          isScrolled && window.innerWidth >= 1024 ? 'transform translate-x-[-80px]' : 'transform translate-x-0'
-        }`}>מוצרים מומלצים</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-center text-white drop-shadow-lg px-2 transition-all duration-500 ease-out">
+          מוצרים מומלצים
+        </h1>
         
-        <div className={`mt-4 sm:mt-6 px-2 sm:px-0 transition-all duration-500 ease-out ${
-          isScrolled && window.innerWidth >= 1024 ? 'transform translate-x-[-80px]' : 'transform translate-x-0'
-        }`}>
+        <div className="mt-4 sm:mt-6 px-2 sm:px-0 transition-all duration-500 ease-out">
           <ProductGrid filter={activeFilter} searchQuery={searchQuery} />
         </div>
       </main>

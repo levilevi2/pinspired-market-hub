@@ -56,12 +56,14 @@ const Header: React.FC<HeaderProps> = ({
     }
   };
   return <TooltipProvider>
-      <header className="sticky top-0 z-10 bg-blue-900/90 backdrop-blur-md shadow-sm px-4 sm:px-6 py-4 flex items-center justify-between">
+      <header className="sticky top-0 z-10 bg-black/80 backdrop-blur-md border-b border-gray-800 px-4 sm:px-6 py-4 flex items-center justify-between">
         <div className="flex items-center">
-          <Link to="/" className="text-xl sm:text-2xl font-bold text-white mr-4">PinShop</Link>
+          <Link to="/" className="text-2xl sm:text-3xl font-black text-white mr-4 tracking-tight">
+            FLY<span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-red-500">ACADEMY</span>
+          </Link>
           {user?.isLoggedIn && (
-            <span className="text-white text-sm md:text-base ml-2 hidden sm:inline">
-              שלום, {user.name}
+            <span className="text-gray-300 text-sm md:text-base ml-2 hidden sm:inline font-medium">
+              Welcome, {user.name}
             </span>
           )}
         </div>
@@ -77,7 +79,7 @@ const Header: React.FC<HeaderProps> = ({
               <SearchBar onClose={() => setShowSearch(false)} onSearch={handleSearch} />
             </div> : <Tooltip>
               <TooltipTrigger asChild>
-                <Button variant="ghost" size="icon" onClick={() => setShowSearch(true)} className="transition-all hover:text-black text-white" aria-label="Search">
+                <Button variant="ghost" size="icon" onClick={() => setShowSearch(true)} className="transition-all hover:bg-gray-800 text-white" aria-label="Search">
                   <Search size={20} />
                 </Button>
               </TooltipTrigger>
@@ -89,7 +91,7 @@ const Header: React.FC<HeaderProps> = ({
           <Tooltip>
             <TooltipTrigger asChild>
               <Link to="/">
-                <Button variant="ghost" size="icon" className={`transition-all hover:text-black text-white ${location.pathname === "/" ? "text-black" : ""}`} aria-label="Home">
+                <Button variant="ghost" size="icon" className={`transition-all hover:bg-gray-800 text-white ${location.pathname === "/" ? "bg-gray-800" : ""}`} aria-label="Home">
                   <Home size={20} />
                 </Button>
               </Link>
@@ -180,7 +182,7 @@ const Header: React.FC<HeaderProps> = ({
 
           {user?.isLoggedIn ? <Tooltip>
               <TooltipTrigger asChild>
-                <Button variant="ghost" size="icon" onClick={handleLogout} className="transition-all hover:text-black text-white" aria-label="Logout">
+                <Button variant="ghost" size="icon" onClick={handleLogout} className="transition-all hover:bg-gray-800 text-white" aria-label="Logout">
                   <LogOut size={20} />
                 </Button>
               </TooltipTrigger>
@@ -189,12 +191,16 @@ const Header: React.FC<HeaderProps> = ({
               </TooltipContent>
             </Tooltip> : <>
               <Link to="/login">
-                <Button className="hidden lg:inline-flex bg-black hover:bg-gray-800 text-white">
-                  כניסה
+                <Button className="hidden lg:inline-flex bg-white hover:bg-gray-100 text-black font-semibold px-6">
+                  LOGIN
                 </Button>
               </Link>
-              <Button variant="outline" onClick={openSignupDialog} className="border-white transition-colors duration-200 text-base text-stone-950 bg-lime-400 hover:bg-lime-300">
-                הרשמה
+              <Button 
+                variant="outline" 
+                onClick={openSignupDialog} 
+                className="nike-accent-button border-none font-bold tracking-wide"
+              >
+                SIGN UP
               </Button>
             </>}
         </div>

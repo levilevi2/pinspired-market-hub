@@ -95,12 +95,13 @@
 
   body {
     @apply bg-background text-foreground;
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 15%, #0c4a6e 30%, #075985 45%, #0369a1 60%, #0284c7 75%, #0ea5e9 90%, #38bdf8 100%);
+    background: linear-gradient(135deg, #000000 0%, #1a1a1a 20%, #2d2d2d 40%, #404040 60%, #1a1a1a 80%, #000000 100%);
     background-size: 400% 400%;
-    animation: darkOceanWave 25s ease infinite;
+    animation: modernGradient 20s ease infinite;
     position: relative;
     overflow-x: hidden;
     min-height: 100vh;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   }
 
   body::before {
@@ -111,10 +112,10 @@
     width: 100%;
     height: 100%;
     background: 
-      radial-gradient(circle at 20% 80%, rgba(15, 23, 42, 0.8) 0%, transparent 50%),
-      radial-gradient(circle at 80% 20%, rgba(30, 41, 59, 0.7) 0%, transparent 50%),
-      radial-gradient(circle at 40% 40%, rgba(12, 74, 110, 0.6) 0%, transparent 50%);
-    animation: deepDarkSea 30s ease-in-out infinite;
+      radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.02) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
+      linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.01) 50%, transparent 70%);
+    animation: modernOverlay 25s ease-in-out infinite;
     z-index: -2;
   }
 
@@ -126,14 +127,13 @@
     width: 100%;
     height: 100%;
     background-image: 
-      radial-gradient(circle at 25px 25px, rgba(255, 255, 255, 0.05) 2px, transparent 2px),
-      radial-gradient(circle at 75px 75px, rgba(14, 165, 233, 0.08) 1px, transparent 1px);
-    background-size: 100px 100px, 150px 150px;
-    animation: darkDrift 45s linear infinite;
+      radial-gradient(circle at 50px 50px, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 100px 100px;
+    animation: modernDots 40s linear infinite;
     z-index: -1;
   }
 
-  @keyframes darkOceanWave {
+  @keyframes modernGradient {
     0% {
       background-position: 0% 50%;
     }
@@ -145,27 +145,23 @@
     }
   }
 
-  @keyframes deepDarkSea {
+  @keyframes modernOverlay {
     0%, 100% {
       transform: translateY(0px) rotate(0deg) scale(1);
       opacity: 0.8;
     }
-    33% {
-      transform: translateY(-25px) rotate(120deg) scale(1.1);
+    50% {
+      transform: translateY(-10px) rotate(180deg) scale(1.05);
       opacity: 0.9;
-    }
-    66% {
-      transform: translateY(20px) rotate(240deg) scale(0.9);
-      opacity: 0.85;
     }
   }
 
-  @keyframes darkDrift {
+  @keyframes modernDots {
     0% {
-      transform: translate(0, 0) rotate(0deg);
+      transform: translate(0, 0);
     }
     100% {
-      transform: translate(100px, 100px) rotate(360deg);
+      transform: translate(50px, 50px);
     }
   }
 }
@@ -179,25 +175,37 @@
   scrollbar-width: none;
 }
 
-/* Enhanced glassmorphism effect for cards - darker blue theme */
+/* Modern Nike-style card design */
 .glass-card {
-  background: rgba(15, 23, 42, 0.25);
-  backdrop-filter: blur(25px);
-  border: 1px solid rgba(59, 130, 246, 0.4);
-  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
   box-shadow: 
-    0 12px 40px rgba(15, 23, 42, 0.4),
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 
+    0 12px 40px rgba(0, 0, 0, 0.4),
     inset 0 1px 0 rgba(255, 255, 255, 0.15);
 }
 
-/* Modern button with darker blue theme */
+/* Modern button with Nike-style design */
 .modern-button {
   position: relative;
   overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  background: rgba(59, 130, 246, 0.25);
-  backdrop-filter: blur(15px);
-  border: 1px solid rgba(14, 165, 233, 0.5);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-weight: 600;
+  letter-spacing: 0.025em;
 }
 
 .modern-button::before {
@@ -207,8 +215,8 @@
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-  transition: left 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .modern-button:hover::before {
@@ -216,10 +224,27 @@
 }
 
 .modern-button:hover {
-  background: rgba(59, 130, 246, 0.35);
-  border-color: rgba(14, 165, 233, 0.7);
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+/* Nike-style accent button */
+.nike-accent-button {
+  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+  color: white;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nike-accent-button:hover {
+  background: linear-gradient(135deg, #e55a2b 0%, #e0851a 100%);
   transform: translateY(-2px);
-  box-shadow: 0 15px 35px rgba(15, 23, 42, 0.5);
+  box-shadow: 0 10px 30px rgba(255, 107, 53, 0.4);
 }
 
 /* Smooth scrolling improvements */
@@ -227,13 +252,11 @@
   scroll-margin-top: 100px;
 }
 
-/* Better scroll performance with GPU acceleration */
 .scroll-smooth {
   scroll-behavior: smooth;
   will-change: scroll-position;
 }
 
-/* Smooth transforms for floating elements */
 .transition-all {
   will-change: transform, opacity;
 }
@@ -245,30 +268,17 @@
   }
   
   .glass-card {
-    border-radius: 16px;
-    backdrop-filter: blur(20px);
+    border-radius: 12px;
+    backdrop-filter: blur(15px);
     margin: 0.25rem;
-    background: rgba(15, 23, 42, 0.3);
+    background: rgba(255, 255, 255, 0.1);
   }
 
-  /* Mobile specific button styles */
   .modern-button {
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(8px);
     font-size: 0.875rem;
   }
 
-  /* Mobile navigation improvements */
-  .mobile-nav-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 40;
-  }
-
-  /* Disable floating elements on mobile for better scrolling */
   .fixed {
     position: relative !important;
     top: auto !important;
@@ -278,23 +288,21 @@
   }
 }
 
-/* Enhanced mobile patterns */
 @media (max-width: 480px) {
   body::after {
-    background-size: 80px 80px, 120px 120px;
-    animation: mobileDarkDrift 35s linear infinite;
+    background-size: 80px 80px;
+    animation: mobileDots 30s linear infinite;
   }
   
-  @keyframes mobileDarkDrift {
+  @keyframes mobileDots {
     0% {
-      transform: translate(0, 0) rotate(0deg);
+      transform: translate(0, 0);
     }
     100% {
-      transform: translate(80px, 80px) rotate(360deg);
+      transform: translate(40px, 40px);
     }
   }
 
-  /* Extra small mobile adjustments */
   .glass-card {
     padding: 0.75rem;
     margin: 0.125rem;
@@ -305,37 +313,37 @@
     padding: 0.5rem 0.75rem;
   }
 
-  /* Improve touch targets on mobile */
   button {
     min-height: 44px;
   }
 }
 
-/* Landscape mobile optimizations */
-@media (max-width: 896px) and (orientation: landscape) {
-  .glass-card {
-    padding: 0.5rem;
-  }
-}
-
-/* Tablet responsive */
-@media (min-width: 768px) and (max-width: 1024px) {
-  .glass-card {
-    margin: 1rem;
-    padding: 1.5rem;
-  }
-}
-
-/* Better desktop scroll experience with hardware acceleration */
 @media (min-width: 1024px) {
   .floating-elements {
     transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: transform;
   }
   
-  /* Smooth floating animations */
   .transform {
     backface-visibility: hidden;
     perspective: 1000px;
   }
+}
+
+/* Typography improvements */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+/* Modern progress bar */
+.modern-progress {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50px;
+  overflow: hidden;
+}
+
+.modern-progress > div {
+  background: linear-gradient(90deg, #ff6b35 0%, #f7931e 100%);
+  transition: width 0.3s ease;
 }

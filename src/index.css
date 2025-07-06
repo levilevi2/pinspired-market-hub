@@ -190,21 +190,6 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.15);
 }
 
-/* Enhanced floating animation with smoother transitions */
-.float-animation {
-  animation: modernFloat 8s ease-in-out infinite;
-  will-change: transform;
-}
-
-@keyframes modernFloat {
-  0%, 100% {
-    transform: translateY(0px) rotateX(0deg);
-  }
-  50% {
-    transform: translateY(-15px) rotateX(2deg);
-  }
-}
-
 /* Modern button with darker blue theme */
 .modern-button {
   position: relative;
@@ -242,9 +227,15 @@
   scroll-margin-top: 100px;
 }
 
-/* Better scroll performance */
+/* Better scroll performance with GPU acceleration */
 .scroll-smooth {
   scroll-behavior: smooth;
+  will-change: scroll-position;
+}
+
+/* Smooth transforms for floating elements */
+.transition-all {
+  will-change: transform, opacity;
 }
 
 /* Mobile responsive adjustments */
@@ -258,19 +249,6 @@
     backdrop-filter: blur(20px);
     margin: 0.25rem;
     background: rgba(15, 23, 42, 0.3);
-  }
-  
-  .float-animation {
-    animation: mobileFloat 6s ease-in-out infinite;
-  }
-  
-  @keyframes mobileFloat {
-    0%, 100% {
-      transform: translateY(0px);
-    }
-    50% {
-      transform: translateY(-8px);
-    }
   }
 
   /* Mobile specific button styles */
@@ -338,10 +316,6 @@
   .glass-card {
     padding: 0.5rem;
   }
-
-  .float-animation {
-    animation: none;
-  }
 }
 
 /* Tablet responsive */
@@ -352,9 +326,16 @@
   }
 }
 
-/* Better desktop scroll experience */
+/* Better desktop scroll experience with hardware acceleration */
 @media (min-width: 1024px) {
   .floating-elements {
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+  }
+  
+  /* Smooth floating animations */
+  .transform {
+    backface-visibility: hidden;
+    perspective: 1000px;
   }
 }

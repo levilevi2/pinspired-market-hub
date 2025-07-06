@@ -19,31 +19,12 @@ const Index = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [isSignupOpen, setIsSignupOpen] = useState(false);
   const [signupTab, setSignupTab] = useState("student");
-  const [isScrolled, setIsScrolled] = useState(false);
 
   // Dynamic values for friends and raffle participants
   const [friendsCount] = useState(842);
   const [raffleParticipants] = useState(1560);
   const maxRaffleParticipants = 3000;
   const raffleProgress = Math.round(raffleParticipants / maxRaffleParticipants * 100);
-
-  useEffect(() => {
-    let ticking = false;
-    
-    const handleScroll = () => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          const scrollPosition = window.scrollY;
-          setIsScrolled(scrollPosition > 200);
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
@@ -75,11 +56,7 @@ const Index = () => {
         </div>
 
         {/* Stats Card - Modern Nike style */}
-        <div className={`glass-card p-6 sm:p-8 mb-12 mx-auto max-w-4xl transition-all duration-700 ease-out ${
-          isScrolled && window.innerWidth >= 1024
-            ? 'fixed top-20 right-4 w-[320px] z-30 scale-90 shadow-2xl' 
-            : 'w-full scale-100'
-        }`}>
+        <div className="glass-card p-6 sm:p-8 mb-12 mx-auto max-w-4xl">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             
             {/* Friends Counter */}
@@ -133,11 +110,7 @@ const Index = () => {
         </div>
 
         {/* Action Buttons - Modern CTA style */}
-        <div className={`flex flex-col sm:flex-row justify-center gap-4 mb-16 transition-all duration-700 ease-out ${
-          isScrolled && window.innerWidth >= 1024
-            ? 'fixed top-[400px] right-4 z-30 flex-col w-[320px]' 
-            : 'w-full'
-        }`}>
+        <div className="flex flex-col sm:flex-row justify-center gap-4 mb-16">
           <FlightCoursesDrawer />
           <Dialog open={isSignupOpen} onOpenChange={setIsSignupOpen}>
             <DialogTrigger asChild>

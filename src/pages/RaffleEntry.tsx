@@ -1,4 +1,3 @@
-
 import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -8,20 +7,22 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useCart } from "@/contexts/CartContext";
 import { toast } from "@/hooks/use-toast";
-
 const RaffleEntry = () => {
-  const [user, setUser] = useState<{ name: string; isLoggedIn: boolean } | null>(null);
+  const [user, setUser] = useState<{
+    name: string;
+    isLoggedIn: boolean;
+  } | null>(null);
   const [showDialog, setShowDialog] = useState(false);
   const [dialogMessage, setDialogMessage] = useState("");
-  const { items } = useCart();
-
+  const {
+    items
+  } = useCart();
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
       setUser(JSON.parse(storedUser));
     }
   }, []);
-
   const handleRaffleRegistration = () => {
     // Check if user is logged in
     if (!user?.isLoggedIn) {
@@ -32,7 +33,6 @@ const RaffleEntry = () => {
 
     // Check if user has purchased anything
     const hasPurchases = items.length > 0 || localStorage.getItem('userPurchases');
-    
     if (hasPurchases) {
       setDialogMessage("אתה כבר רשום להגרלה! אם אתה רוצה עוד כרטיס להגרלה עליך לרכוש עוד מוצר מהאתר.");
       setShowDialog(true);
@@ -41,14 +41,11 @@ const RaffleEntry = () => {
       setShowDialog(true);
     }
   };
-
   const navigateToShop = () => {
     setShowDialog(false);
     window.location.href = "/";
   };
-
-  return (
-    <div className="min-h-screen flex flex-col relative">
+  return <div className="min-h-screen flex flex-col relative">
       <Header />
       <main className="flex-1 px-4 sm:px-6 lg:px-8 max-w-screen-xl mx-auto py-8">
         <div className="mb-6 flex items-center">
@@ -72,7 +69,7 @@ const RaffleEntry = () => {
               
               <ul className="list-disc list-inside space-y-3 mr-4 opacity-90">
                 <li>ההשתתפות מותרת לחברי מועדון בלבד</li>
-                <li>יש להשלים לפחות 10 שעות טיסה בשנה האחרונה</li>
+                <li>ניתן לרכוש מספר מוצרים להגדלת הסיכויים לזכייה</li>
                 <li>יש לרכוש לפחות פריט אחד מקטגוריית "ציוד לטייס"</li>
                 <li>יש למלא את כל הפרטים האישיים בטופס ההרשמה</li>
                 <li>ההרשמה תסתיים בתאריך 31.12.2025</li>
@@ -80,21 +77,20 @@ const RaffleEntry = () => {
               
               <h3 className="text-xl font-semibold text-white mt-8">פרסים</h3>
               <ul className="list-disc list-inside space-y-3 mr-4 opacity-90">
-                <li>פרס ראשון: 10 שעות טיסה חינם</li>
-                <li>פרס שני: סט ציוד טיסה מקצועי</li>
-                <li>פרס שלישי: שובר בשווי ₪1,000 למוצרי החנות</li>
+                <li>פרס ראשון: קורס טיס רשיון פרטי 50 שעות בהרצליה</li>
+                <li>פרס שני: קורס טיס אולטרלייט</li>
+                <li>פרס שלישי: רחפן DJI בשווי 4000 שקלים</li>
               </ul>
               
-              <div className="bg-white/20 backdrop-blur-sm p-6 rounded-xl mt-8 border border-white/30">
+              <div className="backdrop-blur-sm p-6 rounded-xl mt-8 border border-white/30 bg-red-400">
                 <h3 className="text-xl font-semibold text-white mb-3">שימו לב!</h3>
-                <p className="opacity-90">ההגרלה תתקיים כאשר נגיע ל-3,000 משתתפים. עקבו אחר מספר המשתתפים בדף הבית.</p>
+                <p className="opacity-90">ההגרלה תתקיים כאשר נגיע ל-3,000 משתתפים. עקבו אחר מספר המשתתפים בדף הבית.
+לא ניתו להמיר את הפרסים בכסף מזומן
+ניתן להעביר לחבר או משפחה את הזכייה</p>
               </div>
             </div>
             
-            <Button 
-              onClick={handleRaffleRegistration}
-              className="w-full mt-8 modern-button bg-white/20 backdrop-blur-sm hover:bg-white/30 border border-white/30 text-white text-lg py-3 h-auto"
-            >
+            <Button onClick={handleRaffleRegistration} className="w-full mt-8 modern-button backdrop-blur-sm border border-white/30 text-white text-lg py-3 h-auto bg-orange-500 hover:bg-orange-400">
               הירשם להגרלה
             </Button>
           </div>
@@ -119,8 +115,6 @@ const RaffleEntry = () => {
           </div>
         </DialogContent>
       </Dialog>
-    </div>
-  );
+    </div>;
 };
-
 export default RaffleEntry;

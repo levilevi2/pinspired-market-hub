@@ -18,10 +18,7 @@ interface ProductCardProps {
   onClick: (product: Product) => void;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({
-  product,
-  onClick
-}) => {
+const ProductCard: React.FC<ProductCardProps> = ({ product, onClick }) => {
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -32,7 +29,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
   return (
     <Card 
-      className="bg-white/5 border-white/10 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer h-full backdrop-blur-sm hover:bg-white/10 hover:border-white/20" 
+      className="border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer h-full" 
       onClick={() => onClick(product)} 
       onMouseEnter={() => setIsHovered(true)} 
       onMouseLeave={() => setIsHovered(false)}
@@ -41,24 +38,25 @@ const ProductCard: React.FC<ProductCardProps> = ({
         <img 
           src={product.image} 
           alt={product.title} 
-          className="w-full object-cover aspect-[3/2] transition-transform duration-500" 
+          className="w-full object-cover aspect-[3/2] transition-transform duration-300" 
           style={{
             transform: isHovered ? "scale(1.05)" : "scale(1)"
           }} 
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300" />
         <Button 
           variant="ghost" 
           size="icon" 
-          className={`absolute top-3 right-3 rounded-full bg-black/20 hover:bg-black/40 backdrop-blur-sm p-2 ${isBookmarked ? "text-orange-500" : "text-white"}`} 
+          className={`absolute top-3 right-3 rounded-full bg-background/80 hover:bg-background p-2 ${
+            isBookmarked ? "text-primary" : "text-muted-foreground"
+          }`} 
           onClick={handleBookmarkClick}
         >
-          <Bookmark size={18} fill={isBookmarked ? "#f97316" : "none"} />
+          <Bookmark size={18} fill={isBookmarked ? "currentColor" : "none"} />
         </Button>
       </div>
-      <div dir="rtl" className="p-4 bg-gradient-to-b from-white/10 to-white/5">
-        <h3 className="font-bold text-white text-base line-clamp-1 mb-2">{product.title}</h3>
-        <p className="text-orange-500 font-black text-lg">{`₪${product.price.toFixed(2)}`}</p>
+      <div dir="rtl" className="p-4">
+        <h3 className="font-semibold text-foreground text-base line-clamp-2 mb-2">{product.title}</h3>
+        <p className="text-primary font-bold text-lg">{`₪${product.price.toFixed(2)}`}</p>
       </div>
     </Card>
   );

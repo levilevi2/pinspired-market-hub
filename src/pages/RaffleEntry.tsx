@@ -82,7 +82,7 @@ const RaffleEntry = () => {
                 <li>פרס שלישי: רחפן DJI בשווי 4000 שקלים</li>
               </ul>
               
-              <div className="backdrop-blur-sm p-6 rounded-xl mt-8 border border-white/30 bg-red-400">
+              <div className="backdrop-blur-sm p-6 rounded-xl mt-8 border border-white/30 bg-red-400 my-[6px] py-[3px] mx-[81px] px-[18px]">
                 <h3 className="text-xl font-semibold text-white mb-3">שימו לב!</h3>
                 <p className="opacity-90">ההגרלה תתקיים כאשר נגיע ל-3,000 משתתפים. עקבו אחר מספר המשתתפים בדף הבית.
 לא ניתו להמיר את הפרסים בכסף מזומן

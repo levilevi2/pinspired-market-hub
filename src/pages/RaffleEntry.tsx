@@ -59,7 +59,7 @@ const RaffleEntry = () => {
         </div>
 
         <Card className="glass-card p-8 float-animation">
-          <div dir="rtl" className="space-y-6 bg-blue-200">
+          <div dir="rtl" className="space-y-6 bg-sky-400 mx-[16px] px-[15px] py-[4px] my-[8px]">
             <h2 className="text-2xl font-bold text-white border-b border-white/30 pb-3">
               תנאי השתתפות בהגרלה
             </h2>

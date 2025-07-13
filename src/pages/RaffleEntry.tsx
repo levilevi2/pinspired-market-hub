@@ -1,4 +1,5 @@
 import Header from "@/components/Header";
+import AnimatedWorldMap from "@/components/AnimatedWorldMap";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -7,6 +8,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useCart } from "@/contexts/CartContext";
 import { toast } from "@/hooks/use-toast";
+
 const RaffleEntry = () => {
   const [user, setUser] = useState<{
     name: string;
@@ -23,6 +25,7 @@ const RaffleEntry = () => {
       setUser(JSON.parse(storedUser));
     }
   }, []);
+
   const handleRaffleRegistration = () => {
     // Check if user is logged in
     if (!user?.isLoggedIn) {
@@ -41,80 +44,88 @@ const RaffleEntry = () => {
       setShowDialog(true);
     }
   };
+  
   const navigateToShop = () => {
     setShowDialog(false);
     window.location.href = "/";
   };
-  return <div className="min-h-screen flex flex-col relative">
-      <Header />
-      <main className="flex-1 px-4 sm:px-6 lg:px-8 max-w-screen-xl mx-auto py-8">
-        <div className="mb-6 flex items-center">
-          <Button variant="ghost" size="sm" asChild className="text-white mr-2 hover:bg-white/20">
-            <Link to="/">
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              חזרה
-            </Link>
-          </Button>
-          <h1 className="text-3xl font-bold text-white drop-shadow-lg">כניסה להגרלה</h1>
-        </div>
 
-        <Card className="glass-card p-8 float-animation">
-          <div dir="rtl" className="space-y-6 bg-sky-400 mx-[16px] px-[15px] py-[4px] my-[8px]">
-            <h2 className="text-2xl font-bold text-white border-b border-white/30 pb-3">
-              תנאי השתתפות בהגרלה
-            </h2>
-            
-            <div className="space-y-4 text-white">
-              <p className="text-lg opacity-90">ברוכים הבאים להגרלה השנתית שלנו! להלן התנאים להשתתפות:</p>
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-background via-accent/10 to-secondary/20 relative">
+      <AnimatedWorldMap />
+      <div className="relative z-10">
+        <Header />
+        <main className="flex-1 px-4 sm:px-6 lg:px-8 max-w-screen-xl mx-auto py-8">
+          <div className="mb-6 flex items-center">
+            <Button variant="ghost" size="sm" asChild className="text-foreground mr-2 hover:bg-white/20">
+              <Link to="/">
+                <ArrowLeft className="mr-2 h-4 w-4" />
+                חזרה
+              </Link>
+            </Button>
+            <h1 className="text-3xl font-bold text-foreground drop-shadow-lg">כניסה להגרלה</h1>
+          </div>
+
+          <Card className="bg-card/60 backdrop-blur-sm border border-border/50 rounded-2xl p-8 hover:bg-card/80 transition-all duration-300">
+            <div dir="rtl" className="space-y-6">
+              <h2 className="text-2xl font-bold text-foreground border-b border-border/30 pb-3">
+                תנאי השתתפות בהגרלה
+              </h2>
               
-              <ul className="list-disc list-inside space-y-3 mr-4 opacity-90">
-                <li>ההשתתפות מותרת לחברי מועדון בלבד</li>
-                <li>ניתן לרכוש מספר מוצרים להגדלת הסיכויים לזכייה</li>
-                <li>יש לרכוש לפחות פריט אחד מקטגוריית "ציוד לטייס"</li>
-                <li>יש למלא את כל הפרטים האישיים בטופס ההרשמה</li>
-                <li>ההרשמה תסתיים בתאריך 31.12.2025</li>
-              </ul>
-              
-              <h3 className="text-xl font-semibold text-white mt-8">פרסים</h3>
-              <ul className="list-disc list-inside space-y-3 mr-4 opacity-90">
-                <li>פרס ראשון: קורס טיס רשיון פרטי 50 שעות בהרצליה</li>
-                <li>פרס שני: קורס טיס אולטרלייט</li>
-                <li>פרס שלישי: רחפן DJI בשווי 4000 שקלים</li>
-              </ul>
-              
-              <div className="backdrop-blur-sm p-6 rounded-xl mt-8 border border-white/30 bg-red-400 my-[6px] py-[3px] mx-[81px] px-[18px]">
-                <h3 className="text-xl font-semibold text-white mb-3">שימו לב!</h3>
-                <p className="opacity-90">ההגרלה תתקיים כאשר נגיע ל-3,000 משתתפים. עקבו אחר מספר המשתתפים בדף הבית.
+              <div className="space-y-4 text-foreground">
+                <p className="text-lg text-muted-foreground">ברוכים הבאים להגרלה השנתית שלנו! להלן התנאים להשתתפות:</p>
+                
+                <ul className="list-disc list-inside space-y-3 mr-4 text-muted-foreground">
+                  <li>ההשתתפות מותרת לחברי מועדון בלבד</li>
+                  <li>ניתן לרכוש מספר מוצרים להגדלת הסיכויים לזכייה</li>
+                  <li>יש לרכוש לפחות פריט אחד מקטגוריית "ציוד לטייס"</li>
+                  <li>יש למלא את כל הפרטים האישיים בטופס ההרשמה</li>
+                  <li>ההרשמה תסתיים בתאריך 31.12.2025</li>
+                </ul>
+                
+                <h3 className="text-xl font-semibold text-foreground mt-8">פרסים</h3>
+                <ul className="list-disc list-inside space-y-3 mr-4 text-muted-foreground">
+                  <li>פרס ראשון: קורס טיס רשיון פרטי 50 שעות בהרצליה</li>
+                  <li>פרס שני: קורס טיס אולטרלייט</li>
+                  <li>פרס שלישי: רחפן DJI בשווי 4000 שקלים</li>
+                </ul>
+                
+                <div className="bg-destructive/10 backdrop-blur-sm p-6 rounded-xl mt-8 border border-destructive/30">
+                  <h3 className="text-xl font-semibold text-destructive mb-3">שימו לב!</h3>
+                  <p className="text-destructive-foreground">ההגרלה תתקיים כאשר נגיע ל-3,000 משתתפים. עקבו אחר מספר המשתתפים בדף הבית.
 לא ניתו להמיר את הפרסים בכסף מזומן
 ניתן להעביר לחבר או משפחה את הזכייה</p>
+                </div>
+              </div>
+              
+              <Button onClick={handleRaffleRegistration} className="w-full mt-8 bg-primary hover:bg-primary/90 text-primary-foreground text-lg h-auto py-4">
+                הירשם להגרלה
+              </Button>
+            </div>
+          </Card>
+        </main>
+
+        <Dialog open={showDialog} onOpenChange={setShowDialog}>
+          <DialogContent className="sm:max-w-md bg-card/90 backdrop-blur-sm border-border/30">
+            <DialogHeader>
+              <DialogTitle className="text-center text-xl text-foreground">הגרלה</DialogTitle>
+            </DialogHeader>
+            <div className="space-y-4" dir="rtl">
+              <p className="text-center text-muted-foreground">{dialogMessage}</p>
+              <div className="flex gap-3 justify-center">
+                <Button onClick={navigateToShop} className="bg-primary/20 backdrop-blur-sm hover:bg-primary/30 border border-primary/30 text-primary">
+                  עבור לחנות
+                </Button>
+                <Button variant="outline" onClick={() => setShowDialog(false)} className="border-border/30 text-foreground hover:bg-muted/10">
+                  סגור
+                </Button>
               </div>
             </div>
-            
-            <Button onClick={handleRaffleRegistration} className="w-full mt-8 modern-button backdrop-blur-sm border border-white/30 text-white text-lg h-auto bg-orange-500 hover:bg-orange-400 mx-0 px-0 my-[8px] py-[8px]">
-              הירשם להגרלה
-            </Button>
-          </div>
-        </Card>
-      </main>
-
-      <Dialog open={showDialog} onOpenChange={setShowDialog}>
-        <DialogContent className="sm:max-w-md glass-card border-white/30">
-          <DialogHeader>
-            <DialogTitle className="text-center text-xl text-white">הגרלה</DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4" dir="rtl">
-            <p className="text-center text-white opacity-90">{dialogMessage}</p>
-            <div className="flex gap-3 justify-center">
-              <Button onClick={navigateToShop} className="modern-button bg-white/20 backdrop-blur-sm hover:bg-white/30 border border-white/30 text-white">
-                עבור לחנות
-              </Button>
-              <Button variant="outline" onClick={() => setShowDialog(false)} className="border-white/30 text-white hover:bg-white/10">
-                סגור
-              </Button>
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
-    </div>;
+          </DialogContent>
+        </Dialog>
+      </div>
+    </div>
+  );
 };
+
 export default RaffleEntry;

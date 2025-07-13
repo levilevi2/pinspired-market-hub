@@ -90,7 +90,7 @@ const RaffleEntry = () => {
               </div>
             </div>
             
-            <Button onClick={handleRaffleRegistration} className="w-full mt-8 modern-button backdrop-blur-sm border border-white/30 text-white text-lg py-3 h-auto bg-orange-500 hover:bg-orange-400">
+            <Button onClick={handleRaffleRegistration} className="w-full mt-8 modern-button backdrop-blur-sm border border-white/30 text-white text-lg h-auto bg-orange-500 hover:bg-orange-400 mx-0 px-0 my-[8px] py-[8px]">
               הירשם להגרלה
             </Button>
           </div>

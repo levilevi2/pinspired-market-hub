@@ -29,7 +29,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onClick }) => {
 
   return (
     <Card 
-      className="border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer h-full" 
+      className="bg-card/60 backdrop-blur-sm border border-border/30 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg hover:bg-card/80 transition-all duration-300 cursor-pointer h-full group" 
       onClick={() => onClick(product)} 
       onMouseEnter={() => setIsHovered(true)} 
       onMouseLeave={() => setIsHovered(false)}
@@ -38,25 +38,22 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onClick }) => {
         <img 
           src={product.image} 
           alt={product.title} 
-          className="w-full object-cover aspect-[3/2] transition-transform duration-300" 
-          style={{
-            transform: isHovered ? "scale(1.05)" : "scale(1)"
-          }} 
+          className="w-full object-cover aspect-[4/3] transition-transform duration-500 group-hover:scale-105" 
         />
         <Button 
           variant="ghost" 
           size="icon" 
-          className={`absolute top-3 right-3 rounded-full bg-background/80 hover:bg-background p-2 ${
+          className={`absolute top-4 right-4 rounded-full bg-background/80 backdrop-blur-sm hover:bg-background/90 w-10 h-10 shadow-sm ${
             isBookmarked ? "text-primary" : "text-muted-foreground"
           }`} 
           onClick={handleBookmarkClick}
         >
-          <Bookmark size={18} fill={isBookmarked ? "currentColor" : "none"} />
+          <Bookmark size={16} fill={isBookmarked ? "currentColor" : "none"} />
         </Button>
       </div>
-      <div dir="rtl" className="p-4">
-        <h3 className="font-semibold text-foreground text-base line-clamp-2 mb-2">{product.title}</h3>
-        <p className="text-primary font-bold text-lg">{`₪${product.price.toFixed(2)}`}</p>
+      <div dir="rtl" className="p-6">
+        <h3 className="font-medium text-foreground text-base line-clamp-2 mb-3 leading-relaxed">{product.title}</h3>
+        <p className="text-primary font-semibold text-lg">{`₪${product.price.toFixed(2)}`}</p>
       </div>
     </Card>
   );

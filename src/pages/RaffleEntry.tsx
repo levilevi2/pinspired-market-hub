@@ -55,7 +55,7 @@ const RaffleEntry = () => {
               חזרה
             </Link>
           </Button>
-          <h1 className="text-3xl font-bold text-white drop-shadow-lg">כניסה להגרלה</h1>
+          <h1 className="text-3xl font-bold drop-shadow-lg text-blue-400 px-0 mx-[400px]">כניסה להגרלה</h1>
         </div>
 
         <Card className="glass-card p-8 float-animation">

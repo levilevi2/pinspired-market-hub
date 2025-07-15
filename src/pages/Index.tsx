@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
@@ -12,7 +11,6 @@ import { Users, Percent, Trophy, UserPlus, Plane } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-
 const Index = () => {
   const navigate = useNavigate();
   const [activeFilter, setActiveFilter] = useState("all");
@@ -25,23 +23,18 @@ const Index = () => {
   const [raffleParticipants] = useState(1560);
   const maxRaffleParticipants = 3000;
   const raffleProgress = Math.round(raffleParticipants / maxRaffleParticipants * 100);
-
   const handleSearch = (query: string) => {
     setSearchQuery(query);
   };
-
   const handleViewPrizes = () => {
     console.log("Navigating to prizes page");
     navigate("/prizes");
   };
-
   const handleInstructorSignup = () => {
     setSignupTab("instructor");
     setIsSignupOpen(true);
   };
-
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-accent/10 to-secondary/20">
+  return <div className="min-h-screen bg-gradient-to-br from-background via-accent/10 to-secondary/20">
       <AnimatedWorldMap />
       <Header onSearch={handleSearch} />
       
@@ -55,21 +48,14 @@ const Index = () => {
           <h1 className="text-5xl sm:text-7xl lg:text-8xl font-light mb-6 text-foreground tracking-tight">
             FLY ACADEMY
           </h1>
-          <p className="text-lg sm:text-xl text-muted-foreground mb-12 max-w-xl mx-auto leading-relaxed">
-            האקדמיה המובילה לטיסה מקצועית
-          </p>
+          <p className="text-lg mb-12 max-w-xl mx-auto leading-relaxed text-zinc-950 font-bold sm:text-4xl">קהילת שוחרי הטיס בישראל מזמינה אותך להיות חלק מאיתנו להנות ולזכות במתנות שוות והנחות ללא מתחרים</p>
           
           {/* Clean CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <FlightCoursesDrawer />
             <Dialog open={isSignupOpen} onOpenChange={setIsSignupOpen}>
               <DialogTrigger asChild>
-                <Button 
-                  onClick={handleInstructorSignup} 
-                  variant="outline" 
-                  size="lg" 
-                  className="bg-background/80 backdrop-blur-sm border-primary/20 hover:bg-primary/5"
-                >
+                <Button onClick={handleInstructorSignup} variant="outline" size="lg" className="bg-background/80 backdrop-blur-sm border-primary/20 hover:bg-primary/5">
                   <UserPlus className="h-5 w-5 ml-2" />
                   הרשמה כמדריך
                 </Button>
@@ -112,12 +98,7 @@ const Index = () => {
             
             <div className="space-y-4">
               <Progress value={raffleProgress} className="h-2" />
-              <Button 
-                onClick={handleViewPrizes} 
-                variant="ghost" 
-                size="sm"
-                className="w-full text-primary hover:bg-primary/5"
-              >
+              <Button onClick={handleViewPrizes} variant="ghost" size="sm" className="w-full text-primary hover:bg-primary/5">
                 <Trophy className="w-4 h-4 ml-2" />
                 צפה בפרסים
               </Button>
@@ -144,8 +125,6 @@ const Index = () => {
       </main>
       
       <SiteMap />
-    </div>
-  );
+    </div>;
 };
-
 export default Index;

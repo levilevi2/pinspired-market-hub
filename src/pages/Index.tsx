@@ -114,9 +114,7 @@ const Index = () => {
         {/* Products Section */}
         <div className="space-y-12">
           <div className="text-center">
-            <h2 className="text-3xl sm:text-4xl font-light text-foreground tracking-wide">
-              מוצרים מומלצים
-            </h2>
+            <h2 className="text-3xl text-foreground tracking-wide sm:text-5xl font-medium">להשתתפות בהגרלה ורכישה של מוצרים לטיס</h2>
             <div className="w-24 h-0.5 bg-primary/30 mx-auto mt-4"></div>
           </div>
           

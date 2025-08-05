@@ -248,12 +248,12 @@ const AnimatedWorldMap = () => {
   }, []);
 
   return (
-    <div className="fixed inset-0 z-[-1] overflow-hidden opacity-60">
+    <div className="fixed inset-0 z-[-1] overflow-hidden opacity-30">
       <canvas
         ref={canvasRef}
         className="w-full h-full object-cover"
         style={{
-          filter: 'blur(0.3px)',
+          filter: 'blur(0.3px) brightness(0.4)',
           transform: 'scale(1.05)',
         }}
       />

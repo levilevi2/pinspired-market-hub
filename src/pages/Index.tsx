@@ -34,7 +34,7 @@ const Index = () => {
     setSignupTab("instructor");
     setIsSignupOpen(true);
   };
-  return <div className="min-h-screen bg-gradient-to-br from-background via-accent/10 to-secondary/20">
+  return <div className="min-h-screen bg-gradient-to-br from-background via-accent/10 to-secondary/20 bg-slate-700">
       <AnimatedWorldMap />
       <Header onSearch={handleSearch} />
       

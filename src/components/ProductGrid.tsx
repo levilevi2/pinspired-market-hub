@@ -26,7 +26,7 @@ const ProductGrid: React.FC<ProductGridProps> = ({ filter, searchQuery }) => {
       },
       {
         id: 2,
-        title: "לפטופ אולטרה דק",
+        title: "ציוד מחשבים וטכנולוגיה",
         price: 4299.99,
         image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b",
         category: "electronics",

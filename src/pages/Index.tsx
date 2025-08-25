@@ -104,7 +104,7 @@ const Index = () => {
                 onClick={() => setCurrentSection(2)} 
                 variant="secondary" 
                 size="lg" 
-                className="bg-primary/10 backdrop-blur-sm border-primary/20 hover:bg-primary/20"
+                className="bg-blue-500/10 backdrop-blur-sm border-blue-500/20 hover:bg-blue-500/20 text-blue-600"
               >
                 <Percent className="h-5 w-5 ml-2" />
                 רכישת מוצרים והשתתפות בהגרלה

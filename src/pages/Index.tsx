@@ -100,6 +100,15 @@ const Index = () => {
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <FlightCoursesDrawer />
+              <Button 
+                onClick={() => setCurrentSection(2)} 
+                variant="secondary" 
+                size="lg" 
+                className="bg-primary/10 backdrop-blur-sm border-primary/20 hover:bg-primary/20"
+              >
+                <Percent className="h-5 w-5 ml-2" />
+                רכישת מוצרים והשתתפות בהגרלה
+              </Button>
               <Dialog open={isSignupOpen} onOpenChange={setIsSignupOpen}>
                 <DialogTrigger asChild>
                   <Button onClick={handleInstructorSignup} variant="outline" size="lg" className="bg-background/80 backdrop-blur-sm border-primary/20 hover:bg-primary/5">

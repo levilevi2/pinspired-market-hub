@@ -1,11 +1,9 @@
-
 import React, { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, Clock, Star, Plane, User, MapPin, Heart } from "lucide-react";
 import InstructorSchedule from "./InstructorSchedule";
-
 export interface Instructor {
   id: string;
   name: string;
@@ -25,56 +23,37 @@ export interface Instructor {
     safetyLevel: string;
   };
 }
-
 interface InstructorCardProps {
   instructor: Instructor;
   isFavorite?: boolean;
   onToggleFavorite?: () => void;
 }
-
-const InstructorCard: React.FC<InstructorCardProps> = ({ instructor, isFavorite = false, onToggleFavorite }) => {
+const InstructorCard: React.FC<InstructorCardProps> = ({
+  instructor,
+  isFavorite = false,
+  onToggleFavorite
+}) => {
   const [showSchedule, setShowSchedule] = useState(false);
   const [scheduledDate, setScheduledDate] = useState<Date | undefined>();
   const [scheduledTime, setScheduledTime] = useState<string | undefined>();
-
   const handleScheduleConfirmed = (date: Date | undefined, timeSlot: string) => {
     setScheduledDate(date);
     setScheduledTime(timeSlot);
     setShowSchedule(false);
   };
-
   const cancelScheduling = () => {
     setShowSchedule(false);
   };
-
   if (showSchedule) {
-    return (
-      <InstructorSchedule 
-        instructorId={instructor.id}
-        instructorName={instructor.name}
-        onScheduleConfirmed={handleScheduleConfirmed}
-        onCancel={cancelScheduling}
-      />
-    );
+    return <InstructorSchedule instructorId={instructor.id} instructorName={instructor.name} onScheduleConfirmed={handleScheduleConfirmed} onCancel={cancelScheduling} />;
   }
-
-  return (
-    <Card className="bg-white/10 backdrop-blur-md border-white/20 hover:border-white/40 transition-all duration-300">
+  return <Card className="bg-white/10 backdrop-blur-md border-white/20 hover:border-white/40 transition-all duration-300">
       <CardHeader className="pb-4">
         <div className="flex items-start justify-between relative">
           {/* Favorite Button */}
-          {onToggleFavorite && (
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={onToggleFavorite}
-              className="absolute left-2 top-0 hover:bg-white/10 z-10"
-            >
-              <Heart 
-                className={`h-5 w-5 ${isFavorite ? 'fill-red-500 text-red-500' : 'text-white/60'}`}
-              />
-            </Button>
-          )}
+          {onToggleFavorite && <Button variant="ghost" size="icon" onClick={onToggleFavorite} className="absolute left-2 top-0 hover:bg-white/10 z-10 mx-[370px]">
+              <Heart className={`h-5 w-5 ${isFavorite ? 'fill-red-500 text-red-500' : 'text-white/60'}`} />
+            </Button>}
           
           <div className="flex items-center space-x-4">
             <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-black flex items-center justify-center">
@@ -111,11 +90,9 @@ const InstructorCard: React.FC<InstructorCardProps> = ({ instructor, isFavorite 
         <div>
           <h4 className="text-white font-medium mb-2">התמחויות:</h4>
           <div className="flex flex-wrap gap-2">
-            {instructor.specialties.map((specialty, index) => (
-              <Badge key={index} variant="secondary" className="bg-black/50 text-white">
+            {instructor.specialties.map((specialty, index) => <Badge key={index} variant="secondary" className="bg-black/50 text-white">
                 {specialty}
-              </Badge>
-            ))}
+              </Badge>)}
           </div>
         </div>
 
@@ -144,12 +121,10 @@ const InstructorCard: React.FC<InstructorCardProps> = ({ instructor, isFavorite 
         <div>
           <h4 className="text-white font-medium mb-2">סוגי מטוסים:</h4>
           <div className="flex flex-wrap gap-2">
-            {instructor.aircraftTypes.map((aircraft, index) => (
-              <div key={index} className="flex items-center bg-black/20 rounded px-2 py-1 text-sm text-white/80">
+            {instructor.aircraftTypes.map((aircraft, index) => <div key={index} className="flex items-center bg-black/20 rounded px-2 py-1 text-sm text-white/80">
                 <Plane className="w-3 h-3 mr-1" />
                 {aircraft}
-              </div>
-            ))}
+              </div>)}
           </div>
         </div>
 
@@ -157,33 +132,22 @@ const InstructorCard: React.FC<InstructorCardProps> = ({ instructor, isFavorite 
           <p className="text-white/90 text-sm">{instructor.description}</p>
         </div>
 
-        {scheduledDate && scheduledTime && (
-          <div className="bg-green-100/20 rounded-lg p-3 border border-green-500/30">
+        {scheduledDate && scheduledTime && <div className="bg-green-100/20 rounded-lg p-3 border border-green-500/30">
             <p className="text-white text-sm">
               נקבע מועד: {scheduledDate.toLocaleDateString('he-IL')} בשעה {scheduledTime}
             </p>
-          </div>
-        )}
+          </div>}
 
         <div className="flex gap-2">
-          <Button 
-            onClick={() => setShowSchedule(true)}
-            className="flex-1 bg-black hover:bg-gray-800 text-white"
-          >
+          <Button onClick={() => setShowSchedule(true)} className="flex-1 bg-black hover:bg-gray-800 text-white">
             <Calendar className="w-4 h-4 mr-2" />
             {scheduledDate && scheduledTime ? "שנה מועד" : "קבע מועד"}
           </Button>
-          {scheduledDate && scheduledTime && (
-            <Button 
-              className="flex-1 bg-green-600 hover:bg-green-700 text-white"
-            >
+          {scheduledDate && scheduledTime && <Button className="flex-1 bg-green-600 hover:bg-green-700 text-white">
               הוסף לסל
-            </Button>
-          )}
+            </Button>}
         </div>
       </CardContent>
-    </Card>
-  );
+    </Card>;
 };
-
 export default InstructorCard;

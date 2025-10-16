@@ -26,45 +26,35 @@ const Index = () => {
   const [raffleParticipants] = useState(1560);
   const maxRaffleParticipants = 3000;
   const raffleProgress = Math.round(raffleParticipants / maxRaffleParticipants * 100);
-
   const sections = ["hero", "stats", "products", "sitemap"];
-
   useEffect(() => {
     const handleScroll = () => {
       if (!containerRef.current) return;
-      
       const scrollTop = containerRef.current.scrollTop;
       const sectionHeight = containerRef.current.clientHeight;
       const currentSectionIndex = Math.round(scrollTop / sectionHeight);
-      
       if (currentSectionIndex !== currentSection) {
         setCurrentSection(currentSectionIndex);
       }
     };
-
     const container = containerRef.current;
     if (container) {
       container.addEventListener('scroll', handleScroll);
       return () => container.removeEventListener('scroll', handleScroll);
     }
   }, [currentSection]);
-
   const handleSearch = (query: string) => {
     setSearchQuery(query);
   };
-
   const handleViewPrizes = () => {
     console.log("Navigating to prizes page");
     navigate("/prizes");
   };
-
   const handleInstructorSignup = () => {
     setSignupTab("instructor");
     setIsSignupOpen(true);
   };
-
-  return (
-    <div className="relative">
+  return <div className="relative">
       <AnimatedWorldMap />
       
       {/* Fixed Header */}
@@ -73,17 +63,10 @@ const Index = () => {
       </div>
       
       {/* Section Navigation */}
-      <SectionNavigation 
-        sections={sections}
-        currentSection={currentSection}
-        onSectionChange={setCurrentSection}
-      />
+      <SectionNavigation sections={sections} currentSection={currentSection} onSectionChange={setCurrentSection} />
       
       {/* Scroll Container */}
-      <div 
-        ref={containerRef}
-        className="scroll-container bg-gradient-to-br from-background via-accent/10 to-secondary/20 bg-slate-700"
-      >
+      <div ref={containerRef} className="scroll-container bg-gradient-to-br from-background via-accent/10 to-secondary/20 bg-slate-700">
         
         {/* Section 1: Hero */}
         <section id="section-0" className="scroll-section px-4 sm:px-6 lg:px-8">
@@ -100,18 +83,15 @@ const Index = () => {
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <FlightCoursesDrawer />
-              <Button 
-                onClick={() => {
-                  const element = document.getElementById('section-2');
-                  if (element) {
-                    element.scrollIntoView({ behavior: 'smooth' });
-                  }
-                  setCurrentSection(2);
-                }} 
-                variant="secondary" 
-                size="lg" 
-                className="bg-blue-500/10 backdrop-blur-sm border-blue-500/20 hover:bg-blue-500/20 text-blue-600"
-              >
+              <Button onClick={() => {
+              const element = document.getElementById('section-2');
+              if (element) {
+                element.scrollIntoView({
+                  behavior: 'smooth'
+                });
+              }
+              setCurrentSection(2);
+            }} variant="secondary" size="lg" className="bg-blue-500/10 backdrop-blur-sm border-blue-500/20 hover:bg-blue-500/20 text-blue-600">
                 <Percent className="h-5 w-5 ml-2" />
                 רכישת מוצרים והשתתפות בהגרלה
               </Button>
@@ -178,7 +158,7 @@ const Index = () => {
           <div className="max-w-6xl mx-auto py-8 animate-slide-in-right">
             
             {/* Filter Section */}
-            <div className="bg-card/40 backdrop-blur-sm border border-border/30 rounded-2xl p-6 mb-8 max-w-4xl mx-auto">
+            <div className="bg-card/40 backdrop-blur-sm border border-border/30 rounded-2xl p-6 mb-8 max-w-4xl mx-auto py-0 px-0 my-0">
               <FilterBar onFilterChange={setActiveFilter} />
             </div>
             
@@ -201,7 +181,6 @@ const Index = () => {
         </section>
         
       </div>
-    </div>
-  );
+    </div>;
 };
 export default Index;

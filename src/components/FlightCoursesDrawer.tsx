@@ -126,7 +126,7 @@ const FlightCoursesDrawer = ({
 
   // Position the button based on the page
   const buttonClassName = isInstructorPage 
-    ? "fixed top-4 left-4 z-50 bg-orange-500 hover:bg-orange-600 text-white font-semibold px-4 py-2 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200"
+    ? "fixed top-4 left-1/2 -translate-x-1/2 z-50 bg-orange-500 hover:bg-orange-600 text-white font-semibold px-4 py-2 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200"
     : "bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200";
 
   return (

@@ -9,7 +9,6 @@ import { ArrowLeft, Search, Heart } from "lucide-react";
 import { Link } from "react-router-dom";
 import InstructorCard, { Instructor } from "@/components/InstructorCard";
 import FlightCoursesDrawer from "@/components/FlightCoursesDrawer";
-
 const InstructorDetails: React.FC = () => {
   const [selectedCourse, setSelectedCourse] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
@@ -277,24 +276,18 @@ const InstructorDetails: React.FC = () => {
     const searchTerm = filterMap[course] || course;
     return instructors.filter(instructor => instructor.specialties.some(specialty => specialty.includes(searchTerm) || specialty.toLowerCase().includes(searchTerm.toLowerCase())));
   };
+  const filteredInstructors = filterInstructorsByCourse(selectedCourse).filter(instructor => {
+    // Search filter
+    const matchesSearch = instructor.name.toLowerCase().includes(searchQuery.toLowerCase()) || instructor.location.toLowerCase().includes(searchQuery.toLowerCase());
 
-  const filteredInstructors = filterInstructorsByCourse(selectedCourse)
-    .filter(instructor => {
-      // Search filter
-      const matchesSearch = instructor.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        instructor.location.toLowerCase().includes(searchQuery.toLowerCase());
-      
-      // Price range filter
-      const matchesPrice = instructor.hourlyRate >= priceRange[0] && instructor.hourlyRate <= priceRange[1];
-      
-      // Favorites filter
-      const matchesFavorites = !showFavoritesOnly || favorites.has(instructor.id);
-      
-      return matchesSearch && matchesPrice && matchesFavorites;
-    });
+    // Price range filter
+    const matchesPrice = instructor.hourlyRate >= priceRange[0] && instructor.hourlyRate <= priceRange[1];
 
-  return (
-    <div className="min-h-screen flex flex-col bg-blue-900/70">
+    // Favorites filter
+    const matchesFavorites = !showFavoritesOnly || favorites.has(instructor.id);
+    return matchesSearch && matchesPrice && matchesFavorites;
+  });
+  return <div className="min-h-screen flex flex-col bg-blue-900/70">
       <Header />
       
       {/* Flight Courses Drawer - Now floating */}
@@ -309,7 +302,7 @@ const InstructorDetails: React.FC = () => {
                 חזרה
               </Link>
             </Button>
-            <h1 className="text-3xl font-bold text-white px-0 mx-[240px]">מדריכי הטיסה שלנו</h1>
+            <h1 className="text-3xl font-bold text-white px-0 mx-[350px]">מדריכי הטיסה שלנו</h1>
           </div>
         </div>
 
@@ -321,25 +314,14 @@ const InstructorDetails: React.FC = () => {
               <Label className="text-white text-right block">חיפוש מדריך</Label>
               <div className="relative">
                 <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-white/60" />
-                <Input
-                  type="text"
-                  placeholder="חפש לפי שם או מיקום..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pr-10 bg-white/10 border-white/20 text-white placeholder:text-white/40"
-                />
+                <Input type="text" placeholder="חפש לפי שם או מיקום..." value={searchQuery} onChange={e => setSearchQuery(e.target.value)} className="pr-10 bg-white/10 border-white/20 text-white placeholder:text-white/40" />
               </div>
             </div>
 
             {/* Favorites Toggle */}
             <div className="flex items-end justify-start">
               <div className="flex items-center space-x-2 space-x-reverse">
-                <Checkbox
-                  id="favorites"
-                  checked={showFavoritesOnly}
-                  onCheckedChange={(checked) => setShowFavoritesOnly(checked as boolean)}
-                  className="border-white/40 data-[state=checked]:bg-red-500 data-[state=checked]:border-red-500"
-                />
+                <Checkbox id="favorites" checked={showFavoritesOnly} onCheckedChange={checked => setShowFavoritesOnly(checked as boolean)} className="border-white/40 data-[state=checked]:bg-red-500 data-[state=checked]:border-red-500" />
                 <Label htmlFor="favorites" className="text-white flex items-center gap-2 cursor-pointer">
                   <Heart className="h-4 w-4 fill-red-500 text-red-500" />
                   הצג מועדפים בלבד ({favorites.size})
@@ -352,14 +334,7 @@ const InstructorDetails: React.FC = () => {
           <div className="space-y-3">
             <Label className="text-white text-right block">טווח מחירים לשעה</Label>
             <div className="px-2">
-              <Slider
-                value={priceRange}
-                onValueChange={(value) => setPriceRange(value as [number, number])}
-                min={300}
-                max={600}
-                step={10}
-                className="w-full"
-              />
+              <Slider value={priceRange} onValueChange={value => setPriceRange(value as [number, number])} min={300} max={600} step={10} className="w-full" />
             </div>
             <div className="flex justify-between text-white/80 text-sm">
               <span>₪{priceRange[1]}</span>
@@ -375,21 +350,12 @@ const InstructorDetails: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6" dir="rtl">
-          {filteredInstructors.map(instructor => (
-            <InstructorCard 
-              key={instructor.id} 
-              instructor={instructor}
-              isFavorite={favorites.has(instructor.id)}
-              onToggleFavorite={() => toggleFavorite(instructor.id)}
-            />
-          ))}
+          {filteredInstructors.map(instructor => <InstructorCard key={instructor.id} instructor={instructor} isFavorite={favorites.has(instructor.id)} onToggleFavorite={() => toggleFavorite(instructor.id)} />)}
         </div>
 
-        {filteredInstructors.length === 0 && (
-          <div className="text-center py-12">
+        {filteredInstructors.length === 0 && <div className="text-center py-12">
             <p className="text-white/80 text-lg">לא נמצאו מדריכים עבור הקורס שנבחר</p>
-          </div>
-        )}
+          </div>}
 
         <div className="mt-8 bg-white/10 backdrop-blur-md rounded-lg p-6 border border-white/20">
           <h3 className="text-xl font-bold text-white mb-4 text-right">הערות חשובות:</h3>
@@ -403,8 +369,6 @@ const InstructorDetails: React.FC = () => {
           </ul>
         </div>
       </main>
-    </div>
-  );
+    </div>;
 };
-
 export default InstructorDetails;

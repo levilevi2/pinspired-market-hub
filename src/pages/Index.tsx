@@ -101,7 +101,13 @@ const Index = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <FlightCoursesDrawer />
               <Button 
-                onClick={() => setCurrentSection(2)} 
+                onClick={() => {
+                  const element = document.getElementById('section-2');
+                  if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                  }
+                  setCurrentSection(2);
+                }} 
                 variant="secondary" 
                 size="lg" 
                 className="bg-blue-500/10 backdrop-blur-sm border-blue-500/20 hover:bg-blue-500/20 text-blue-600"

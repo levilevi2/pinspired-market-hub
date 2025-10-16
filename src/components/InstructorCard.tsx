@@ -51,7 +51,7 @@ const InstructorCard: React.FC<InstructorCardProps> = ({
       <CardHeader className="pb-4">
         <div className="flex items-start justify-between relative">
           {/* Favorite Button */}
-          {onToggleFavorite && <Button variant="ghost" size="icon" onClick={onToggleFavorite} className="absolute left-2 top-0 hover:bg-white/10 z-10 mx-[370px]">
+          {onToggleFavorite && <Button variant="ghost" size="icon" onClick={onToggleFavorite} className="absolute left-2 top-0 hover:bg-white/10 z-10 mx-[240px]">
               <Heart className={`h-5 w-5 ${isFavorite ? 'fill-red-500 text-red-500' : 'text-white/60'}`} />
             </Button>}
           

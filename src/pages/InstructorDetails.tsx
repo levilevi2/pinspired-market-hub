@@ -1,13 +1,41 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Slider } from "@/components/ui/slider";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
+import { ArrowLeft, Search, Heart } from "lucide-react";
 import { Link } from "react-router-dom";
 import InstructorCard, { Instructor } from "@/components/InstructorCard";
 import FlightCoursesDrawer from "@/components/FlightCoursesDrawer";
 
 const InstructorDetails: React.FC = () => {
   const [selectedCourse, setSelectedCourse] = useState<string>('all');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [priceRange, setPriceRange] = useState<[number, number]>([300, 600]);
+  const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
+  const [favorites, setFavorites] = useState<Set<string>>(new Set());
+
+  // Load favorites from localStorage
+  useEffect(() => {
+    const savedFavorites = localStorage.getItem('instructorFavorites');
+    if (savedFavorites) {
+      setFavorites(new Set(JSON.parse(savedFavorites)));
+    }
+  }, []);
+
+  // Toggle favorite
+  const toggleFavorite = (instructorId: string) => {
+    const newFavorites = new Set(favorites);
+    if (newFavorites.has(instructorId)) {
+      newFavorites.delete(instructorId);
+    } else {
+      newFavorites.add(instructorId);
+    }
+    setFavorites(newFavorites);
+    localStorage.setItem('instructorFavorites', JSON.stringify(Array.from(newFavorites)));
+  };
   const instructors: Instructor[] = [{
     id: "inst1",
     name: "יוסי כהן",
@@ -250,7 +278,20 @@ const InstructorDetails: React.FC = () => {
     return instructors.filter(instructor => instructor.specialties.some(specialty => specialty.includes(searchTerm) || specialty.toLowerCase().includes(searchTerm.toLowerCase())));
   };
 
-  const filteredInstructors = filterInstructorsByCourse(selectedCourse);
+  const filteredInstructors = filterInstructorsByCourse(selectedCourse)
+    .filter(instructor => {
+      // Search filter
+      const matchesSearch = instructor.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        instructor.location.toLowerCase().includes(searchQuery.toLowerCase());
+      
+      // Price range filter
+      const matchesPrice = instructor.hourlyRate >= priceRange[0] && instructor.hourlyRate <= priceRange[1];
+      
+      // Favorites filter
+      const matchesFavorites = !showFavoritesOnly || favorites.has(instructor.id);
+      
+      return matchesSearch && matchesPrice && matchesFavorites;
+    });
 
   return (
     <div className="min-h-screen flex flex-col bg-blue-900/70">
@@ -272,6 +313,61 @@ const InstructorDetails: React.FC = () => {
           </div>
         </div>
 
+        {/* Search and Filter Section */}
+        <div className="mb-6 bg-white/10 backdrop-blur-md rounded-lg p-6 border border-white/20 space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* Search */}
+            <div className="space-y-2">
+              <Label className="text-white text-right block">חיפוש מדריך</Label>
+              <div className="relative">
+                <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-white/60" />
+                <Input
+                  type="text"
+                  placeholder="חפש לפי שם או מיקום..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pr-10 bg-white/10 border-white/20 text-white placeholder:text-white/40"
+                />
+              </div>
+            </div>
+
+            {/* Favorites Toggle */}
+            <div className="flex items-end justify-start">
+              <div className="flex items-center space-x-2 space-x-reverse">
+                <Checkbox
+                  id="favorites"
+                  checked={showFavoritesOnly}
+                  onCheckedChange={(checked) => setShowFavoritesOnly(checked as boolean)}
+                  className="border-white/40 data-[state=checked]:bg-red-500 data-[state=checked]:border-red-500"
+                />
+                <Label htmlFor="favorites" className="text-white flex items-center gap-2 cursor-pointer">
+                  <Heart className="h-4 w-4 fill-red-500 text-red-500" />
+                  הצג מועדפים בלבד ({favorites.size})
+                </Label>
+              </div>
+            </div>
+          </div>
+
+          {/* Price Range Slider */}
+          <div className="space-y-3">
+            <Label className="text-white text-right block">טווח מחירים לשעה</Label>
+            <div className="px-2">
+              <Slider
+                value={priceRange}
+                onValueChange={(value) => setPriceRange(value as [number, number])}
+                min={300}
+                max={600}
+                step={10}
+                className="w-full"
+              />
+            </div>
+            <div className="flex justify-between text-white/80 text-sm">
+              <span>₪{priceRange[1]}</span>
+              <span>₪{priceRange[0]}</span>
+            </div>
+          </div>
+        </div>
+
         <div className="mb-6">
           <p className="text-white/80 text-lg text-right">
             {selectedCourse === 'all' ? 'בחר את המדריך המתאים לך מתוך צוות המדריכים המקצועיים שלנו' : `מציג מדריכים עבור: ${selectedCourse === 'PPL' ? 'קורס טיס פרטי' : selectedCourse === 'CPL' ? 'קורס טיס מסחרי' : selectedCourse === 'ATPL' ? 'קורס טייס קווים' : selectedCourse === 'FI' ? 'קורס מדריך טיסה' : selectedCourse === 'IR' ? 'טיסת מכשירים' : selectedCourse === 'ME' ? 'טיסה דו-מנועית' : selectedCourse === 'היכרות' ? 'שיעור היכרות' : selectedCourse === 'מסלול מלא' ? 'מסלול מלא' : selectedCourse === 'תיאוריה' ? 'תיאוריה' : selectedCourse === 'סימולטור' ? 'סימולטור' : selectedCourse === 'ריענון' ? 'קורס ריענון' : selectedCourse === 'זוגי' ? 'שיעורים זוגיים' : selectedCourse === 'מלגות' ? 'מלגות וסיוע' : selectedCourse} (${filteredInstructors.length} מדריכים)`}
@@ -280,7 +376,12 @@ const InstructorDetails: React.FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6" dir="rtl">
           {filteredInstructors.map(instructor => (
-            <InstructorCard key={instructor.id} instructor={instructor} />
+            <InstructorCard 
+              key={instructor.id} 
+              instructor={instructor}
+              isFavorite={favorites.has(instructor.id)}
+              onToggleFavorite={() => toggleFavorite(instructor.id)}
+            />
           ))}
         </div>
 

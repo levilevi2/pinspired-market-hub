@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, Clock, Star, Plane, User, MapPin } from "lucide-react";
+import { Calendar, Clock, Star, Plane, User, MapPin, Heart } from "lucide-react";
 import InstructorSchedule from "./InstructorSchedule";
 
 export interface Instructor {
@@ -28,9 +28,11 @@ export interface Instructor {
 
 interface InstructorCardProps {
   instructor: Instructor;
+  isFavorite?: boolean;
+  onToggleFavorite?: () => void;
 }
 
-const InstructorCard: React.FC<InstructorCardProps> = ({ instructor }) => {
+const InstructorCard: React.FC<InstructorCardProps> = ({ instructor, isFavorite = false, onToggleFavorite }) => {
   const [showSchedule, setShowSchedule] = useState(false);
   const [scheduledDate, setScheduledDate] = useState<Date | undefined>();
   const [scheduledTime, setScheduledTime] = useState<string | undefined>();
@@ -59,7 +61,21 @@ const InstructorCard: React.FC<InstructorCardProps> = ({ instructor }) => {
   return (
     <Card className="bg-white/10 backdrop-blur-md border-white/20 hover:border-white/40 transition-all duration-300">
       <CardHeader className="pb-4">
-        <div className="flex items-start justify-between">
+        <div className="flex items-start justify-between relative">
+          {/* Favorite Button */}
+          {onToggleFavorite && (
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={onToggleFavorite}
+              className="absolute left-2 top-0 hover:bg-white/10 z-10"
+            >
+              <Heart 
+                className={`h-5 w-5 ${isFavorite ? 'fill-red-500 text-red-500' : 'text-white/60'}`}
+              />
+            </Button>
+          )}
+          
           <div className="flex items-center space-x-4">
             <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-black flex items-center justify-center">
               <User className="w-8 h-8 text-white" />

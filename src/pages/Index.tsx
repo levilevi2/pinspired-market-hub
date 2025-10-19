@@ -76,16 +76,16 @@ const Index = () => {
               <div className="inline-flex items-center justify-center w-20 h-20 bg-primary/10 rounded-full mb-8">
                 <Plane className="w-8 h-8 text-primary" />
               </div>
-              <h1 className="text-5xl sm:text-7xl lg:text-8xl font-light mb-6 text-foreground tracking-tight">
-                FLY ACADEMY
-              </h1>
-              <p className="text-lg mb-12 max-w-xl mx-auto leading-relaxed text-zinc-950 font-bold sm:text-4xl">
-                קהילת שוחרי הטיס בישראל מזמינה אותך להיות חלק מאיתנו להנות ולזכות במתנות שוות והנחות ללא מתחרים
-              </p>
+            <h1 className="text-4xl sm:text-7xl lg:text-8xl font-light mb-4 sm:mb-6 text-foreground tracking-tight">
+              FLY ACADEMY
+            </h1>
+            <p className="text-base sm:text-lg mb-8 sm:mb-12 max-w-xl mx-auto leading-relaxed text-zinc-950 font-bold sm:text-4xl px-4">
+              קהילת שוחרי הטיס בישראל מזמינה אותך להיות חלק מאיתנו להנות ולזכות במתנות שוות והנחות ללא מתחרים
+            </p>
               
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <FlightCoursesDrawer />
-                <Button onClick={() => {
+            <div className="flex flex-col gap-3 sm:gap-4 justify-center items-stretch px-4 sm:px-0 sm:flex-row sm:items-center">
+              <FlightCoursesDrawer />
+              <Button onClick={() => {
                 const element = document.getElementById('section-1');
                 if (element) {
                   element.scrollIntoView({
@@ -93,58 +93,58 @@ const Index = () => {
                   });
                 }
                 setCurrentSection(1);
-              }} variant="secondary" size="lg" className="bg-blue-500/10 backdrop-blur-sm border-blue-500/20 hover:bg-blue-500/20 text-blue-600">
-                  <Percent className="h-5 w-5 ml-2" />
-                  רכישת מוצרים והשתתפות בהגרלה
-                </Button>
-                <Dialog open={isSignupOpen} onOpenChange={setIsSignupOpen}>
-                  <DialogTrigger asChild>
-                    <Button onClick={handleInstructorSignup} variant="outline" size="lg" className="bg-background/80 backdrop-blur-sm border-primary/20 hover:bg-primary/5">
-                      <UserPlus className="h-5 w-5 ml-2" />
-                      הרשמה כמדריך
-                    </Button>
-                  </DialogTrigger>
-                  <DialogContent className="w-[95vw] sm:max-w-[900px] max-h-[90vh] overflow-y-auto mx-auto">
-                    <SignupForm onClose={() => setIsSignupOpen(false)} defaultTab={signupTab} />
-                  </DialogContent>
-                </Dialog>
-              </div>
+              }} variant="secondary" size="default" className="bg-blue-500/10 backdrop-blur-sm border-blue-500/20 hover:bg-blue-500/20 text-blue-600 text-sm sm:text-base h-auto py-3 sm:py-2">
+                <Percent className="h-4 w-4 ml-2 sm:h-5 sm:w-5" />
+                <span className="whitespace-normal sm:whitespace-nowrap">רכישת מוצרים והשתתפות בהגרלה</span>
+              </Button>
+              <Dialog open={isSignupOpen} onOpenChange={setIsSignupOpen}>
+                <DialogTrigger asChild>
+                  <Button onClick={handleInstructorSignup} variant="outline" size="default" className="bg-background/80 backdrop-blur-sm border-primary/20 hover:bg-primary/5 text-sm sm:text-base">
+                    <UserPlus className="h-4 w-4 ml-2 sm:h-5 sm:w-5" />
+                    הרשמה כמדריך
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="w-[95vw] sm:max-w-[900px] max-h-[90vh] overflow-y-auto mx-auto">
+                  <SignupForm onClose={() => setIsSignupOpen(false)} defaultTab={signupTab} />
+                </DialogContent>
+              </Dialog>
+            </div>
             </div>
 
             {/* Stats */}
-            <div className="max-w-4xl mx-auto animate-slide-in-left pb-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="max-w-4xl mx-auto animate-slide-in-left pb-8 px-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-8">
                 
                 {/* Friends Counter Card */}
-                <div className="bg-card/60 backdrop-blur-sm border border-border/50 rounded-2xl p-8 hover:bg-card/80 transition-all duration-300">
+                <div className="bg-card/60 backdrop-blur-sm border border-border/50 rounded-xl sm:rounded-2xl p-4 sm:p-8 hover:bg-card/80 transition-all duration-300">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm text-muted-foreground mb-2">חברים באתר</p>
-                      <p className="text-3xl font-light text-foreground">{friendsCount.toLocaleString()}</p>
+                      <p className="text-xs sm:text-sm text-muted-foreground mb-1 sm:mb-2">חברים באתר</p>
+                      <p className="text-2xl sm:text-3xl font-light text-foreground">{friendsCount.toLocaleString()}</p>
                     </div>
-                    <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
-                      <Users className="w-6 h-6 text-primary" />
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                      <Users className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
                     </div>
                   </div>
                 </div>
                 
                 {/* Raffle Progress Card */}
-                <div className="bg-card/60 backdrop-blur-sm border border-border/50 rounded-2xl p-8 hover:bg-card/80 transition-all duration-300">
-                  <div className="flex items-center justify-between mb-6">
+                <div className="bg-card/60 backdrop-blur-sm border border-border/50 rounded-xl sm:rounded-2xl p-4 sm:p-8 hover:bg-card/80 transition-all duration-300">
+                  <div className="flex items-center justify-between mb-4 sm:mb-6">
                     <div>
-                      <p className="text-sm text-muted-foreground mb-2">משתתפים בהגרלה</p>
-                      <p className="text-lg font-light text-foreground">{raffleParticipants.toLocaleString()} / {maxRaffleParticipants.toLocaleString()}</p>
+                      <p className="text-xs sm:text-sm text-muted-foreground mb-1 sm:mb-2">משתתפים בהגרלה</p>
+                      <p className="text-sm sm:text-lg font-light text-foreground">{raffleParticipants.toLocaleString()} / {maxRaffleParticipants.toLocaleString()}</p>
                     </div>
                     <div className="text-center">
-                      <p className="text-2xl font-light text-primary">{raffleProgress}%</p>
+                      <p className="text-xl sm:text-2xl font-light text-primary">{raffleProgress}%</p>
                       <p className="text-xs text-muted-foreground">הושלם</p>
                     </div>
                   </div>
                   
-                  <div className="space-y-4">
+                  <div className="space-y-3 sm:space-y-4">
                     <Progress value={raffleProgress} className="h-2" />
-                    <Button onClick={handleViewPrizes} variant="ghost" size="sm" className="w-full text-primary hover:bg-primary/5">
-                      <Trophy className="w-4 h-4 ml-2" />
+                    <Button onClick={handleViewPrizes} variant="ghost" size="sm" className="w-full text-primary hover:bg-primary/5 text-xs sm:text-sm">
+                      <Trophy className="w-3 h-3 ml-2 sm:w-4 sm:h-4" />
                       צפה בפרסים
                     </Button>
                   </div>
@@ -165,11 +165,11 @@ const Index = () => {
               </div>
               
               {/* Products Header */}
-              <div className="text-center mb-8">
-                <h2 className="text-3xl text-foreground tracking-wide sm:text-5xl font-medium">
+              <div className="text-center mb-6 sm:mb-8 px-4">
+                <h2 className="text-2xl sm:text-3xl lg:text-5xl text-foreground tracking-wide font-medium">
                   להשתתפות בהגרלה ורכישה של מוצרים לטיס
                 </h2>
-                <div className="w-24 h-0.5 bg-primary/30 mx-auto mt-4"></div>
+                <div className="w-16 sm:w-24 h-0.5 bg-primary/30 mx-auto mt-3 sm:mt-4"></div>
               </div>
               
               {/* Products Grid */}

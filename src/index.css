@@ -182,7 +182,7 @@ button, a, input[type="button"], input[type="submit"], [role="button"] {
 /* Section Navigation */
 .section-nav {
   position: fixed;
-  right: 2rem;
+  right: 1rem;
   top: 50%;
   transform: translateY(-50%);
   z-index: 50;
@@ -191,13 +191,26 @@ button, a, input[type="button"], input[type="submit"], [role="button"] {
   gap: 0.5rem;
 }
 
+@media (min-width: 640px) {
+  .section-nav {
+    right: 2rem;
+  }
+}
+
 .section-nav-dot {
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.3);
   cursor: pointer;
   transition: all 0.3s ease;
+}
+
+@media (min-width: 640px) {
+  .section-nav-dot {
+    width: 12px;
+    height: 12px;
+  }
 }
 
 .section-nav-dot.active {
@@ -208,4 +221,12 @@ button, a, input[type="button"], input[type="submit"], [role="button"] {
 .section-nav-dot:hover {
   background: rgba(255, 255, 255, 0.6);
   transform: scale(1.1);
+}
+
+/* Mobile Optimizations */
+@media (max-width: 640px) {
+  .scroll-section {
+    padding-top: 4rem;
+    justify-content: flex-start;
+  }
 }

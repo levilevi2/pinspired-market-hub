@@ -93,7 +93,7 @@ const Index = () => {
                   });
                 }
                 setCurrentSection(1);
-              }} variant="secondary" size="default" className="bg-blue-500/10 backdrop-blur-sm border-blue-500/20 hover:bg-blue-500/20 text-blue-600 text-sm sm:text-base h-auto py-3 sm:py-2">
+              }} variant="secondary" size="default" className="backdrop-blur-sm border-blue-500/20 text-sm sm:text-base h-auto py-3 sm:py-2 text-red-50 bg-green-700 hover:bg-green-600">
                 <Percent className="h-4 w-4 ml-2 sm:h-5 sm:w-5" />
                 <span className="whitespace-normal sm:whitespace-nowrap">רכישת מוצרים והשתתפות בהגרלה</span>
               </Button>

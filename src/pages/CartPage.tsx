@@ -32,6 +32,15 @@ const CartPage = () => {
     address: ""
   });
 
+  const [paymentDetails, setPaymentDetails] = useState({
+    cardName: "",
+    cardNumber: "",
+    expiry: "",
+    cvv: ""
+  });
+
+  const [errors, setErrors] = useState<{[key: string]: boolean}>({});
+
   // Check authentication status
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
@@ -58,6 +67,31 @@ const CartPage = () => {
       ...prev,
       [name]: value
     }));
+    // Clear error when user starts typing
+    if (errors[name]) {
+      setErrors(prev => ({
+        ...prev,
+        [name]: false
+      }));
+    }
+  };
+
+  const handlePaymentInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const {
+      name,
+      value
+    } = e.target;
+    setPaymentDetails(prev => ({
+      ...prev,
+      [name]: value
+    }));
+    // Clear error when user starts typing
+    if (errors[name]) {
+      setErrors(prev => ({
+        ...prev,
+        [name]: false
+      }));
+    }
   };
 
   const handleRegisterRedirect = () => {
@@ -76,22 +110,49 @@ const CartPage = () => {
 
     // Validate user details if needed
     if (step === "user-details") {
-      if (!userDetails.fullName || !userDetails.email || !userDetails.phone) {
+      const newErrors: {[key: string]: boolean} = {};
+      
+      if (!userDetails.fullName.trim()) newErrors.fullName = true;
+      if (!userDetails.email.trim()) newErrors.email = true;
+      if (!userDetails.phone.trim()) newErrors.phone = true;
+      
+      if (Object.keys(newErrors).length > 0) {
+        setErrors(newErrors);
         toast({
           title: "שגיאה",
-          description: "נא למלא את כל השדות הנדרשים",
+          description: "נא למלא את כל השדות הנדרשים המסומנים באדום",
           variant: "destructive"
         });
         return;
       }
+      
       setStep("payment");
     } else {
+      // Validate payment details
+      const newErrors: {[key: string]: boolean} = {};
+      
+      if (!paymentDetails.cardName.trim()) newErrors.cardName = true;
+      if (!paymentDetails.cardNumber.trim()) newErrors.cardNumber = true;
+      if (!paymentDetails.expiry.trim()) newErrors.expiry = true;
+      if (!paymentDetails.cvv.trim()) newErrors.cvv = true;
+      
+      if (Object.keys(newErrors).length > 0) {
+        setErrors(newErrors);
+        toast({
+          title: "שגיאה",
+          description: "נא למלא את כל פרטי התשלום המסומנים באדום",
+          variant: "destructive"
+        });
+        return;
+      }
+      
       // Process payment (mock)
       toast({
         title: "ההזמנה בוצעה בהצלחה",
         description: "תודה על ההזמנה! פרטי ההזמנה נשלחו לדוא״ל שלך"
       });
       clearCart();
+      setErrors({});
       // Would redirect to a thank you page or order confirmation in a real app
     }
   };
@@ -247,17 +308,42 @@ const CartPage = () => {
                   
                   <div>
                     <label htmlFor="fullName" className="block text-sm text-white/90 mb-1">שם מלא *</label>
-                    <Input id="fullName" name="fullName" value={userDetails.fullName} onChange={handleInputChange} required className="bg-white/10 border-white/20 text-white" dir="rtl" />
+                    <Input 
+                      id="fullName" 
+                      name="fullName" 
+                      value={userDetails.fullName} 
+                      onChange={handleInputChange} 
+                      required 
+                      className={`bg-white/10 text-white ${errors.fullName ? 'border-red-500 border-2' : 'border-white/20'}`}
+                      dir="rtl" 
+                    />
                   </div>
                   
                   <div>
                     <label htmlFor="email" className="block text-sm text-white/90 mb-1">דוא״ל *</label>
-                    <Input id="email" name="email" type="email" value={userDetails.email} onChange={handleInputChange} required className="bg-white/10 border-white/20 text-white" dir="rtl" />
+                    <Input 
+                      id="email" 
+                      name="email" 
+                      type="email" 
+                      value={userDetails.email} 
+                      onChange={handleInputChange} 
+                      required 
+                      className={`bg-white/10 text-white ${errors.email ? 'border-red-500 border-2' : 'border-white/20'}`}
+                      dir="rtl" 
+                    />
                   </div>
                   
                   <div>
                     <label htmlFor="phone" className="block text-sm text-white/90 mb-1">טלפון *</label>
-                    <Input id="phone" name="phone" value={userDetails.phone} onChange={handleInputChange} required className="bg-white/10 border-white/20 text-white" dir="rtl" />
+                    <Input 
+                      id="phone" 
+                      name="phone" 
+                      value={userDetails.phone} 
+                      onChange={handleInputChange} 
+                      required 
+                      className={`bg-white/10 text-white ${errors.phone ? 'border-red-500 border-2' : 'border-white/20'}`}
+                      dir="rtl" 
+                    />
                   </div>
                   
                   <div>
@@ -270,22 +356,51 @@ const CartPage = () => {
                   {/* Mock payment form fields */}
                   <div>
                     <label htmlFor="cardName" className="block text-sm text-white/90 mb-1">שם בעל הכרטיס *</label>
-                    <Input id="cardName" className="bg-white/10 border-white/20 text-white" dir="rtl" />
+                    <Input 
+                      id="cardName" 
+                      name="cardName"
+                      value={paymentDetails.cardName}
+                      onChange={handlePaymentInputChange}
+                      className={`bg-white/10 text-white ${errors.cardName ? 'border-red-500 border-2' : 'border-white/20'}`}
+                      dir="rtl" 
+                    />
                   </div>
                   
                   <div>
                     <label htmlFor="cardNumber" className="block text-sm text-white/90 mb-1">מספר כרטיס *</label>
-                    <Input id="cardNumber" className="bg-white/10 border-white/20 text-white" dir="rtl" />
+                    <Input 
+                      id="cardNumber" 
+                      name="cardNumber"
+                      value={paymentDetails.cardNumber}
+                      onChange={handlePaymentInputChange}
+                      className={`bg-white/10 text-white ${errors.cardNumber ? 'border-red-500 border-2' : 'border-white/20'}`}
+                      dir="rtl" 
+                    />
                   </div>
                   
                   <div className="grid grid-cols-2 gap-3">
                     <div>
                       <label htmlFor="expiry" className="block text-sm text-white/90 mb-1">תוקף *</label>
-                      <Input id="expiry" placeholder="MM/YY" className="bg-white/10 border-white/20 text-white" dir="rtl" />
+                      <Input 
+                        id="expiry" 
+                        name="expiry"
+                        placeholder="MM/YY"
+                        value={paymentDetails.expiry}
+                        onChange={handlePaymentInputChange}
+                        className={`bg-white/10 text-white ${errors.expiry ? 'border-red-500 border-2' : 'border-white/20'}`}
+                        dir="rtl" 
+                      />
                     </div>
                     <div>
                       <label htmlFor="cvv" className="block text-sm text-white/90 mb-1">CVV *</label>
-                      <Input id="cvv" className="bg-white/10 border-white/20 text-white" dir="rtl" />
+                      <Input 
+                        id="cvv" 
+                        name="cvv"
+                        value={paymentDetails.cvv}
+                        onChange={handlePaymentInputChange}
+                        className={`bg-white/10 text-white ${errors.cvv ? 'border-red-500 border-2' : 'border-white/20'}`}
+                        dir="rtl" 
+                      />
                     </div>
                   </div>
                 </div>}

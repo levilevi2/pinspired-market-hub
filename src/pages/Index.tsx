@@ -26,7 +26,7 @@ const Index = () => {
   const [raffleParticipants] = useState(1560);
   const maxRaffleParticipants = 3000;
   const raffleProgress = Math.round(raffleParticipants / maxRaffleParticipants * 100);
-  const sections = ["hero", "stats", "products", "sitemap"];
+  const sections = ["hero", "products"];
   useEffect(() => {
     const handleScroll = () => {
       if (!containerRef.current) return;
@@ -68,116 +68,119 @@ const Index = () => {
       {/* Scroll Container */}
       <div ref={containerRef} className="scroll-container bg-gradient-to-br from-background via-accent/10 to-secondary/20 bg-slate-700">
         
-        {/* Section 1: Hero */}
+        {/* Section 1: Hero + Stats */}
         <section id="section-0" className="scroll-section px-4 sm:px-6 lg:px-8">
-          <div className="max-w-6xl mx-auto text-center animate-fade-in-scale">
-            <div className="inline-flex items-center justify-center w-20 h-20 bg-primary/10 rounded-full mb-8">
-              <Plane className="w-8 h-8 text-primary" />
-            </div>
-            <h1 className="text-5xl sm:text-7xl lg:text-8xl font-light mb-6 text-foreground tracking-tight">
-              FLY ACADEMY
-            </h1>
-            <p className="text-lg mb-12 max-w-xl mx-auto leading-relaxed text-zinc-950 font-bold sm:text-4xl">
-              קהילת שוחרי הטיס בישראל מזמינה אותך להיות חלק מאיתנו להנות ולזכות במתנות שוות והנחות ללא מתחרים
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <FlightCoursesDrawer />
-              <Button onClick={() => {
-              const element = document.getElementById('section-2');
-              if (element) {
-                element.scrollIntoView({
-                  behavior: 'smooth'
-                });
-              }
-              setCurrentSection(2);
-            }} variant="secondary" size="lg" className="bg-blue-500/10 backdrop-blur-sm border-blue-500/20 hover:bg-blue-500/20 text-blue-600">
-                <Percent className="h-5 w-5 ml-2" />
-                רכישת מוצרים והשתתפות בהגרלה
-              </Button>
-              <Dialog open={isSignupOpen} onOpenChange={setIsSignupOpen}>
-                <DialogTrigger asChild>
-                  <Button onClick={handleInstructorSignup} variant="outline" size="lg" className="bg-background/80 backdrop-blur-sm border-primary/20 hover:bg-primary/5">
-                    <UserPlus className="h-5 w-5 ml-2" />
-                    הרשמה כמדריך
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="w-[95vw] sm:max-w-[900px] max-h-[90vh] overflow-y-auto mx-auto">
-                  <SignupForm onClose={() => setIsSignupOpen(false)} defaultTab={signupTab} />
-                </DialogContent>
-              </Dialog>
-            </div>
-          </div>
-        </section>
-
-        {/* Section 2: Stats */}
-        <section id="section-1" className="scroll-section px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto animate-slide-in-left">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              
-              {/* Friends Counter Card */}
-              <div className="bg-card/60 backdrop-blur-sm border border-border/50 rounded-2xl p-8 hover:bg-card/80 transition-all duration-300">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm text-muted-foreground mb-2">חברים באתר</p>
-                    <p className="text-3xl font-light text-foreground">{friendsCount.toLocaleString()}</p>
-                  </div>
-                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
-                    <Users className="w-6 h-6 text-primary" />
-                  </div>
-                </div>
+          <div className="max-w-6xl mx-auto space-y-12">
+            {/* Hero */}
+            <div className="text-center animate-fade-in-scale pt-8">
+              <div className="inline-flex items-center justify-center w-20 h-20 bg-primary/10 rounded-full mb-8">
+                <Plane className="w-8 h-8 text-primary" />
               </div>
+              <h1 className="text-5xl sm:text-7xl lg:text-8xl font-light mb-6 text-foreground tracking-tight">
+                FLY ACADEMY
+              </h1>
+              <p className="text-lg mb-12 max-w-xl mx-auto leading-relaxed text-zinc-950 font-bold sm:text-4xl">
+                קהילת שוחרי הטיס בישראל מזמינה אותך להיות חלק מאיתנו להנות ולזכות במתנות שוות והנחות ללא מתחרים
+              </p>
               
-              {/* Raffle Progress Card */}
-              <div className="bg-card/60 backdrop-blur-sm border border-border/50 rounded-2xl p-8 hover:bg-card/80 transition-all duration-300">
-                <div className="flex items-center justify-between mb-6">
-                  <div>
-                    <p className="text-sm text-muted-foreground mb-2">משתתפים בהגרלה</p>
-                    <p className="text-lg font-light text-foreground">{raffleParticipants.toLocaleString()} / {maxRaffleParticipants.toLocaleString()}</p>
-                  </div>
-                  <div className="text-center">
-                    <p className="text-2xl font-light text-primary">{raffleProgress}%</p>
-                    <p className="text-xs text-muted-foreground">הושלם</p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <FlightCoursesDrawer />
+                <Button onClick={() => {
+                const element = document.getElementById('section-1');
+                if (element) {
+                  element.scrollIntoView({
+                    behavior: 'smooth'
+                  });
+                }
+                setCurrentSection(1);
+              }} variant="secondary" size="lg" className="bg-blue-500/10 backdrop-blur-sm border-blue-500/20 hover:bg-blue-500/20 text-blue-600">
+                  <Percent className="h-5 w-5 ml-2" />
+                  רכישת מוצרים והשתתפות בהגרלה
+                </Button>
+                <Dialog open={isSignupOpen} onOpenChange={setIsSignupOpen}>
+                  <DialogTrigger asChild>
+                    <Button onClick={handleInstructorSignup} variant="outline" size="lg" className="bg-background/80 backdrop-blur-sm border-primary/20 hover:bg-primary/5">
+                      <UserPlus className="h-5 w-5 ml-2" />
+                      הרשמה כמדריך
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="w-[95vw] sm:max-w-[900px] max-h-[90vh] overflow-y-auto mx-auto">
+                    <SignupForm onClose={() => setIsSignupOpen(false)} defaultTab={signupTab} />
+                  </DialogContent>
+                </Dialog>
+              </div>
+            </div>
+
+            {/* Stats */}
+            <div className="max-w-4xl mx-auto animate-slide-in-left pb-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                {/* Friends Counter Card */}
+                <div className="bg-card/60 backdrop-blur-sm border border-border/50 rounded-2xl p-8 hover:bg-card/80 transition-all duration-300">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm text-muted-foreground mb-2">חברים באתר</p>
+                      <p className="text-3xl font-light text-foreground">{friendsCount.toLocaleString()}</p>
+                    </div>
+                    <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                      <Users className="w-6 h-6 text-primary" />
+                    </div>
                   </div>
                 </div>
                 
-                <div className="space-y-4">
-                  <Progress value={raffleProgress} className="h-2" />
-                  <Button onClick={handleViewPrizes} variant="ghost" size="sm" className="w-full text-primary hover:bg-primary/5">
-                    <Trophy className="w-4 h-4 ml-2" />
-                    צפה בפרסים
-                  </Button>
+                {/* Raffle Progress Card */}
+                <div className="bg-card/60 backdrop-blur-sm border border-border/50 rounded-2xl p-8 hover:bg-card/80 transition-all duration-300">
+                  <div className="flex items-center justify-between mb-6">
+                    <div>
+                      <p className="text-sm text-muted-foreground mb-2">משתתפים בהגרלה</p>
+                      <p className="text-lg font-light text-foreground">{raffleParticipants.toLocaleString()} / {maxRaffleParticipants.toLocaleString()}</p>
+                    </div>
+                    <div className="text-center">
+                      <p className="text-2xl font-light text-primary">{raffleProgress}%</p>
+                      <p className="text-xs text-muted-foreground">הושלם</p>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-4">
+                    <Progress value={raffleProgress} className="h-2" />
+                    <Button onClick={handleViewPrizes} variant="ghost" size="sm" className="w-full text-primary hover:bg-primary/5">
+                      <Trophy className="w-4 h-4 ml-2" />
+                      צפה בפרסים
+                    </Button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Section 3: Products */}
-        <section id="section-2" className="scroll-section px-4 sm:px-6 lg:px-8 overflow-y-auto">
-          <div className="max-w-6xl mx-auto py-8 animate-slide-in-right">
-            
-            {/* Filter Section */}
-            <div className="bg-card/40 backdrop-blur-sm border border-border/30 rounded-2xl p-6 mb-8 max-w-4xl mx-auto py-0 px-0 my-0">
-              <FilterBar onFilterChange={setActiveFilter} />
+        {/* Section 2: Products + Site Map */}
+        <section id="section-1" className="scroll-section px-4 sm:px-6 lg:px-8 overflow-y-auto">
+          <div className="max-w-6xl mx-auto py-8 space-y-12">
+            {/* Products */}
+            <div className="animate-slide-in-right">
+              {/* Filter Section */}
+              <div className="bg-card/40 backdrop-blur-sm border border-border/30 rounded-2xl p-6 mb-8 max-w-4xl mx-auto py-0 px-0 my-0">
+                <FilterBar onFilterChange={setActiveFilter} />
+              </div>
+              
+              {/* Products Header */}
+              <div className="text-center mb-8">
+                <h2 className="text-3xl text-foreground tracking-wide sm:text-5xl font-medium">
+                  להשתתפות בהגרלה ורכישה של מוצרים לטיס
+                </h2>
+                <div className="w-24 h-0.5 bg-primary/30 mx-auto mt-4"></div>
+              </div>
+              
+              {/* Products Grid */}
+              <ProductGrid filter={activeFilter} searchQuery={searchQuery} />
             </div>
-            
-            {/* Products Header */}
-            <div className="text-center mb-8">
-              <h2 className="text-3xl text-foreground tracking-wide sm:text-5xl font-medium">
-                להשתתפות בהגרלה ורכישה של מוצרים לטיס
-              </h2>
-              <div className="w-24 h-0.5 bg-primary/30 mx-auto mt-4"></div>
-            </div>
-            
-            {/* Products Grid */}
-            <ProductGrid filter={activeFilter} searchQuery={searchQuery} />
-          </div>
-        </section>
 
-        {/* Section 4: Site Map */}
-        <section id="section-3" className="scroll-section animate-slide-in-bottom">
-          <SiteMap />
+            {/* Site Map */}
+            <div className="animate-slide-in-bottom">
+              <SiteMap />
+            </div>
+          </div>
         </section>
         
       </div>

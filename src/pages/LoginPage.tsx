@@ -122,7 +122,7 @@ const LoginPage: React.FC = () => {
                           <Input 
                             placeholder="your@email.com" 
                             type="email" 
-                            className="pl-10 bg-background/50 border-border/50" 
+                            className="pr-10 bg-background/50 border-border/50" 
                             {...field} 
                           />
                           <Mail className="absolute right-3 top-2.5 h-5 w-5 text-muted-foreground" />
@@ -144,7 +144,7 @@ const LoginPage: React.FC = () => {
                           <Input 
                             type={showPassword ? "text" : "password"} 
                             placeholder="הזן סיסמה" 
-                            className="pl-10 bg-background/50 border-border/50"
+                            className="pr-10 pl-10 bg-background/50 border-border/50"
                             {...field} 
                           />
                           <Lock className="absolute right-3 top-2.5 h-5 w-5 text-muted-foreground" />

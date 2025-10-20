@@ -12,7 +12,7 @@ import FlightCoursesDrawer from "@/components/FlightCoursesDrawer";
 const InstructorDetails: React.FC = () => {
   const [selectedCourse, setSelectedCourse] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
-  const [priceRange, setPriceRange] = useState<[number, number]>([300, 600]);
+  const [priceRange, setPriceRange] = useState<[number, number]>([300, 2000]);
   const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
   const [favorites, setFavorites] = useState<Set<string>>(new Set());
 
@@ -334,7 +334,7 @@ const InstructorDetails: React.FC = () => {
           <div className="space-y-3">
             <Label className="text-white text-right block">טווח מחירים לשעה</Label>
             <div className="px-2">
-              <Slider value={priceRange} onValueChange={value => setPriceRange(value as [number, number])} min={300} max={600} step={10} className="w-full" />
+              <Slider value={priceRange} onValueChange={value => setPriceRange(value as [number, number])} min={300} max={2000} step={10} className="w-full" />
             </div>
             <div className="flex justify-between text-white/80 text-sm">
               <span>₪{priceRange[1]}</span>

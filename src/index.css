@@ -101,17 +101,15 @@ button, a, input[type="button"], input[type="submit"], [role="button"] {
   cursor: url('/lovable-uploads/794a9080-5fa5-4d68-83eb-135f219d6be1.png') 16 16, pointer;
 }
 
-/* Scroll Snap Sections */
+/* Regular Scroll Container */
 .scroll-container {
-  scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
-  height: 100vh;
-  overflow-y: scroll;
+  min-height: 100vh;
+  overflow-y: auto;
 }
 
 .scroll-section {
-  scroll-snap-align: start;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;

@@ -7,7 +7,7 @@ import SiteMap from "@/components/SiteMap";
 import AnimatedWorldMap from "@/components/AnimatedWorldMap";
 import FlightCoursesDrawer from "@/components/FlightCoursesDrawer";
 import SignupForm from "@/components/SignupForm";
-import SectionNavigation from "@/components/SectionNavigation";
+
 import { Users, Percent, Trophy, UserPlus, Plane } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
@@ -18,31 +18,12 @@ const Index = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [isSignupOpen, setIsSignupOpen] = useState(false);
   const [signupTab, setSignupTab] = useState("student");
-  const [currentSection, setCurrentSection] = useState(0);
-  const containerRef = useRef<HTMLDivElement>(null);
 
   // Dynamic values for friends and raffle participants
   const [friendsCount] = useState(842);
   const [raffleParticipants] = useState(1560);
   const maxRaffleParticipants = 3000;
   const raffleProgress = Math.round(raffleParticipants / maxRaffleParticipants * 100);
-  const sections = ["hero", "products"];
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!containerRef.current) return;
-      const scrollTop = containerRef.current.scrollTop;
-      const sectionHeight = containerRef.current.clientHeight;
-      const currentSectionIndex = Math.round(scrollTop / sectionHeight);
-      if (currentSectionIndex !== currentSection) {
-        setCurrentSection(currentSectionIndex);
-      }
-    };
-    const container = containerRef.current;
-    if (container) {
-      container.addEventListener('scroll', handleScroll);
-      return () => container.removeEventListener('scroll', handleScroll);
-    }
-  }, [currentSection]);
   const handleSearch = (query: string) => {
     setSearchQuery(query);
   };
@@ -62,11 +43,8 @@ const Index = () => {
         <Header onSearch={handleSearch} />
       </div>
       
-      {/* Section Navigation */}
-      <SectionNavigation sections={sections} currentSection={currentSection} onSectionChange={setCurrentSection} />
-      
       {/* Scroll Container */}
-      <div ref={containerRef} className="scroll-container bg-gradient-to-br from-background via-accent/10 to-secondary/20 bg-slate-700">
+      <div className="scroll-container bg-gradient-to-br from-background via-accent/10 to-secondary/20 bg-slate-700">
         
         {/* Section 1: Hero + Stats */}
         <section id="section-0" className="scroll-section px-4 sm:px-6 lg:px-8">
@@ -92,7 +70,6 @@ const Index = () => {
                     behavior: 'smooth'
                   });
                 }
-                setCurrentSection(1);
               }} variant="secondary" size="default" className="backdrop-blur-sm border-blue-500/20 text-sm sm:text-base h-auto py-3 sm:py-2 text-red-50 bg-green-700 hover:bg-green-600">
                 <Percent className="h-4 w-4 ml-2 sm:h-5 sm:w-5" />
                 <span className="whitespace-normal sm:whitespace-nowrap">רכישת מוצרים והשתתפות בהגרלה</span>

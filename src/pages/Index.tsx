@@ -56,9 +56,7 @@ const Index = () => {
             <h1 className="text-4xl sm:text-7xl lg:text-8xl font-light mb-4 sm:mb-6 text-foreground tracking-tight">
               FLY ACADEMY
             </h1>
-            <p className="text-base sm:text-lg mb-8 sm:mb-12 max-w-xl mx-auto leading-relaxed text-zinc-950 font-bold sm:text-4xl px-4">
-              קהילת שוחרי הטיס בישראל מזמינה אותך להיות חלק מאיתנו להנות ולזכות במתנות שוות והנחות ללא מתחרים
-            </p>
+            <p className="text-base sm:text-lg mb-8 sm:mb-12 max-w-xl mx-auto leading-relaxed text-zinc-950 font-bold sm:text-4xl px-4">קהילת שוחרי הטיס בישראל מזמינה אותך להיות חלק מאיתנו להנות ולזכות בהגרלות ומתנות שוות ובהנחות ללא מתחרים</p>
               
             <div className="flex flex-col gap-3 sm:gap-4 justify-center items-stretch px-4 sm:px-0 sm:flex-row sm:items-center">
               <FlightCoursesDrawer />

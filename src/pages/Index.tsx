@@ -44,7 +44,7 @@ const Index = () => {
       </div>
       
       {/* Scroll Container */}
-      <div className="scroll-container bg-gradient-to-br from-background via-accent/10 to-secondary/20 bg-slate-700">
+      <div className="scroll-container bg-gradient-to-br from-background via-accent/10 to-secondary/20 relative">
         
         {/* Section 1: Hero + Stats */}
         <section id="section-0" className="scroll-section px-4 sm:px-6 lg:px-8">

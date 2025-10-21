@@ -7,7 +7,6 @@ import SiteMap from "@/components/SiteMap";
 import AnimatedWorldMap from "@/components/AnimatedWorldMap";
 import FlightCoursesDrawer from "@/components/FlightCoursesDrawer";
 import SignupForm from "@/components/SignupForm";
-
 import { Users, Percent, Trophy, UserPlus, Plane } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
@@ -155,7 +154,7 @@ const Index = () => {
 
             {/* Site Map */}
             <div className="animate-slide-in-bottom">
-              <SiteMap />
+              <SiteMap className="bg-slate-400" />
             </div>
           </div>
         </section>

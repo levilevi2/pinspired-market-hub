@@ -136,7 +136,7 @@ const Index = () => {
             {/* Products */}
             <div className="animate-slide-in-right">
               {/* Filter Section */}
-              <div className="bg-card/40 backdrop-blur-sm border border-border/30 rounded-2xl p-6 mb-8 max-w-4xl mx-auto py-0 px-0 my-0">
+              <div className="bg-deep-cyan/80 backdrop-blur-sm border border-deep-cyan/50 rounded-2xl p-6 mb-8 max-w-4xl mx-auto py-0 px-0 my-0">
                 <FilterBar onFilterChange={setActiveFilter} />
               </div>
               
@@ -154,7 +154,7 @@ const Index = () => {
 
             {/* Site Map */}
             <div className="animate-slide-in-bottom">
-              <SiteMap className="bg-slate-400" />
+              <SiteMap />
             </div>
           </div>
         </section>

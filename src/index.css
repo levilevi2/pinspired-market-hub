@@ -26,6 +26,9 @@
     --accent: 191 64% 75%;
     --accent-foreground: 210 50% 15%;
 
+    --deep-cyan: 195 80% 35%;
+    --deep-cyan-foreground: 0 0% 100%;
+
     --destructive: 0 70% 60%;
     --destructive-foreground: 0 0% 100%;
 
@@ -66,6 +69,9 @@
 
     --accent: 209 76% 52%;
     --accent-foreground: 200 40% 98%;
+
+    --deep-cyan: 195 85% 25%;
+    --deep-cyan-foreground: 0 0% 100%;
 
     --destructive: 0 70% 60%;
     --destructive-foreground: 200 40% 98%;

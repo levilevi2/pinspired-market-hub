@@ -47,7 +47,7 @@ const Index = () => {
         
         {/* Section 1: Hero + Stats */}
         <section id="section-0" className="scroll-section px-4 sm:px-6 lg:px-8">
-          <div className="max-w-6xl mx-auto space-y-12">
+          <div className="max-w-6xl mx-auto space-y-6">
             {/* Hero */}
             <div className="text-center animate-fade-in-scale pt-8">
               <div className="inline-flex items-center justify-center w-20 h-20 bg-primary/10 rounded-full mb-8">
@@ -86,11 +86,11 @@ const Index = () => {
             </div>
 
             {/* Stats */}
-            <div className="max-w-4xl mx-auto animate-slide-in-left pb-8 px-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-8">
+            <div className="max-w-4xl mx-auto animate-slide-in-left pb-4 px-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
                 
                 {/* Friends Counter Card */}
-                <div className="bg-card/60 backdrop-blur-sm border border-border/50 rounded-xl sm:rounded-2xl p-4 sm:p-8 hover:bg-card/80 transition-all duration-300">
+                <div className="bg-card/60 backdrop-blur-sm border border-border/50 rounded-xl sm:rounded-2xl p-3 sm:p-5 hover:bg-card/80 transition-all duration-300">
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-xs sm:text-sm text-muted-foreground mb-1 sm:mb-2">חברים באתר</p>
@@ -103,8 +103,8 @@ const Index = () => {
                 </div>
                 
                 {/* Raffle Progress Card */}
-                <div className="bg-card/60 backdrop-blur-sm border border-border/50 rounded-xl sm:rounded-2xl p-4 sm:p-8 hover:bg-card/80 transition-all duration-300">
-                  <div className="flex items-center justify-between mb-4 sm:mb-6">
+                <div className="bg-card/60 backdrop-blur-sm border border-border/50 rounded-xl sm:rounded-2xl p-3 sm:p-5 hover:bg-card/80 transition-all duration-300">
+                  <div className="flex items-center justify-between mb-3 sm:mb-4">
                     <div>
                       <p className="text-xs sm:text-sm text-muted-foreground mb-1 sm:mb-2">משתתפים בהגרלה</p>
                       <p className="text-sm sm:text-lg font-light text-foreground">{raffleParticipants.toLocaleString()} / {maxRaffleParticipants.toLocaleString()}</p>
@@ -130,16 +130,16 @@ const Index = () => {
 
         {/* Section 2: Products + Site Map */}
         <section id="section-1" className="scroll-section px-4 sm:px-6 lg:px-8 overflow-y-auto">
-          <div className="max-w-6xl mx-auto py-8 space-y-12">
+          <div className="max-w-6xl mx-auto py-4 space-y-6">
             {/* Products */}
             <div className="animate-slide-in-right">
               {/* Filter Section */}
-              <div className="bg-deep-cyan/80 backdrop-blur-sm border border-deep-cyan/50 rounded-2xl p-6 mb-8 max-w-4xl mx-auto py-0 px-0 my-0">
+              <div className="bg-deep-cyan/80 backdrop-blur-sm border border-deep-cyan/50 rounded-2xl p-3 mb-4 max-w-4xl mx-auto py-0 px-0 my-0">
                 <FilterBar onFilterChange={setActiveFilter} />
               </div>
               
               {/* Products Header */}
-              <div className="text-center mb-6 sm:mb-8 px-4">
+              <div className="text-center mb-4 sm:mb-5 px-4">
                 <h2 className="text-2xl sm:text-3xl lg:text-5xl text-foreground tracking-wide font-medium">
                   להשתתפות בהגרלה ורכישה של מוצרים לטיס
                 </h2>

@@ -32,7 +32,7 @@ const SiteMap: React.FC = () => {
         <Separator className="bg-white/20 mb-4" />
         
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 text-right">
-          {siteLinks.map(link => <div key={link.path} className="mb-2 bg-slate-400">
+          {siteLinks.map(link => <div key={link.path} className="mb-2 bg-neutral-400">
               <Link to={link.path} className="hover:text-blue-300 transition-colors duration-200">
                 {link.name}
               </Link>

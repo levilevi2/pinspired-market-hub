@@ -49,9 +49,7 @@ const About = () => {
                 </div>
               </div>
               
-              <p className="text-sm font-semibold bg-primary/10 backdrop-blur-sm p-4 rounded-lg border border-primary/20 text-primary">
-                בין אם אתם רק חולמים להמריא או כבר בדרך לקבל את הכנפיים – אנחנו כאן בשבילכם, עם כל הכלים, התמיכה וההזדמנויות שאתם צריכים כדי לעוף קדימה.
-              </p>
+              <p className="text-sm font-semibold bg-primary/10 backdrop-blur-sm p-4 rounded-lg border border-primary/20 text-primary">בין אם אתם רק חולמים להמריא או כבר בדרך לקבל את הכנפיים – אנחנו כאן בשבילכם, עם כל הכלים, התמיכה וההזדמנויות שאתם צריכים כדי לעוף קדימה</p>
             </div>
           </div>
         </main>

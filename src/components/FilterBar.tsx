@@ -45,7 +45,7 @@ const FilterBar: React.FC<FilterBarProps> = ({
     onFilterChange(value);
   };
   return <div className="flex overflow-x-auto pb-2 hide-scrollbar">
-      <div className="flex gap-3 py-3 px-4 justify-center flex-wrap">
+      <div className="flex gap-3 py-3 px-4 justify-center flex-wrap bg-card/40 backdrop-blur-sm rounded-2xl border border-border/30">
         {categories.map(category => {
           const Icon = category.icon;
           const isActive = activeFilter === category.value;

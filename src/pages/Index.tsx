@@ -47,7 +47,7 @@ const Index = () => {
         
         {/* Section 1: Hero + Stats */}
         <section id="section-0" className="scroll-section px-2 sm:px-4 lg:px-6">
-          <div className="max-w-6xl mx-auto space-y-3">
+          <div className="max-w-6xl mx-auto space-y-2">
             {/* Hero */}
             <div className="text-center animate-fade-in-scale pt-4">
               <div className="inline-flex items-center justify-center w-20 h-20 bg-primary/10 rounded-full mb-4">
@@ -58,22 +58,11 @@ const Index = () => {
             </h1>
             <p className="text-base sm:text-lg mb-4 sm:mb-6 max-w-xl mx-auto leading-relaxed text-zinc-950 font-bold sm:text-4xl px-4">קהילת שוחרי הטיס בישראל מזמינה אותך להיות חלק מאיתנו להנות ולזכות בהגרלות ומתנות שוות ובהנחות ללא מתחרים</p>
               
-            <div className="flex flex-col gap-2 sm:gap-3 justify-center items-stretch px-4 sm:px-0 sm:flex-row sm:items-center">
+            <div className="flex flex-row gap-2 sm:gap-3 justify-center items-center px-4 sm:px-0">
               <FlightCoursesDrawer />
-              <Button onClick={() => {
-                const element = document.getElementById('section-1');
-                if (element) {
-                  element.scrollIntoView({
-                    behavior: 'smooth'
-                  });
-                }
-              }} variant="secondary" size="default" className="backdrop-blur-sm border-blue-500/20 text-sm sm:text-base h-auto py-3 sm:py-2 text-red-50 bg-green-700 hover:bg-green-600">
-                <Percent className="h-4 w-4 ml-2 sm:h-5 sm:w-5" />
-                <span className="whitespace-normal sm:whitespace-nowrap">רכישת מוצרים והשתתפות בהגרלה</span>
-              </Button>
               <Dialog open={isSignupOpen} onOpenChange={setIsSignupOpen}>
                 <DialogTrigger asChild>
-                  <Button onClick={handleInstructorSignup} variant="outline" size="default" className="bg-background/80 backdrop-blur-sm border-primary/20 hover:bg-primary/5 text-sm sm:text-base">
+                  <Button onClick={handleInstructorSignup} variant="outline" size="default" className="bg-background/80 backdrop-blur-sm border-primary/20 hover:bg-primary/5 text-sm sm:text-base h-auto py-3 sm:py-2">
                     <UserPlus className="h-4 w-4 ml-2 sm:h-5 sm:w-5" />
                     הרשמה כמדריך
                   </Button>
@@ -86,7 +75,7 @@ const Index = () => {
             </div>
 
             {/* Stats */}
-            <div className="max-w-4xl mx-auto animate-slide-in-left pb-2 px-2">
+            <div className="max-w-4xl mx-auto animate-slide-in-left pb-2 px-2 pt-2">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-3">
                 
                 {/* Friends Counter Card */}
@@ -147,7 +136,7 @@ const Index = () => {
               </div>
               
               {/* Products Grid */}
-              <ProductGrid filter={activeFilter} searchQuery={searchQuery} className="bg-blue-100" />
+              <ProductGrid filter={activeFilter} searchQuery={searchQuery} />
             </div>
 
             {/* Site Map */}

@@ -147,7 +147,7 @@ const Index = () => {
               </div>
               
               {/* Products Grid */}
-              <ProductGrid filter={activeFilter} searchQuery={searchQuery} />
+              <ProductGrid filter={activeFilter} searchQuery={searchQuery} className="bg-blue-100" />
             </div>
 
             {/* Site Map */}

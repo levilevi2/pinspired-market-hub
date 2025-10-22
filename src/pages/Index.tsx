@@ -46,19 +46,19 @@ const Index = () => {
       <div className="scroll-container bg-gradient-to-br from-background via-accent/10 to-secondary/20 relative">
         
         {/* Section 1: Hero + Stats */}
-        <section id="section-0" className="scroll-section px-4 sm:px-6 lg:px-8">
-          <div className="max-w-6xl mx-auto space-y-6">
+        <section id="section-0" className="scroll-section px-2 sm:px-4 lg:px-6">
+          <div className="max-w-6xl mx-auto space-y-3">
             {/* Hero */}
-            <div className="text-center animate-fade-in-scale pt-8">
-              <div className="inline-flex items-center justify-center w-20 h-20 bg-primary/10 rounded-full mb-8">
+            <div className="text-center animate-fade-in-scale pt-4">
+              <div className="inline-flex items-center justify-center w-20 h-20 bg-primary/10 rounded-full mb-4">
                 <Plane className="w-8 h-8 text-primary" />
               </div>
-            <h1 className="text-4xl sm:text-7xl lg:text-8xl font-light mb-4 sm:mb-6 text-foreground tracking-tight">
+            <h1 className="text-4xl sm:text-7xl lg:text-8xl font-light mb-2 sm:mb-3 text-foreground tracking-tight">
               FLY ACADEMY
             </h1>
-            <p className="text-base sm:text-lg mb-8 sm:mb-12 max-w-xl mx-auto leading-relaxed text-zinc-950 font-bold sm:text-4xl px-4">קהילת שוחרי הטיס בישראל מזמינה אותך להיות חלק מאיתנו להנות ולזכות בהגרלות ומתנות שוות ובהנחות ללא מתחרים</p>
+            <p className="text-base sm:text-lg mb-4 sm:mb-6 max-w-xl mx-auto leading-relaxed text-zinc-950 font-bold sm:text-4xl px-4">קהילת שוחרי הטיס בישראל מזמינה אותך להיות חלק מאיתנו להנות ולזכות בהגרלות ומתנות שוות ובהנחות ללא מתחרים</p>
               
-            <div className="flex flex-col gap-3 sm:gap-4 justify-center items-stretch px-4 sm:px-0 sm:flex-row sm:items-center">
+            <div className="flex flex-col gap-2 sm:gap-3 justify-center items-stretch px-4 sm:px-0 sm:flex-row sm:items-center">
               <FlightCoursesDrawer />
               <Button onClick={() => {
                 const element = document.getElementById('section-1');
@@ -86,8 +86,8 @@ const Index = () => {
             </div>
 
             {/* Stats */}
-            <div className="max-w-4xl mx-auto animate-slide-in-left pb-4 px-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+            <div className="max-w-4xl mx-auto animate-slide-in-left pb-2 px-2">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-3">
                 
                 {/* Friends Counter Card */}
                 <div className="bg-card/60 backdrop-blur-sm border border-border/50 rounded-xl sm:rounded-2xl p-3 sm:p-5 hover:bg-card/80 transition-all duration-300">

@@ -26,11 +26,11 @@ const ProductGrid: React.FC<ProductGridProps> = ({ filter, searchQuery }) => {
       },
       {
         id: 2,
-        title: "ציוד מחשבים וטכנולוגיה",
-        price: 4299.99,
-        image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b",
+        title: "רחפן מקצועי עם מצלמה",
+        price: 2560.00,
+        image: "/src/assets/drone-product.jpg",
         category: "electronics",
-        description: "לפטופ יוקרתי דק במיוחד עם מסך מגע ומעבד חדשני."
+        description: "רחפן מקצועי עם מצלמה איכותית וטכנולוגיה מתקדמת לצילום אווירי."
       },
       {
         id: 3,

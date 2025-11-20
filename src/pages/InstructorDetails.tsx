@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ArrowLeft, Search, Heart } from "lucide-react";
 import { Link } from "react-router-dom";
 import InstructorCard, { Instructor } from "@/components/InstructorCard";
@@ -15,6 +16,7 @@ const InstructorDetails: React.FC = () => {
   const [priceRange, setPriceRange] = useState<[number, number]>([300, 2000]);
   const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
   const [favorites, setFavorites] = useState<Set<string>>(new Set());
+  const [sortOrder, setSortOrder] = useState<'low-to-high' | 'high-to-low'>('low-to-high');
 
   // Load favorites from localStorage
   useEffect(() => {
@@ -276,17 +278,25 @@ const InstructorDetails: React.FC = () => {
     const searchTerm = filterMap[course] || course;
     return instructors.filter(instructor => instructor.specialties.some(specialty => specialty.includes(searchTerm) || specialty.toLowerCase().includes(searchTerm.toLowerCase())));
   };
-  const filteredInstructors = filterInstructorsByCourse(selectedCourse).filter(instructor => {
-    // Search filter
-    const matchesSearch = instructor.name.toLowerCase().includes(searchQuery.toLowerCase()) || instructor.location.toLowerCase().includes(searchQuery.toLowerCase());
+  const filteredInstructors = filterInstructorsByCourse(selectedCourse)
+    .filter(instructor => {
+      // Search filter
+      const matchesSearch = instructor.name.toLowerCase().includes(searchQuery.toLowerCase()) || instructor.location.toLowerCase().includes(searchQuery.toLowerCase());
 
-    // Price range filter
-    const matchesPrice = instructor.hourlyRate >= priceRange[0] && instructor.hourlyRate <= priceRange[1];
+      // Price range filter
+      const matchesPrice = instructor.hourlyRate >= priceRange[0] && instructor.hourlyRate <= priceRange[1];
 
-    // Favorites filter
-    const matchesFavorites = !showFavoritesOnly || favorites.has(instructor.id);
-    return matchesSearch && matchesPrice && matchesFavorites;
-  });
+      // Favorites filter
+      const matchesFavorites = !showFavoritesOnly || favorites.has(instructor.id);
+      return matchesSearch && matchesPrice && matchesFavorites;
+    })
+    .sort((a, b) => {
+      if (sortOrder === 'low-to-high') {
+        return a.hourlyRate - b.hourlyRate;
+      } else {
+        return b.hourlyRate - a.hourlyRate;
+      }
+    });
   return <div className="min-h-screen flex flex-col bg-blue-900/70">
       <Header />
       
@@ -308,7 +318,7 @@ const InstructorDetails: React.FC = () => {
 
         {/* Search and Filter Section */}
         <div className="mb-6 bg-white/10 backdrop-blur-md rounded-lg p-6 border border-white/20 space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {/* Search */}
             <div className="space-y-2">
               <Label className="text-white text-right block">חיפוש מדריך</Label>
@@ -316,6 +326,20 @@ const InstructorDetails: React.FC = () => {
                 <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-white/60" />
                 <Input type="text" placeholder="חפש לפי שם או מיקום..." value={searchQuery} onChange={e => setSearchQuery(e.target.value)} className="pr-10 bg-white/10 border-white/20 text-white placeholder:text-white/40" />
               </div>
+            </div>
+
+            {/* Sort by Price */}
+            <div className="space-y-2">
+              <Label className="text-white text-right block">מיון לפי מחיר</Label>
+              <Select value={sortOrder} onValueChange={(value) => setSortOrder(value as 'low-to-high' | 'high-to-low')}>
+                <SelectTrigger className="bg-white/10 border-white/20 text-white">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent className="bg-background border-border z-50">
+                  <SelectItem value="low-to-high">מהנמוך לגבוה</SelectItem>
+                  <SelectItem value="high-to-low">מהגבוה לנמוך</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
 
             {/* Favorites Toggle */}

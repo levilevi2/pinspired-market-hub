@@ -14,6 +14,7 @@ import CartPage from "./pages/CartPage";
 import LoginPage from "./pages/LoginPage";
 import PrizesPage from "./pages/PrizesPage";
 import SiteMapVisual from "./pages/SiteMapVisual";
+import MyAccount from "./pages/MyAccount";
 import { CartProvider } from "./contexts/CartContext";
 
 const queryClient = new QueryClient();
@@ -37,6 +38,7 @@ const App = () => {
               <Route path="/cart" element={<CartPage />} />
               <Route path="/prizes" element={<PrizesPage />} />
               <Route path="/site-map-visual" element={<SiteMapVisual />} />
+              <Route path="/my-account" element={<MyAccount />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>

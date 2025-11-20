@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { ShoppingCart, Home, Grid, Search, Percent, Bookmark, LogOut, Info, Users } from "lucide-react";
+import { ShoppingCart, Home, Grid, Search, Percent, Bookmark, LogOut, Info, Users, UserCircle } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip";
 import SearchBar from "./SearchBar";
 import MobileNavigation from "./MobileNavigation";
@@ -145,6 +145,19 @@ const Header: React.FC<HeaderProps> = ({ onSearch }) => {
             </TooltipTrigger>
             <TooltipContent>
               <p>עדכונים בקהילה</p>
+            </TooltipContent>
+          </Tooltip>
+
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Link to="/my-account">
+                <Button variant="ghost" size="icon" className={`transition-all ${location.pathname === "/my-account" ? "bg-secondary" : ""}`} aria-label="My Account">
+                  <UserCircle size={20} />
+                </Button>
+              </Link>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>האיזור האישי</p>
             </TooltipContent>
           </Tooltip>
 

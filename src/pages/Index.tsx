@@ -47,18 +47,18 @@ const Index = () => {
         
         {/* Section 1: Hero + Stats */}
         <section id="section-0" className="scroll-section px-2 sm:px-4 lg:px-6">
-          <div className="max-w-6xl mx-auto space-y-2">
+          <div className="max-w-6xl mx-auto space-y-1">
             {/* Hero */}
-            <div className="text-center animate-fade-in-scale pt-4">
-              <div className="inline-flex items-center justify-center w-20 h-20 bg-primary/10 rounded-full mb-4">
-                <Plane className="w-8 h-8 text-primary" />
+            <div className="text-center animate-fade-in-scale pt-2">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/20 rounded-full mb-2">
+                <Plane className="w-7 h-7 text-primary" />
               </div>
-            <h1 className="text-4xl sm:text-7xl lg:text-8xl font-light mb-2 sm:mb-3 text-foreground tracking-tight">
+            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-light mb-1 sm:mb-2 text-foreground tracking-tight">
               FLY ACADEMY
             </h1>
-            <p className="text-base sm:text-lg mb-4 sm:mb-6 max-w-xl mx-auto leading-relaxed text-zinc-950 font-bold sm:text-4xl px-4">קהילת שוחרי הטיס בישראל מזמינה אותך להיות חלק מאיתנו להנות ולזכות בהגרלות ומתנות שוות ובהנחות ללא מתחרים</p>
+            <p className="text-base sm:text-lg mb-3 sm:mb-4 max-w-xl mx-auto leading-relaxed text-foreground font-bold sm:text-3xl px-4">קהילת שוחרי הטיס בישראל מזמינה אותך להיות חלק מאיתנו להנות ולזכות בהגרלות ומתנות שוות ובהנחות ללא מתחרים</p>
               
-            <div className="flex flex-row gap-2 sm:gap-3 justify-center items-center px-4 sm:px-0">
+            <div className="flex flex-row gap-2 justify-center items-center px-4 sm:px-0">
               <FlightCoursesDrawer />
               <Dialog open={isSignupOpen} onOpenChange={setIsSignupOpen}>
                 <DialogTrigger asChild>
@@ -75,38 +75,38 @@ const Index = () => {
             </div>
 
             {/* Stats */}
-            <div className="max-w-4xl mx-auto animate-slide-in-left pb-2 px-2 pt-2">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-3">
+            <div className="max-w-4xl mx-auto animate-slide-in-left pb-1 px-2 pt-1">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                 
                 {/* Friends Counter Card */}
-                <div className="bg-card/60 backdrop-blur-sm border border-border/50 rounded-xl sm:rounded-2xl p-3 sm:p-5 hover:bg-card/80 transition-all duration-300">
+                <div className="bg-card/80 backdrop-blur-sm border border-border/30 rounded-xl p-3 sm:p-4 hover:bg-card transition-all duration-300">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-xs sm:text-sm text-muted-foreground mb-1 sm:mb-2">חברים באתר</p>
+                      <p className="text-xs sm:text-sm text-muted-foreground mb-1">חברים באתר</p>
                       <p className="text-2xl sm:text-3xl font-light text-foreground">{friendsCount.toLocaleString()}</p>
                     </div>
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-primary/10 rounded-full flex items-center justify-center">
-                      <Users className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
+                    <div className="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center">
+                      <Users className="w-5 h-5 text-primary" />
                     </div>
                   </div>
                 </div>
                 
                 {/* Raffle Progress Card */}
-                <div className="bg-card/60 backdrop-blur-sm border border-border/50 rounded-xl sm:rounded-2xl p-3 sm:p-5 hover:bg-card/80 transition-all duration-300">
-                  <div className="flex items-center justify-between mb-3 sm:mb-4">
+                <div className="bg-card/80 backdrop-blur-sm border border-border/30 rounded-xl p-3 sm:p-4 hover:bg-card transition-all duration-300">
+                  <div className="flex items-center justify-between mb-2">
                     <div>
-                      <p className="text-xs sm:text-sm text-muted-foreground mb-1 sm:mb-2">משתתפים בהגרלה</p>
-                      <p className="text-sm sm:text-lg font-light text-foreground">{raffleParticipants.toLocaleString()} / {maxRaffleParticipants.toLocaleString()}</p>
+                      <p className="text-xs sm:text-sm text-muted-foreground mb-1">משתתפים בהגרלה</p>
+                      <p className="text-sm sm:text-base font-light text-foreground">{raffleParticipants.toLocaleString()} / {maxRaffleParticipants.toLocaleString()}</p>
                     </div>
                     <div className="text-center">
-                      <p className="text-xl sm:text-2xl font-light text-primary">{raffleProgress}%</p>
+                      <p className="text-lg sm:text-xl font-light text-primary">{raffleProgress}%</p>
                       <p className="text-xs text-muted-foreground">הושלם</p>
                     </div>
                   </div>
                   
-                  <div className="space-y-3 sm:space-y-4">
+                  <div className="space-y-2">
                     <Progress value={raffleProgress} className="h-2" />
-                    <Button onClick={handleViewPrizes} variant="ghost" size="sm" className="w-full text-primary hover:bg-primary/5 text-xs sm:text-sm">
+                    <Button onClick={handleViewPrizes} variant="ghost" size="sm" className="w-full text-primary hover:bg-primary/10 text-xs sm:text-sm">
                       <Trophy className="w-3 h-3 ml-2 sm:w-4 sm:h-4" />
                       צפה בפרסים
                     </Button>
@@ -118,21 +118,21 @@ const Index = () => {
         </section>
 
         {/* Section 2: Products + Site Map */}
-        <section id="section-1" className="scroll-section px-4 sm:px-6 lg:px-8 overflow-y-auto">
-          <div className="max-w-6xl mx-auto py-4 space-y-6">
+        <section id="section-1" className="scroll-section px-3 sm:px-5 lg:px-6 overflow-y-auto">
+          <div className="max-w-6xl mx-auto py-2 space-y-3">
             {/* Products */}
             <div className="animate-slide-in-right">
               {/* Filter Section */}
-              <div className="bg-deep-cyan/80 backdrop-blur-sm border border-deep-cyan/50 rounded-2xl p-3 mb-4 max-w-4xl mx-auto py-0 px-0 my-0">
+              <div className="bg-deep-cyan/90 backdrop-blur-sm border border-deep-cyan/60 rounded-xl p-2 mb-3 max-w-4xl mx-auto">
                 <FilterBar onFilterChange={setActiveFilter} />
               </div>
               
               {/* Products Header */}
-              <div className="text-center mb-4 sm:mb-5 px-4">
-                <h2 className="text-2xl sm:text-3xl lg:text-5xl text-foreground tracking-wide font-medium">
+              <div className="text-center mb-3 px-4">
+                <h2 className="text-xl sm:text-2xl lg:text-4xl text-foreground tracking-wide font-medium">
                   להשתתפות בהגרלה ורכישה של מוצרים לטיס
                 </h2>
-                <div className="w-16 sm:w-24 h-0.5 bg-primary/30 mx-auto mt-3 sm:mt-4"></div>
+                <div className="w-12 sm:w-20 h-0.5 bg-primary/40 mx-auto mt-2"></div>
               </div>
               
               {/* Products Grid */}

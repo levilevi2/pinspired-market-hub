@@ -47,7 +47,7 @@ const InstructorCard: React.FC<InstructorCardProps> = ({
   if (showSchedule) {
     return <InstructorSchedule instructorId={instructor.id} instructorName={instructor.name} onScheduleConfirmed={handleScheduleConfirmed} onCancel={cancelScheduling} />;
   }
-  return <Card className="bg-white/10 backdrop-blur-md border-white/20 hover:border-white/40 transition-all duration-300">
+  return <Card className="bg-white/10 backdrop-blur-md border-white/20 hover:border-primary/40 hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-2 transition-all duration-500 ease-out">
       <CardHeader className="pb-4">
         <div className="flex items-start justify-between relative">
           {/* Favorite Button */}

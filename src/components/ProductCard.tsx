@@ -29,7 +29,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onClick }) => {
 
   return (
     <Card 
-      className="bg-card/60 backdrop-blur-sm border border-border/30 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg hover:bg-card/80 transition-all duration-300 cursor-pointer h-full group" 
+      className="bg-card/60 backdrop-blur-sm border border-border/30 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:shadow-primary/10 hover:bg-card/90 hover:-translate-y-2 hover:border-primary/30 transition-all duration-500 ease-out cursor-pointer h-full group" 
       onClick={() => onClick(product)} 
       onMouseEnter={() => setIsHovered(true)} 
       onMouseLeave={() => setIsHovered(false)}

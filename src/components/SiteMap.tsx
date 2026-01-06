@@ -22,26 +22,26 @@ const SiteMap: React.FC = () => {
     name: "מפת אתר חזותית",
     path: "/site-map-visual"
   }];
-  return <footer className="w-full text-white py-8 mt-auto bg-slate-700">
+  return <footer className="w-full py-8 mt-auto bg-card/80 backdrop-blur-sm border-t border-border/30">
       <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center mb-4">
-          <Map className="h-5 w-5 ml-2" />
-          <h2 className="text-lg font-semibold">מפת האתר</h2>
+          <Map className="h-5 w-5 ml-2 text-primary" />
+          <h2 className="text-lg font-semibold text-foreground">מפת האתר</h2>
         </div>
         
-        <Separator className="bg-white/20 mb-4" />
+        <Separator className="bg-border/30 mb-4" />
         
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 text-right">
-          {siteLinks.map(link => <div key={link.path} className="mb-2 bg-neutral-400">
-              <Link to={link.path} className="hover:text-blue-300 transition-colors duration-200">
+          {siteLinks.map(link => <div key={link.path} className="mb-2 px-3 py-2 rounded-lg bg-secondary/50 hover:bg-secondary/70 transition-colors duration-200">
+              <Link to={link.path} className="text-foreground hover:text-primary transition-colors duration-200">
                 {link.name}
               </Link>
             </div>)}
         </div>
         
-        <Separator className="bg-white/20 my-4" />
+        <Separator className="bg-border/30 my-4" />
         
-        <div className="text-center text-sm text-white/70">
+        <div className="text-center text-sm text-muted-foreground">
           <p>© 2025 אקדמיית הטיסה - כל הזכויות שמורות</p>
         </div>
       </div>

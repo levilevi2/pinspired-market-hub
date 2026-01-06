@@ -45,58 +45,48 @@ const FilterBar: React.FC<FilterBarProps> = ({
     onFilterChange(value);
   };
   return <div className="flex overflow-x-auto pb-2 hide-scrollbar">
-      <div className="flex gap-3 py-3 px-4 justify-center flex-wrap bg-card/40 backdrop-blur-sm rounded-2xl border border-border/30">
+      <div className="flex gap-3 py-3 px-4 justify-center flex-wrap bg-card/60 backdrop-blur-md rounded-2xl border border-border/40">
         {categories.map(category => {
           const Icon = category.icon;
           const isActive = activeFilter === category.value;
           
+          const buttonClasses = `
+            group relative overflow-hidden
+            ${isActive 
+              ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/30' 
+              : 'bg-secondary/60 text-foreground hover:bg-secondary/80'
+            }
+            border border-border/30
+            rounded-xl
+            px-5 py-3
+            transition-all duration-300
+            hover:scale-105
+            ${isActive ? 'ring-2 ring-primary/50 ring-offset-2 ring-offset-background scale-105' : ''}
+          `;
+          
           return category.path ? (
             <Button 
               key={category.value} 
-              variant={isActive ? "default" : "outline"}
+              variant="ghost"
               size="lg"
-              className={`
-                group relative overflow-hidden
-                bg-gradient-to-r from-primary/90 to-primary
-                hover:from-primary hover:to-primary/80
-                text-primary-foreground
-                border-2 border-primary/20
-                rounded-2xl
-                px-6 py-6
-                transition-all duration-300
-                hover:scale-105 hover:shadow-lg hover:shadow-primary/25
-                ${isActive ? 'ring-2 ring-primary ring-offset-2 scale-105' : ''}
-              `}
+              className={buttonClasses}
               asChild
             >
-              <Link to={category.path} className="flex items-center gap-3">
-                <Icon className="w-5 h-5 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110" />
-                <span className="font-medium">{category.label}</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
+              <Link to={category.path} className="flex items-center gap-2">
+                <Icon className="w-4 h-4 transition-transform duration-300 group-hover:rotate-12" />
+                <span className="font-medium text-sm">{category.label}</span>
               </Link>
             </Button>
           ) : (
             <Button 
               key={category.value} 
-              variant={isActive ? "default" : "outline"}
+              variant="ghost"
               size="lg"
               onClick={() => handleFilterClick(category.value)}
-              className={`
-                group relative overflow-hidden
-                bg-gradient-to-r from-primary/90 to-primary
-                hover:from-primary hover:to-primary/80
-                text-primary-foreground
-                border-2 border-primary/20
-                rounded-2xl
-                px-6 py-6
-                transition-all duration-300
-                hover:scale-105 hover:shadow-lg hover:shadow-primary/25
-                ${isActive ? 'ring-2 ring-primary ring-offset-2 scale-105' : ''}
-              `}
+              className={buttonClasses}
             >
-              <Icon className="w-5 h-5 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110" />
-              <span className="font-medium">{category.label}</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
+              <Icon className="w-4 h-4 transition-transform duration-300 group-hover:rotate-12" />
+              <span className="font-medium text-sm">{category.label}</span>
             </Button>
           );
         })}

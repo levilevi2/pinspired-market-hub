@@ -98,6 +98,60 @@ export type Database = {
         }
         Relationships: []
       }
+      scheduled_lessons: {
+        Row: {
+          created_at: string
+          hours_approved: boolean
+          hours_count: number | null
+          id: string
+          instructor_id: string
+          instructor_name: string
+          lesson_date: string
+          lesson_number: number
+          lesson_time: string
+          notes: string | null
+          original_date: string | null
+          original_time: string | null
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          hours_approved?: boolean
+          hours_count?: number | null
+          id?: string
+          instructor_id: string
+          instructor_name: string
+          lesson_date: string
+          lesson_number?: number
+          lesson_time: string
+          notes?: string | null
+          original_date?: string | null
+          original_time?: string | null
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          hours_approved?: boolean
+          hours_count?: number | null
+          id?: string
+          instructor_id?: string
+          instructor_name?: string
+          lesson_date?: string
+          lesson_number?: number
+          lesson_time?: string
+          notes?: string | null
+          original_date?: string | null
+          original_time?: string | null
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

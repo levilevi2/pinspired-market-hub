@@ -74,11 +74,35 @@ const MyAccount = () => {
 
   useEffect(() => {
     checkUser();
+    
+    // Listen for auth state changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+      if (session) {
+        setUser(session.user);
+        await loadData(session.user.id);
+      } else {
+        navigate("/login");
+      }
+    });
+
+    return () => subscription.unsubscribe();
   }, []);
 
   const checkUser = async () => {
     const { data: { session } } = await supabase.auth.getSession();
     if (!session) {
+      // Check localStorage as fallback for demo purposes
+      const storedUser = localStorage.getItem('user');
+      if (!storedUser) {
+        navigate("/login");
+        return;
+      }
+      // If only localStorage exists, show a message to login properly
+      toast({
+        title: "נא להתחבר מחדש",
+        description: "יש להתחבר עם אימייל וסיסמה או Google לצפייה בנתונים",
+        variant: "destructive"
+      });
       navigate("/login");
       return;
     }
